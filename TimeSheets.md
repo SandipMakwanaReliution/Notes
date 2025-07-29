@@ -3095,7 +3095,7 @@ t-on-input is triggered immediately as the user types.
    12:40
 
 
-
+- test
 --------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
 	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")
