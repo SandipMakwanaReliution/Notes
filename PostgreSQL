@@ -1,0 +1,730 @@
+0. start PostgerSQL in Terminal
+
+	psql -h localhost -U postgres -d odoo17    
+    Password for user postgres: postgres
+
+------------------------------------------------------------------------------
+
+1. Database Management
+
+Create Database:
+	CREATE DATABASE database_name;
+
+List Databases:
+	\l
+
+Connect to a Database:
+	\c database_name
+
+Drop Database:
+	DROP DATABASE database_name;
+
+------------------------------------------------------------------------------
+
+2. Table Management
+
+Create Table:
+	CREATE TABLE table_name (
+    	column_name data_type constraints,
+    	...
+	);
+	eg.
+		CREATE TABLE products (
+    		product_id SERIAL PRIMARY KEY,
+    		name VARCHAR(255) NOT NULL,
+    		description TEXT,
+    		price NUMERIC(10, 2) NOT NULL,
+    		stock INTEGER DEFAULT 0,
+    		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		);
+
+List Tables:
+	\dt
+
+Drop Table:
+	DROP TABLE table_name;
+
+Alter Table:
+	Add a Column:
+		ALTER TABLE table_name ADD COLUMN column_name data_type;
+
+	Drop a Column:
+		ALTER TABLE table_name DROP COLUMN column_name;
+
+	Rename a Column:
+		ALTER TABLE table_name RENAME COLUMN old_name TO new_name;
+
+	Rename Table:
+		ALTER TABLE old_table_name RENAME TO new_table_name;
+
+------------------------------------------------------------------------------
+
+3. Data Manipulation (CRUD) (DML)
+
+Insert Data:
+	INSERT INTO table_name (column1, column2, ...)
+	VALUES (value1, value2, ...);
+
+Select Data:
+	SELECT column1, column2, ... FROM table_name WHERE condition;
+
+Update Data:
+	UPDATE table_name
+	SET column1 = value1, column2 = value2, ...
+	WHERE condition;
+
+Delete Data:
+	DELETE FROM table_name WHERE condition;
+
+------------------------------------------------------------------------------
+
+4. Constraints
+
+list all constraints on a table:
+	\d table_name;
+
+Rename a Constraint
+	ALTER TABLE table_name RENAME CONSTRAINT old_constraint_name TO new_constraint_name;
+
+Primary Key:
+	CREATE TABLE table_name (
+    	column_name data_type PRIMARY KEY
+	);
+
+	Alter a Primary Key
+		Drop the Primary Key:
+			ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+	
+		Add a New Primary Key:
+			ALTER TABLE table_name ADD CONSTRAINT new_constraint_name PRIMARY KEY (column_name);
+
+Foreign Key:
+	CREATE TABLE table_name (
+    	column_name data_type,
+    	FOREIGN KEY (column_name) REFERENCES other_table(other_column)
+	);
+
+	Alter a Foreign Key
+	Drop the Foreign Key:
+		ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+
+	Add a New Foreign Key:
+		ALTER TABLE table_name ADD CONSTRAINT new_constraint_name FOREIGN KEY (column_name)
+		REFERENCES other_table (other_column)
+		ON DELETE CASCADE ON UPDATE CASCADE;
+
+Unique:
+	CREATE TABLE table_name (
+    	column_name data_type UNIQUE
+	);
+
+	Alter a Unique Constraint
+		Drop the Unique Constraint:
+			ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+
+		Add a New Unique Constraint:
+			ALTER TABLE table_name ADD CONSTRAINT new_constraint_name UNIQUE (column_name);
+
+
+Check:
+	CREATE TABLE table_name (
+    	column_name data_type CHECK (condition)
+	);
+
+	Alter a Check Constraint
+		Drop the Check Constraint:
+			ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+
+		Add a New Check Constraint:
+			ALTER TABLE table_name ADD CONSTRAINT new_constraint_name CHECK (new_condition);
+
+
+Not Null:
+	CREATE TABLE table_name (
+    	column_name data_type NOT NULL
+	);
+
+	Add or Drop NOT NULL
+		Add NOT NULL:
+			ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
+
+		Drop NOT NULL:
+			ALTER TABLE table_name ALTER COLUMN column_name DROP NOT NULL;
+
+------------------------------------------------------------------------------
+
+5. Joins
+
+Inner Join:
+	SELECT columns
+	FROM table1
+	INNER JOIN table2 ON table1.column = table2.column;
+
+Left Join:
+	SELECT columns
+	FROM table1
+	LEFT JOIN table2 ON table1.column = table2.column;
+
+Right Join:
+	SELECT columns
+	FROM table1
+	RIGHT JOIN table2 ON table1.column = table2.column;
+
+Full Outer Join:
+	SELECT columns
+	FROM table1
+	FULL OUTER JOIN table2 ON table1.column = table2.column;
+
+------------------------------------------------------------------------------
+
+6. Aggregation and Grouping
+
+Count:
+	SELECT COUNT(*) FROM table_name;
+
+Sum:
+	SELECT SUM(column_name) FROM table_name;
+
+Average:
+	SELECT AVG(column_name) FROM table_name;
+
+Group By:
+	SELECT column1, COUNT(column2)
+	FROM table_name
+	GROUP BY column1;
+
+------------------------------------------------------------------------------
+
+7. Transactions (TCL)
+
+Start Transaction:
+	BEGIN;
+
+Commit Transaction:
+	COMMIT;
+
+Rollback Transaction:
+	ROLLBACK;
+
+------------------------------------------------------------------------------
+
+9. User Management (DCL)
+
+Create User:
+	CREATE USER username WITH PASSWORD 'password';
+
+Grant Privileges:
+	GRANT ALL PRIVILEGES ON database_name TO username;
+
+Revoke Privileges:
+	REVOKE ALL PRIVILEGES ON database_name FROM username;
+
+Drop User:
+	DROP USER username;
+
+------------------------------------------------------------------------------
+
+10. Advanced Queries
+
+Subquery:
+	SELECT column_name
+	FROM table_name
+	WHERE column_name IN (SELECT column_name FROM other_table);
+
+------------------------------------------------------------------------------
+
+Exit psql:
+	\q
+
+------------------------------------------------------------------------------
+Find all table have particuler field
+SELECT table_name
+FROM information_schema.columns
+WHERE column_name = 'currency_id'
+  AND table_schema = 'public'
+ORDER BY table_name;
+------------------------------------------------------------------------------
+scaffold
+========
+python "D:\Projects\Odoo_Base\v17\odoo-bin" scaffold test_module "D:\Projects\Projects_v17\v17_Custom\v17_Addons"
+
+------------------------------------------------------------------------------
+js or owl error show of assets to using this resolve it:
+http://localhost:1705/web?debug=assets
+
+
+update ir_cron set active=False where active=True;
+update res_partner set email='admin@gmail.com';
+update ir_mail_server set active=False;
+update fetchmail_server set active=False;
+update res_users set login='admin', password='admin' where id =2;
+
+
+http://150.129.151.225:8080/
+Username: bhargav
+Password: Bhargav@1234
+
+
+==============================
+✅ Why These 3 Groups?
+base.group_user: Needed for accessing core models like res.currency, res.lang.
+base.group_public: Required to access templates like login page and portal session.
+base.group_system: Gives you full access to everything in the backend.
+==============================
+
+psql -U postgres
+\l or \l+
+CREATE database korzo_crm_v17;
+
+*Note extract db zip file if not. 
+psql — For .sql 
+psql -U odoo -d <database_name> -f <path_to_sql_file>
+
+pg_restore — For .dump
+pg_restore -U odoo -d <database_name> <path_to_dump_file>
+
+-------------------------------------------------------------------
+# inside odoo file add py script 
+cd D:\Projects\Projects_v17\v17_Korzo\thmaees_v17_base
+py -3.10 -m odoo.readonly_fields
+
+active odoo shell
+------------------
+PS D:\Projects\Projects_v17\v17_Korzo\thmaees_v17_base>
+python odoo-bin shell -c D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf -d migration_korzo_17
+
+-------------------------------------------------------------------
+--------------------------------------------------------------
+scaffold
+========
+python "D:\Projects\Odoo_Base\v17\odoo-bin" scaffold test_module "D:\Projects\Projects_v17\v17_Custom\v17_Addons"
+
+--------------------------------------------------------------------
+Table A       				Table B
+Many2One  (table_b)     1.Migrate first
+
+Many2Many (table_b)		1.Migrate first			2.Table_A_Table_B (Migrate Rlated Table)
+
+One2Many (table_b)      1.Migrate first
+2.Slect id and Migrate Relational 
+
+
+********************************************
+
+Old Database : korzo_upgraded_v17
+------------------------------------------------------------------------------------------
+"user_id"	"login"				"partner_id"	"employee_id"	"employee_name"
+1			"__system__"			2		
+2			"admin"					3				1			"Administrator"
+3			"default"				5				
+4			"public"				4				
+5			"portaltemplate"		6	
+
+6			"Thamees"				8				5			"Thamees"
+7			"rizwan"				9				2			"Rizwan"
+8			"sarfaras"				10				3			"Sarfaras"
+9			"hasan"					52				4			"Hasan"
+10			"katha"					98				6			"Katha 1into2"
+11			"rajal"					99				7			"Rajal 1into2"
+12			"arjun"					102				9			"Arjun"
+13			"labeeb"				103				10			"Labeeb"
+14			"shehzad"				109							
+15			"abusha"				303							
+16			"fuzz4321@gmail.com"	311							
+19			"aakqer8"				345				11			"Aakqer8 Business Solution"
+20			"Soni@korzointeriors.com"452				
+21			"Abrar"					507				12			"Abrar"
+22			"faisal"				606				13			"Faisal"
+23			"rishad"				651				14			"Rishad"
+24			"muhdmufas@gmail.com"	766		
+
+Database : korzo_migration_v17
+-----------------------------------------------------------------------------------------
+"user_id"	"login"				"partner_id"	"employee_id"	"employee_name"
+1			"__system__"			2		
+2			"admin"					3				1			"Administrator"
+3			"default"				5							
+4			"public"				4							
+5			"portaltemplate"		6
+
+*6			"thamees"				7				2			"Thamees"
+[7			"wgg"					8				3			"WGG"]--------
+*8			"sarfaras"				9				4			"Sarfaras"
+[9			"shihaf"				10				5			"Shihaf"]----------
+[10			"mufas"			[11] pending delete				6			"Mufas"]--------
+[11			"ashraf"				16				7			"Ashraf"]------------
+
+
+After Update
+-----------------
+24			"mufas"					766				17			"Mufas"---------
+25			"wgg"					795				15			"WGG"
+26			"shihaf"				796				16			"Shihaf"-----------
+28			"ashraf"				797				18			"Ashraf"-------------
+
+
+
+
+
+===================================================================================================================================
+Old Database : korzo_upgraded_v17
+"user_id"	"login"						"partner_id"	"partner_name"				"employee_id"	"employee_name"
+1			"__system__"					2				"OdooBot"		
+2			"admin"							3				"Administrator"				1				"Administrator"
+3			"default"						5				"Default User Template"					
+4			"public"						4				"Public user"					
+5			"portaltemplate"				6				"Portal User Template"					
+6			"Thamees"						8				"Thamees"					5				"Thamees"
+7			"rizwan"						9				"Rizwan"					2				"Rizwan"
+8			"sarfaras"						10				"Sarfaras"					3				"Sarfaras"
+9			"hasan"							52				"Hasan"						4				"Hasan"
+10			"katha"							98				"Katha 1into2"				6				"Katha 1into2"
+11			"rajal"							99				"Rajal 1into2"				7				"Rajal 1into2"
+12			"arjun"							102				"Arjun"						9				"Arjun"
+13			"labeeb"						103				"Labeeb"					10				"Labeeb"
+14			"shehzad"						109				"Shehzad"					
+15			"abusha"						303				"Abusha"					
+16			"fuzz4321@gmail.com"			311				"fuzz4321@gmail.com"					
+19			"aakqer8"						345				"Aakqer8 Business Solution"	11				"Aakqer8 Business Solution"
+20			"Soni@korzointeriors.com"		452				"Soni"					
+21			"Abrar"							507				"Abrar"						12				"Abrar"
+22			"faisal"						606				"Faisal"					13				"Faisal"
+23			"rishad"						651				"Rishad"					14				"Rishad"
+24			"muhdmufas@gmail.com"			766				"Mufas"		
+===================================================================================================================================
+Database : korzo_migration_v17
+"user_id" "old_user_id"	"login"				"partner_id"	"partner_name"		"employee_id"	"employee_name"
+1						"__system__"			2				"OdooBot"		
+2						"admin"					3				"Administrator"		1				"Administrator"
+3						"default"				5				"Default User Template"					
+4						"public"				4				"Public user"					
+5						"portaltemplate"		6				"Portal User Template"					
+6						"thamees"				7				"Thamees"			2				"Thamees"
+8						"sarfaras"				9				"Sarfaras"			4				"Sarfaras"
+9						"shihaf"				10				"Shihaf"			5				"Shihaf"
+10						"mufas"					11				"Mufas"				6				"Mufas"
+11						"ashraf"				16				"Ashraf"			7				"Ashraf"
+25						"wgg"					8				"WGG"		
+
+
+===========================
+for update uom extra breckat in name
+UPDATE uom_category
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+SELECT id,
+       name,
+       jsonb_build_object(
+           'en_US',
+           REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+       ) AS fixed_name
+FROM uom_category
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+===========================
+
+
+
+
+
+========================
+
+============================
+
+
+X
+acount root 
+acount group
+
+
+============================
+============================
+
+Company
+-------
+	- website, vat, company_registry (fields)
+
+res_company
+res_partner
+res_users
+
+res_currency
+res_country
+
+HR/Employee:
+------------
+hr_employee
+resource_resource
+hr_department
+hr_employee_skill_report X
+
+Inventory:
+----------
+uom_uom
+uom_category
+
+product_category
+
+Account
+-------
+account_tax
+account_account_tag
+
+
+=======================
+
+-- 💡 Make sure 127 exists in res_currency
+-- select id,old_id,name from res_currency where id = 129;
+UPDATE account_account SET currency_id = 129;
+UPDATE account_accrued_orders_wizard SET currency_id = 129;
+UPDATE account_analytic_line SET currency_id = 129;
+UPDATE account_asset_asset SET currency_id = 129;
+UPDATE account_bank_statement_line SET currency_id = 129;
+UPDATE account_journal SET currency_id = 129;
+UPDATE account_move SET currency_id = 129;
+UPDATE account_move_line SET currency_id = 129;
+UPDATE account_payment SET currency_id = 129;
+UPDATE account_payment_register SET currency_id = 129;
+UPDATE hr_expense SET currency_id = 129;
+UPDATE hr_expense_sheet SET currency_id = 129;
+UPDATE hr_expense_split SET currency_id = 129;
+UPDATE mail_tracking_value SET currency_id = 129;
+UPDATE payment_link_wizard SET currency_id = 129;
+UPDATE payment_transaction SET currency_id = 129;
+UPDATE pdc_account_payment SET currency_id = 129;
+UPDATE product_pricelist SET currency_id = 129;
+UPDATE product_pricelist_item SET currency_id = 129;
+UPDATE product_supplierinfo SET currency_id = 129;
+-- UPDATE purchase_bill_union SET currency_id = 127;
+UPDATE purchase_order SET currency_id = 129;
+UPDATE purchase_order_line SET currency_id = 129;
+UPDATE res_company SET currency_id = 129;
+UPDATE res_country SET currency_id = 129;
+UPDATE res_currency_rate SET currency_id = 129;
+UPDATE res_partner_bank SET currency_id = 129;
+UPDATE sale_advance_payment_inv SET currency_id = 129;
+UPDATE sale_order SET currency_id = 129;
+UPDATE sale_order_line SET currency_id = 129;
+
+===========================================
+
+Update partner account receivable and payable readonly field
+
+================================================
+
+======================================
+
+
+
+
+
+
+update payment_method set old_id = 1 where id = 198;
+update payment_method set old_id = 2 where id = 160;
+update payment_method set old_id = 3 where id = 169;
+update payment_method set old_id = 4 where id = 177;
+update payment_method set old_id = 5 where id = 178;
+update payment_method set old_id = 6 where id = 181;
+update payment_method set old_id = 7 where id = 185;
+update payment_method set old_id = 8 where id = 187;
+update payment_method set old_id = 9 where id = 197;
+update payment_method set old_id = 10 where id = 16;
+update payment_method set old_id = 11 where id = 51;
+update payment_method set old_id = 12 where id = 57;
+update payment_method set old_id = 13 where id = 121;
+update payment_method set old_id = 14 where id = 171;
+update payment_method set old_id = 16 where id = 64;
+update payment_method set old_id = 18 where id = 109;
+update payment_method set old_id = 20 where id = 128;
+update payment_method set old_id = 21 where id = 70;
+update payment_method set old_id = 22 where id = 194;
+update payment_method set old_id = 23 where id = 89;
+update payment_method set old_id = 28 where id = 81;
+update payment_method set old_id = 31 where id = 1;
+update payment_method set old_id = 32 where id = 2;
+update payment_method set old_id = 33 where id = 3;
+update payment_method set old_id = 34 where id = 4;
+update payment_method set old_id = 35 where id = 5;
+update payment_method set old_id = 36 where id = 6;
+update payment_method set old_id = 37 where id = 7;
+update payment_method set old_id = 38 where id = 8;
+update payment_method set old_id = 39 where id = 9;
+update payment_method set old_id = 40 where id = 10;
+update payment_method set old_id = 41 where id = 11;
+update payment_method set old_id = 42 where id = 12;
+update payment_method set old_id = 43 where id = 13;
+update payment_method set old_id = 44 where id = 14;
+update payment_method set old_id = 45 where id = 15;
+update payment_method set old_id = 46 where id = 17;
+update payment_method set old_id = 47 where id = 18;
+update payment_method set old_id = 48 where id = 19;
+update payment_method set old_id = 49 where id = 20;
+update payment_method set old_id = 50 where id = ;
+update payment_method set old_id = 51 where id = ;
+update payment_method set old_id = 52 where id = ;
+update payment_method set old_id = 53 where id = ;
+update payment_method set old_id = 54 where id = ;
+update payment_method set old_id = 55 where id = ;
+update payment_method set old_id = 56 where id = ;
+update payment_method set old_id = 57 where id = ;
+update payment_method set old_id = 58 where id = ;
+update payment_method set old_id = 59 where id = ;
+update payment_method set old_id = 60 where id = ;
+update payment_method set old_id = 61 where id = ;
+update payment_method set old_id = 62 where id = ;
+update payment_method set old_id = 63 where id = ;
+update payment_method set old_id = 64 where id = ;
+update payment_method set old_id = 65 where id = ;
+update payment_method set old_id = 66 where id = ;
+update payment_method set old_id = 67 where id = ;
+update payment_method set old_id = 68 where id = ;
+update payment_method set old_id = 69 where id = ;
+update payment_method set old_id = 70 where id = ;
+update payment_method set old_id = 71 where id = ;
+update payment_method set old_id = 72 where id = ;
+update payment_method set old_id = 73 where id = ;
+update payment_method set old_id = 74 where id = ;
+update payment_method set old_id = 75 where id = ;
+update payment_method set old_id = 76 where id = ;
+update payment_method set old_id = 77 where id = ;
+update payment_method set old_id = 78 where id = ;
+update payment_method set old_id = 79 where id = ;
+update payment_method set old_id = 80 where id = ;
+update payment_method set old_id = 81 where id = ;
+update payment_method set old_id = 82 where id = ;
+update payment_method set old_id = 83 where id = ;
+update payment_method set old_id = 84 where id = ;
+update payment_method set old_id = 85 where id = ;
+update payment_method set old_id = 86 where id = ;
+update payment_method set old_id = 87 where id = ;
+update payment_method set old_id = 88 where id = ;
+update payment_method set old_id = 89 where id = ;
+update payment_method set old_id = 90 where id = ;
+update payment_method set old_id = 91 where id = ;
+update payment_method set old_id = 92 where id = ;
+update payment_method set old_id = 93 where id = ;
+update payment_method set old_id = 94 where id = ;
+update payment_method set old_id = 95 where id = ;
+update payment_method set old_id = 96 where id = ;
+update payment_method set old_id = 97 where id = ;
+update payment_method set old_id = 98 where id = ;
+update payment_method set old_id = 99 where id = ;
+update payment_method set old_id = 100 where id = ;
+update payment_method set old_id = 101 where id = ;
+update payment_method set old_id = 102 where id = ;
+update payment_method set old_id = 103 where id = ;
+update payment_method set old_id = 104 where id = ;
+update payment_method set old_id = 105 where id = ;
+update payment_method set old_id = 106 where id = ;
+update payment_method set old_id = 107 where id = ;
+update payment_method set old_id = 108 where id = ;
+update payment_method set old_id = 109 where id = ;
+update payment_method set old_id = 110 where id = ;
+update payment_method set old_id = 111 where id = ;
+update payment_method set old_id = 112 where id = ;
+update payment_method set old_id = 113 where id = ;
+update payment_method set old_id = 114 where id = ;
+update payment_method set old_id = 115 where id = ;
+update payment_method set old_id = 116 where id = ;
+update payment_method set old_id = 117 where id = ;
+update payment_method set old_id = 118 where id = ;
+update payment_method set old_id = 119 where id = ;
+update payment_method set old_id = 120 where id = ;
+update payment_method set old_id = 121 where id = ;
+update payment_method set old_id = 122 where id = ;
+update payment_method set old_id = 123 where id = ;
+update payment_method set old_id = 124 where id = ;
+update payment_method set old_id = 125 where id = ;
+update payment_method set old_id = 126 where id = ;
+update payment_method set old_id = 127 where id = ;
+update payment_method set old_id = 128 where id = ;
+update payment_method set old_id = 129 where id = ;
+update payment_method set old_id = 130 where id = ;
+update payment_method set old_id = 131 where id = ;
+update payment_method set old_id = 132 where id = ;
+update payment_method set old_id = 133 where id = ;
+update payment_method set old_id = 134 where id = ;
+update payment_method set old_id = 135 where id = ;
+update payment_method set old_id = 136 where id = ;
+update payment_method set old_id = 137 where id = ;
+update payment_method set old_id = 138 where id = ;
+update payment_method set old_id = 139 where id = ;
+update payment_method set old_id = 140 where id = ;
+update payment_method set old_id = 141 where id = ;
+update payment_method set old_id = 142 where id = ;
+update payment_method set old_id = 143 where id = ;
+update payment_method set old_id = 144 where id = ;
+update payment_method set old_id = 145 where id = ;
+update payment_method set old_id = 146 where id = ;
+update payment_method set old_id = 147 where id = ;
+update payment_method set old_id = 148 where id = ;
+update payment_method set old_id = 149 where id = ;
+update payment_method set old_id = 150 where id = ;
+update payment_method set old_id = 151 where id = ;
+update payment_method set old_id = 152 where id = ;
+update payment_method set old_id = 153 where id = ;
+update payment_method set old_id = 154 where id = ;
+update payment_method set old_id = 155 where id = ;
+update payment_method set old_id = 156 where id = ;
+update payment_method set old_id = 157 where id = ;
+update payment_method set old_id = 158 where id = ;
+update payment_method set old_id = 159 where id = ;
+update payment_method set old_id = 160 where id = ;
+update payment_method set old_id = 161 where id = ;
+update payment_method set old_id = 162 where id = ;
+update payment_method set old_id = 163 where id = ;
+update payment_method set old_id = 164 where id = ;
+update payment_method set old_id = 165 where id = ;
+update payment_method set old_id = 166 where id = ;
+update payment_method set old_id = 167 where id = ;
+update payment_method set old_id = 168 where id = ;
+update payment_method set old_id = 169 where id = ;
+update payment_method set old_id = 170 where id = ;
+update payment_method set old_id = 171 where id = ;
+update payment_method set old_id = 172 where id = ;
+update payment_method set old_id = 173 where id = ;
+update payment_method set old_id = 174 where id = ;
+update payment_method set old_id = 175 where id = ;
+update payment_method set old_id = 176 where id = ;
+update payment_method set old_id = 177 where id = ;
+update payment_method set old_id = 178 where id = ;
+update payment_method set old_id = 179 where id = ;
+update payment_method set old_id = 180 where id = ;
+update payment_method set old_id = 181 where id = ;
+update payment_method set old_id = 182 where id = ;
+update payment_method set old_id = 183 where id = ;
+update payment_method set old_id = 184 where id = ;
+update payment_method set old_id = 185 where id = ;
+update payment_method set old_id = 186 where id = ;
+update payment_method set old_id = 187 where id = ;
+update payment_method set old_id = 188 where id = ;
+update payment_method set old_id = 189 where id = ;
+update payment_method set old_id = 190 where id = ;
+update payment_method set old_id = 191 where id = ;
+update payment_method set old_id = 192 where id = ;
+update payment_method set old_id = 193 where id = ;
+update payment_method set old_id = 194 where id = ;
+update payment_method set old_id = 195 where id = ;
+update payment_method set old_id = 196 where id = ;
+update payment_method set old_id = 197 where id = ;
+update payment_method set old_id = 198 where id = ;
+update payment_method set old_id = 199 where id = ;
+update payment_method set old_id = 200 where id = ;
+update payment_method set old_id = 201 where id = ;
+update payment_method set old_id = 202 where id = ;
+update payment_method set old_id = 203 where id = ;
+update payment_method set old_id = 204 where id = ;
+update payment_method set old_id = 205 where id = ;
+update payment_method set old_id = 206 where id = ;
+update payment_method set old_id = 207 where id = ;
+update payment_method set old_id = 208 where id = ;
+
+
+
+
+
+
+An error occurred : str<Fault 1: 'Traceback (most recent call last):\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thmaees_v17_base\\odoo\\modules\\registry.py", line 87, in __new__\n return cls.registries[db_name]\n File "<decorator-gen-5>", line 2, in __getitem__\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thmaees_v17_base\\odoo\\tools\\func.py", line 87, in locked\n return func(inst, *args, **kwargs)\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thmaees_v17_base\\odoo\\tools\\lru.py", line 34, in __getitem__\n a = self.d[obj]\nKeyError: \'v15_korzo_6_7_25\'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thmaees_v17_base\\odoo\\addons\\base\\controllers\\rpc.py", line 147, in xmlrpc_2\n response = self._xmlrpc(service)\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thmaees_v17_base\\odoo\\addons\\base\\controllers\\rpc.py", line 127, in _xmlrpc\n result = dispatch_rpc(service, method, params)\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thmaees_v17_base\\odoo\\http.py", line 389, in dispatch_rpc\n return dispatch(method, params)\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thmaees_v17_base\\odoo\\service\\common.py", line 56, in dispatch\n return g[exp_method_name](*params)\n File "D:\\Projects\\Projects_v17\\v17_Korzo\\thm

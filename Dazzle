@@ -1,0 +1,150 @@
+
+===================
+
+Regarding your question — why journal entries appear in the Purchase account:
+
+When you update the cost price of a product that has stock on hand, Odoo automatically adjusts the value of your inventory to reflect the new cost. This triggers balancing journal entries to ensure your accounts remain accurate.
+
+But the difference in inventory value must be recorded somewhere:
+    It can’t go to the vendor because no new purchase is made.
+    It can’t be left unbalanced, as accounting entries must always match.
+So, where does the difference go?
+    -> It goes to the Expense Account, typically configured as Purchase or Price Difference, depending on your product category settings.
+
+The journal entries appear in the Purchase account because this account is set as the Expense Account in the product category configuration.
+
+•   If the cost increases (e.g., ₹50 → ₹100):
+    - Inventory value increases by ₹50
+    - A ₹50 credit is posted to the Purchase account
+•   If the cost decreases (e.g., ₹100 → ₹50):
+    - Inventory value decreases by ₹50
+    - A ₹50 debit is posted to the Purchase account
+
+These entries ensure your inventory value on the Balance Sheet is accurate, and your Profit & Loss account reflects the impact of cost changes.
+
+========================
+=======================
+When you manually change the cost price , the value of stock on hand changes.
+
+Odoo needs to adjust the value of your inventory accordingly. 
+That difference in value must go somewhere:
+    It can't go to the vendor (you're not buying more stock).
+    It can't stay unbalanced (accounting must always balance).
+So, where does it go?
+    It goes to an Expense or Price Difference account.
+=============
+
+When the cost price of a product is changed in Odoo, and the product's category is configured with the following account:
+Expense Account: 600001 Purchase
+The system automatically creates related journal entries to reflect the updated value of the existing stock.
+
+If the product already has stock on hand, Odoo adjusts the inventory valuation to match the new cost. 
+This change impacts the accounting records to ensure the Balance Sheet remains accurate.
+
+Example:
+If the product’s cost is updated from ₹50 to ₹100, Odoo:
+    Increases the Inventory (Stock Valuation) account by ₹50 (the difference).
+    Records a credit entry of ₹50 to the ‘Purchase’ account  
+    — this is not a new purchase, but an adjustment to balance the accounting entry due to the cost change.
+
+This ensures that the stock value in inventory and the accounting balance stay correct and aligned.
+
+
+
+
+
+
+Default 
+=======
+Assests = LIABILITIES + EQUITY
+
+Dazzle
+======
+Assests = Non-current Assets + Current Assets
+
+
+Operating Income            =  4,366,464.64 
+Other Income                =      6,918.10
+Opening Stock               = 17,791,633.23
+Cost of Revanue(Purchase)   =  2,097,093.63
+Closing Stock               = 17,272,279.13
+Expenses                    =  1,296,657.16
+Depreciation                =             0
+
+Operating Income            = OPINC
+Other Income                = OIN
+Opening Stock               = OPS
+Cost of Revanue(Purchase)   = COS
+Closing Stock               = CLS
+Expenses                    = LEX
+Depreciation                = DEP
+Gross Profit                = GRP
+Net Profit                  = NEP
+Income                      = INC
+
+Default 
+=======
+Net Profit  = Operating Income + Other Income - Cost of Revanue(Purchase) - Expenses - Depreciation
+Gross Profit= Operating Income - Cost of Revanue(Purchase)
+Income      = Operating Income + Other Income
+COGS        = Opening Stock + Cost of Revanue(Purchase)
+
+Dazzle
+======
+Net Profit  = Gross Profit - Expenses 
+Gross Profit= Income - COGS
+Income      = Operating Income + Other Income
+COGS        = Opening Stock + Cost of Revanue(Purchase) - Closing Stock
+
+Solution 
+==========
+Net Profit  = Operating Income + Other Income - Cost of Revanue(Purchase) - Expenses - Depreciation
+Equal to
+Current Year Earnings = Net Profit
+Current Year Earnings = Gross Profit - Expenses
+Current Year Earnings = Operating Income + Other Income - Cost of Revanue(Purchase) - Expenses - Depreciation
+
+
+[OPINC_DZ.balance + OIN_DZ.balance - COS_DZ.balance - EXP_DZ.balance - DEP_DZ.balance]
+
+
+Gross Profit - Expenses == ((OPINC_DZ.balance + OIN_DZ.balance) - ((OPS_DZ.balance + COS_DZ.balance) - CLS_DZ.balance)) - (EXP_DZ.balance + DEP_DZ.balance)
+
+
+COGS (Cost of Goods Sold) is calculated as:
+COGS = Opening Stock + Purchases - Closing Stock
+
+--------------
+
+
+
+
+Regarding your question — why journal entries appear in the Purchase account:
+ 
+When you update the cost price of a product that has stock on hand, Odoo automatically adjusts the value of your inventory to reflect the new cost. This triggers balancing journal entries to ensure your accounts remain accurate.
+ 
+But the difference in inventory value must be recorded somewhere:
+    It can’t go to the vendor because no new purchase is made.
+    It can’t be left unbalanced, as accounting entries must always match.
+
+So, where does the difference go?
+    -> It goes to the Expense Account, typically configured as Purchase or Price Difference, depending on your product category settings.
+ 
+The journal entries appear in the Purchase account because this account is set as the Expense Account in the product category configuration.
+ 
+•   If the cost increases (e.g., ₹50 → ₹100):
+    - Inventory value increases by ₹50
+    - A ₹50 credit is posted to the Purchase account
+
+•   If the cost decreases (e.g., ₹100 → ₹50):
+    - Inventory value decreases by ₹50
+    - A ₹50 debit is posted to the Purchase account
+ 
+These entries ensure your inventory value on the Balance Sheet is accurate, and your Profit & Loss account reflects the impact of cost changes.
+ 
+
+Clint Replay is --
+In this valuation change there is no outside liability arising its only for the in house purpose, so you have to either use any corresponding ledger in inventory like stock inward/outward or any other expense accounts other than purchase account like stock revaluation account.
+By this entry, we are not able to differentiate actual purchase and stock differences
+
+Now what i whoud you say to clint

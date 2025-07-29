@@ -1,0 +1,135 @@
+
+Models
+------
+Model for regular database-persisted models
+TransientModel for temporary data, stored in the database but automatically vacuumed every so often
+AbstractModel for abstract super classes meant to be shared by multiple inheriting models
+
+Model Attributes
+----------------
+FILE PATH[odoo/models.py]
+
+1   _name = str | None = None
+It corresponds to the model's name. 
+The model name is expressed in dot-notation within the module namespace.
+
+2   _auto = True
+Whether a database table should be created.
+If set to false, the init() method needs to be overridden to manually create the database table.
+Automatically defaults to True for 'Model' and 'TransientModel', False for 'AbstractModel'.
+•   Default Behavior (_auto = True): By default, Odoo creates a database table for the model if _auto is set to True. This is the usual behavior for most Odoo models where the model's structure is reflected in the database schema.
+- Custom Behavior (_auto = False): If _auto is set to False, Odoo does not automatically create a table for the model. This •   used in scenarios where:
+        - The model represents a computed or transient dataset that does not need its own table.
+        - The model depends on an existing database view or table managed manually or by other means.
+        - The model is meant for logic implementation only, without storing data in the database.
+
+3   _log_access (default = auto)
+It determines whether the ORM should automatically generate and update Access Log files.  
+When we are set _log_access = false, the fields ‘create_date’, create_uid’, ‘write_uid’ and ‘write_date’ is not automatically populated to database table.
+By default, _log_access is set to the same value as _auto
+    - Model.create_date
+        Stores when the record was created, Datetime
+    - Model.create_uid
+        Stores who created the record, Many2one to a res.users.
+    - Model.write_date
+        Stores when the record was last updated, Datetime
+    - Model.write_uid
+        Stores who last updated the record, Many2one to a res.users.
+
+4   _table
+We can define the SQL table name utilized by the model if  ‘_auto’ is enabled
+
+5X   _register (default = false)
+Register visibility refers to whether a particular class or model should be automatically registered in the system's registry.
+
+6X   _abstract
+This attribute determines whether the model is abstract or not.
+By default, it is set to 'true' for abstract models and 'false' for regular models and transient models.
+(Abstraction hides the internal implementation details while exposing only the necessary functionality. 
+It helps focus on “what to do” rather than “how to do it.”)
+
+7X _transient
+This attribute determines whether the model is transient or not. 
+By default, it is set to 'true' for transient models and 'false' for regular models and abstract models.
+
+    7.1 _transient_max_count 
+    default: _transient_max_count = lazy_classproperty(lambda _: config.get('osv_memory_count_limit'))
+    We can declare the maximum records in the transient model. 
+    If we set ‘0’, we can store an unlimited number of records.
+    _transient_max_count = 0
+    
+    7.2 _transient_max_hours 
+    default: _transient_max_hours = lazy_classproperty(lambda _: config.get('transient_age_limit'))
+    Lazy class property defined as the maximum idle lifetime in hours, 
+    with unlimited duration if set to ‘0’
+    _transient_max_hours = 24
+
+8 _description = str | None = None
+We have the option to specify an informal name for the module.
+
+9  _sql_constraints = [ ]
+We can declare the sql constraints as follows,
+_sql_constraints = [( 'name','sql_def','message')]
+    - Check Constraints
+    - Not-Null Constraints
+    - Unique Constraints
+    - Primary Keys
+    - Foreign Keys
+    - Exclusion Constraints
+
+12 _rec_name = None
+if no use name field in model that time use _rec_name.
+Utilized for record labeling, the default is the record's name.
+
+13 _rec_names_search = None
+The variable ‘_rec_names_search’ is used to specify the fields considered in the ‘name_search’ function.
+
+14 _order(default = ‘id’)(asc)
+_order = "complete_name ASC, id DESC"
+_order = "priority desc, id desc"
+The default field for ordering search results.
+
+15  _check_company_auto (default = false)
+During write and create operations, invoke the _check_company function to guarantee consistency among companies for relational fields with the check_company=True attribute.
+
+16X _parent_name = ‘parent_id’
+The many2one field is employed as the parent field.
+
+17X _parent_store (default = false)
+The attribute ‘_parent_store’ is set to True to calculate the ‘_parent_path’ field.
+
+18X _fold_name = ‘fold’
+Used to determine folded groups in Kanban views.
+
+19X _active_name = None
+Field designated for active records, automatically configured to either "active" or "x_active"
+______________________________________________________________
+
+10 _inherit = []
+When working with a model that already exists in the database, 
+we employ this attribute for both classical and extension types of inheritance. 
+
+10.1 Classical Inheritance
+Inherite model A in model B.
+    - inherite only fields and methods
+
+10.2 Extension Inheritance
+Inherite old model A in new model A.
+    - don't define _name in new model
+
+11X _inherits = {}
+dictionary {‘parent_model’: ‘m2o_field’} mapping the _name of the parent business objects to the names of the corresponding foreign key fields to use:
+    _inherits = {
+        'a.model': 'a_field_id',
+        'b.model': 'b_field_id'
+    }
+_inherits = {'account.move': 'move_id'}
+move_id = field.Many2one('account.move')
+
+11.1X Delegation Inheritance
+    - m2o relation
+    - use _inhertis
+
+https://www.odoo.com/documentation/18.0/developer/reference/backend/orm.html#inheritance-and-extension
+https://www.cybrosys.com/blog/what-are-the-different-types-of-inheritance-in-odoo-17
+_______________________________________________________________

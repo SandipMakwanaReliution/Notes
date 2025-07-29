@@ -1,0 +1,205 @@
+git-scm.com
+- official web of git commands 
+
+ls
+- list of file and folder at this directory
+
+ls -Attributes
+ls -Directory
+ls -File
+ls -Hidden
+ls -ReadOnly
+ls -System
+
+clear 
+- clear screen
+
+cd file.name
+- open folder
+
+cd .. 
+- back folder
+
+mkdir file.name
+- create new folder
+
+touch file_name.py 
+- to create a new file (using git bash)
+
+pwd
+- present working directory 
+- present file path
+----------------------------------------
+
+
+----------------------------------------------------
+
+git clone https://github.com/username/repository.git
+- Clones an existing repository from a remote source.
+
+git clone https://github.com/username/repository.git set_name
+- set name of cloning repo
+
+---------------------------------------------------------------
+
+git status
+- Displays the status of changes in the working directory and staging area.
+
+untracked 
+- new files that git doesn't yet track
+
+[use "git add" to track file]
+
+unmodified 
+- unchanged
+
+modified 
+- changed
+
+[after "add" file status is go in staged]
+
+staged 
+- file is ready to committed
+
+[after "commite file status is go in unmodified"]
+
+-------------------------------------------------
+
+git merge branch-name
+- to mearge "current branch" into "specified branch"
+- current branch get code(data) of "specified branch"
+
+git pull origin main
+- Fetches and merges changes from the remote repository to the local branch.
+
+-------------------------------------------------
+git reset file.txt / git reset
+- reset a file that has been added to the staging area.
+
+git reset HEAD~1
+- for one commit reset
+
+git reset <commit has>
+git reset --hard <commit hash>
+- for many commit reset
+
+-------------------------------------------------
+Fork
+- copy other user repo into over repo
+
+-------------------------------------------------
+REMOVE FILE:
+------------
+git rm --cached file_name.py
+- remove file of woriking(traked) area to unstage
+
+git rm file_name.py
+- remove file in local 
+
+rm -rf .git
+- Initialize repository remove .git file 
+- (git traking off)
+
+RENAME FILE:
+------------
+git mv old_name.py new_name.py
+
+-------------------------------------------------
+GIT IGNORE:
+-----------
+- create file .gitignor
+- add ignoring file  inside to .gitignor file
+- stage .gitignor
+- commite .gitignor file
+
+- eg. error.log add inside .gitignor
+- if multiple .log file to use "*.log" inside a .gitignor file 
+- if ignore folder to use "folder_name/" inside a .gitignore file
+- if ignore only outer folder to use "/folder_name/" inside a .gitignore file
+
+git rm --cached file_name.py
+- remove file of woriking(traked) area to unstage
+
+-------------------------------------------------------------------------------
+GIT DIFF & LOG:
+---------------
+git diff branch-name
+- to compare staging area and working directory
+
+git diff --staged
+- to compare last commit to current staging area
+
+git log
+- Shows the commit history.
+- Enter "q" for exit()
+
+git log -p
+- to show last commit and show differenc of update code 
+
+git log -p -n 
+- to show n = number commit and show differenc of update code 
+- eg. -1 / -2 / -3 etc.
+
+git log --stat
+- to show sort form of commits update
+------------------------------------------------------------
+UNSTAGING
+---------
+git restore --staged file_name
+- stage to unstage
+
+UNMODIFYING
+-----------
+git checkout -- file_name
+- modifie to unmodifie
+
+git checkout -f
+- undo for last commit
+
+----------------------------------------------------
+ALIAS
+-----
+git config --global alias.new_name command_name
+- eg. git config --global alias.st status
+- alias of status command 
+----------------------------------------------------
+
+
+git fetch origin
+- Fetches changes from the remote repository without merging them.
+
+git status -s
+
+
+=======================
+
+Email : makwana0843@gmail.com
+password : sandip@reliution
+
+Email : sandipm.reliution@gmail.com
+password : sandip@reliution
+
+===================
+…or create a new repository on the command line
+echo "# demo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/sandipmakwana01/demo.git
+git push -u origin main
+-------------------------
+…or push an existing repository from the command line
+git remote add origin https://github.com/sandipmakwana01/demo.git
+git branch -M main
+git push -u origin main
+-------------------------
+git pull origin main
+- Fetches and merges changes from the remote repository to the local branch.
+===================
+
+
+
+scaffold
+========
+python "D:\Projects\Odoo_Base\v17\odoo-bin" scaffold test_module "D:\Projects\Projects_v17\v17_Custom\v17_Addons"

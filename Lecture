@@ -1,0 +1,463 @@
+lecture 1 [23-4]
+- oops concepte and odoo architechter.
+- class vartuel entity , class is not accuer memory.
+- after create object of class that time memory accupie. 
+- every object can load current object fields and method.
+
+lecture 2 [24-4]
+- Create module (model and views) and perform CRUD operations. 
+- Check record in database using terminal. 
+- Check all magice fields.
+- Every class inherite models.Model file.
+
+lecture 3 [25-4]
+- Attend session to learn what is Many2one filed, how to define, what its perpose.
+- Check record in database using terminal.
+
+lecture 4 [28-4]
+- Attend session to learn what is One2many filed, how to define, what its perpose.
+- Create a date field and learn about more its formate.
+- how to change formate in odoo and learn alwase fix formate in sql. 
+
+- date field and modify its formate : go to settings -> Languages (selecte language) -> change date formate (%m/%d/%Y)
+- note : inside databse alwase date formate like YYYY-MM-DD
+
+lecture 5 [29-4]
+- Attend session to learn what is Many2many filed, how to define, what its perpose.
+- Also learn new thing what is benifite of define Many2many field in boath realtion table.
+
+lecture 7 [1-5]
+- overrite , override
+- crud
+
+lecture 8 [2-5]
+- create call
+- create overide
+- send email
+
+
+
+
+
+
+-
+context 
+
+        
+
+================================================================================
+
+- cehck internal view in setting technical
+
+inherit vs inherits 
+
+compute parameter in fields vs depends decorator in method
+how many time call compute method
+
+================================================================================
+
+# -*- coding: utf-8 -*-
+from odoo import api, fields, models
+from datetime import datetime, timedelta, time
+from pytz import timezone, UTC
+
+class CalendarEvent(models.Model):
+    _inherit = 'calendar.event'
+
+
+    from_time = fields.Float('From', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+    to_time = fields.Float('To', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+
+    @api.depends('start', 'stop')
+    def _compute_dates(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for meeting in self:
+            if not meeting.allday and meeting.start and meeting.stop:
+
+                meeting.start_date = meeting.start.date()
+                meeting.stop_date = meeting.stop.date()
+
+                # meeting.from_time = meeting.start.hour + (meeting.start.minute / 60.0)
+                # meeting.to_time = meeting.stop.hour + (meeting.stop.minute / 60.0)
+
+                start_local = kolkata_tz.fromutc(meeting.start)
+                stop_local = kolkata_tz.fromutc(meeting.stop)
+
+                meeting.from_time = start_local.hour + (start_local.minute / 60.0)
+                meeting.to_time = stop_local.hour + (stop_local.minute / 60.0)
+            else:
+                meeting.start_date = False
+                meeting.stop_date = False
+
+    def _inverse_dates(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for meeting in self:
+            if not meeting.allday:
+
+                start_date = meeting.start_date
+                start_hour = int(meeting.from_time)
+                start_minute = int((meeting.from_time - start_hour) * 60)
+
+                stop_date = meeting.stop_date
+                stop_hour = int(meeting.to_time)
+                stop_minute = int((meeting.to_time - stop_hour) * 60)
+
+                start_datetime = datetime.combine(start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(stop_date, time(stop_hour, stop_minute))
+
+                # meeting.write({
+                #     'start': start_datetime,
+                #     'stop': stop_datetime
+                # })
+
+                start_datetime_utc = kolkata_tz.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime_utc = kolkata_tz.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+
+                meeting.write({
+                    'start': start_datetime_utc,
+                    'stop': stop_datetime_utc
+                })
+
+    @api.onchange('start_date', 'stop_date', 'from_time', 'to_time')
+    def _onchange_date(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for event in self:
+            if event.stop and event.start:
+
+                start_date = event.start_date
+                start_hour = int(event.from_time)
+                start_minute = int((event.from_time - start_hour) * 60)
+
+                stop_date = event.stop_date
+                stop_hour = int(event.to_time)
+                stop_minute = int((event.to_time - stop_hour) * 60)
+
+                start_datetime = datetime.combine(start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(stop_date, time(stop_hour, stop_minute))
+
+                # event.with_context(is_calendar_event_new=True).write({
+                #     'start': start_datetime,
+                #     'stop': stop_datetime,
+                # })
+
+                start_datetime_utc = kolkata_tz.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime_utc = kolkata_tz.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+
+                event.with_context(is_calendar_event_new=True).write({
+                    'start': start_datetime_utc,
+                    'stop': stop_datetime_utc,
+                })
+
+
+
+==============
+done
+===============
+# -*- coding: utf-8 -*-
+from odoo import api, fields, models
+from datetime import datetime, timedelta, time
+from pytz import timezone, UTC
+
+class CalendarEvent(models.Model):
+    _inherit = 'calendar.event'
+
+
+    from_time = fields.Float('From', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+    to_time = fields.Float('To', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+
+    @api.depends('start', 'stop')
+    def _compute_dates(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for meeting in self:
+            if not meeting.allday and meeting.start and meeting.stop:
+                # meeting.start_date = meeting.start.date()
+                # meeting.stop_date = meeting.stop.date()
+                # meeting.from_time = meeting.start.hour + (meeting.start.minute / 60.0)
+                # meeting.to_time = meeting.stop.hour + (meeting.stop.minute / 60.0)
+
+                # Convert timezone
+                start_local = meeting.start.astimezone(kolkata_tz)
+                stop_local = meeting.stop.astimezone(kolkata_tz)
+                meeting.start_date = start_local.date()
+                meeting.stop_date = stop_local.date()
+                meeting.from_time = start_local.hour + (start_local.minute / 60.0)
+                meeting.to_time = stop_local.hour + (stop_local.minute / 60.0)
+            else:
+                meeting.start_date = False
+                meeting.stop_date = False
+
+    def _inverse_dates(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for meeting in self:
+            if not meeting.allday:
+                start_date = meeting.start_date
+                start_hour = int(meeting.from_time)
+                start_minute = int((meeting.from_time - start_hour) * 60)
+                stop_date = meeting.stop_date
+                stop_hour = int(meeting.to_time)
+                stop_minute = int((meeting.to_time - stop_hour) * 60)
+                start_datetime = datetime.combine(start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(stop_date, time(stop_hour, stop_minute))
+                # meeting.write({
+                #     'start': start_datetime,
+                #     'stop': stop_datetime
+                # })
+
+                # Convert timezone
+                start_datetime_utc = kolkata_tz.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime_utc = kolkata_tz.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+                meeting.write({
+                    'start': start_datetime_utc,
+                    'stop': stop_datetime_utc
+                })
+
+    @api.onchange('start_date', 'stop_date', 'from_time', 'to_time')
+    def _onchange_date(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for event in self:
+            if not event.allday and event.stop_date and event.start_date:
+                start_date = event.start_date
+                start_hour = int(event.from_time)
+                start_minute = int((event.from_time - start_hour) * 60)
+                stop_date = event.stop_date
+                stop_hour = int(event.to_time)
+                stop_minute = int((event.to_time - stop_hour) * 60)
+                start_datetime = datetime.combine(start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(stop_date, time(stop_hour, stop_minute))
+                # event.with_context(is_calendar_event_new=True).write({
+                #     'start': start_datetime,
+                #     'stop': stop_datetime,
+                # })
+
+                # Convert timezone
+                start_datetime_utc = kolkata_tz.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime_utc = kolkata_tz.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+                event.with_context(is_calendar_event_new=True).write({
+                    'start': start_datetime_utc,
+                    'stop': stop_datetime_utc,
+                })
+
+
+
+=============
+---------
+-------
+
+# -*- coding: utf-8 -*-
+from odoo import api, fields, models
+from datetime import datetime, time
+from pytz import timezone, UTC
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
+
+class CalendarEvent(models.Model):
+    _inherit = 'calendar.event'
+
+
+    from_time = fields.Float('From', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+    to_time = fields.Float('To', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+    visit = fields.Many2one('mail.activity.type',string='Visit',domain='[("category", "=", "meeting")]')
+
+    @api.depends('start', 'stop')
+    def _compute_dates(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for meeting in self:
+            if not meeting.allday and meeting.start and meeting.stop:
+                # meeting.start_date = meeting.start.date()
+                # meeting.stop_date = meeting.stop.date()
+                # meeting.from_time = meeting.start.hour + (meeting.start.minute / 60.0)
+                # meeting.to_time = meeting.stop.hour + (meeting.stop.minute / 60.0)
+
+                # Convert timezone
+                start_local = meeting.start.astimezone(kolkata_tz)
+                stop_local = meeting.stop.astimezone(kolkata_tz)
+                meeting.start_date = start_local.date()
+                meeting.stop_date = stop_local.date()
+                meeting.from_time = start_local.hour + (start_local.minute / 60.0)
+                meeting.to_time = stop_local.hour + (stop_local.minute / 60.0)
+            else:
+                meeting.start_date = False
+                meeting.stop_date = False
+
+    def _inverse_dates(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for meeting in self:
+            if not meeting.allday:
+                start_date = meeting.start_date
+                start_hour = int(meeting.from_time)
+                start_minute = int((meeting.from_time - start_hour) * 60)
+                stop_date = meeting.stop_date
+                stop_hour = int(meeting.to_time)
+                stop_minute = int((meeting.to_time - stop_hour) * 60)
+                start_datetime = datetime.combine(start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(stop_date, time(stop_hour, stop_minute))
+                # meeting.write({
+                #     'start': start_datetime,
+                #     'stop': stop_datetime
+                # })
+
+                # Convert timezone
+                start_datetime_utc = kolkata_tz.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime_utc = kolkata_tz.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+                meeting.write({
+                    'start': start_datetime_utc,
+                    'stop': stop_datetime_utc
+                })
+
+    @api.onchange('start_date', 'stop_date', 'from_time', 'to_time')
+    def _onchange_date(self):
+        kolkata_tz = timezone('Asia/Kolkata')
+        for event in self:
+            if not event.allday and event.stop_date and event.start_date:
+                start_date = event.start_date
+                start_hour = int(event.from_time)
+                start_minute = int((event.from_time - start_hour) * 60)
+                stop_date = event.stop_date
+                stop_hour = int(event.to_time)
+                stop_minute = int((event.to_time - stop_hour) * 60)
+                start_datetime = datetime.combine(start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(stop_date, time(stop_hour, stop_minute))
+                # event.with_context(is_calendar_event_new=True).write({
+                #     'start': start_datetime,
+                #     'stop': stop_datetime,
+                # })
+
+                # Convert timezone
+                start_datetime_utc = kolkata_tz.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime_utc = kolkata_tz.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+                event.with_context(is_calendar_event_new=True).write({
+                    'start': start_datetime_utc,
+                    'stop': stop_datetime_utc,
+                })
+
+    @api.constrains('start', 'stop')
+    def _check_meeting(self):
+        for meeting in self:
+            meeting_find = self.env['calendar.event'].search([('id', '!=', meeting.id),('start', '<', meeting.stop),('stop', '>', meeting.start),])
+            if meeting_find:
+                raise ValidationError("A meeting is already scheduled during this time period.")
+
+
+
+===================
+==================
+====================
+# -*- coding: utf-8 -*-
+from odoo import api, fields, models
+from datetime import datetime, time
+from pytz import timezone, UTC
+from odoo.exceptions import ValidationError
+
+class CalendarEvent(models.Model):
+    _inherit = 'calendar.event'
+
+
+    from_time = fields.Float('From', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+    to_time = fields.Float('To', store=True, tracking=True,compute='_compute_dates',inverse='_inverse_dates')
+    visit = fields.Many2one('mail.activity.type',string='Visit',domain='[("category", "=", "meeting")]')
+
+    @api.depends('start', 'stop')
+    def _compute_dates(self):
+        user_timezone_name = self.env.user.tz
+        user_timezone = timezone(user_timezone_name)
+        for meeting in self:
+            if not meeting.allday and meeting.start and meeting.stop:
+                start = meeting.start.astimezone(user_timezone)
+                stop = meeting.stop.astimezone(user_timezone)
+
+                meeting.start_date = start.date()
+                meeting.stop_date = stop.date()
+                meeting.from_time = start.hour + (start.minute / 60.0)
+                meeting.to_time = stop.hour + (stop.minute / 60.0)
+            else:
+                meeting.start_date = False
+                meeting.stop_date = False
+                meeting.from_time = False
+                meeting.to_time = False
+
+
+    def _inverse_dates(self):
+        user_timezone_name = self.env.user.tz
+        user_timezone = timezone(user_timezone_name)
+        for meeting in self:
+            if not meeting.allday:
+                start_hour = int(meeting.from_time)
+                start_minute = int((meeting.from_time - start_hour) * 60)
+
+                stop_hour = int(meeting.to_time)
+                stop_minute = int((meeting.to_time - stop_hour) * 60)
+
+                start_datetime = datetime.combine(meeting.start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(meeting.stop_date, time(stop_hour, stop_minute))
+
+                # Convert timezone
+                start_datetime = user_timezone.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime = user_timezone.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+
+                meeting.write({
+                    'start': start_datetime,
+                    'stop': stop_datetime
+                })
+
+
+    @api.onchange('start_date', 'stop_date', 'from_time', 'to_time')
+    def _onchange_date(self):
+        user_timezone_name = self.env.user.tz
+        user_timezone = timezone(user_timezone_name)
+        for event in self:
+            if not event.allday and event.stop_date and event.start_date:
+                start_hour = int(event.from_time)
+                start_minute = int((event.from_time - start_hour) * 60)
+
+                stop_hour = int(event.to_time)
+                stop_minute = int((event.to_time - stop_hour) * 60)
+
+                start_datetime = datetime.combine(event.start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(event.stop_date, time(stop_hour, stop_minute))
+
+                # Convert timezone
+                start_datetime = user_timezone.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime = user_timezone.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+                event.with_context(is_calendar_event_new=True).write({
+                    'start': start_datetime,
+                    'stop': stop_datetime,
+                })
+
+
+    @api.constrains('start_date','stop_date','from_time','to_time')
+    def _check_meeting(self):
+        current_user = self.env.user
+        for meeting in self:
+            find_start_date_in_start = self.env['calendar.event'].search([('user_id', '=', current_user.id), ('id', '!=', meeting.id), ('start_date', '=', meeting.start_date)])
+            if find_start_date_in_start:
+                for times in find_start_date_in_start:
+                    if (times.from_time >= meeting.from_time) and (times.from_time <= meeting.to_time):
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time >= meeting.from_time) and (times.to_time <= meeting.to_time):
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+
+            find_start_date_in_end = self.env['calendar.event'].search([('user_id', '=', current_user.id), ('id', '!=', meeting.id), ('stop_date', '=', meeting.start_date)])
+            if find_start_date_in_end :
+                for times in find_start_date_in_end :
+                    if (times.from_time >= meeting.from_time) and (times.from_time <= meeting.to_time):
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time >= meeting.from_time) and (times.to_time <= meeting.to_time):
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+
+            find_stop_date_in_start = self.env['calendar.event'].search([('user_id', '=', current_user.id), ('id', '!=', meeting.id), ('start_date', '=', meeting.stop_date)])
+            if find_stop_date_in_start :
+                for times in find_stop_date_in_start :
+                    if (times.from_time >= meeting.from_time) and (times.from_time <= meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time >= meeting.from_time) and (times.to_time <= meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+
+            find_end_date_in_end = self.env['calendar.event'].search([('user_id', '=', current_user.id), ('id', '!=', meeting.id), ('stop_date','=', meeting.stop_date)])
+            if find_end_date_in_end:
+                for times in find_end_date_in_end:
+                    if (times.from_time >= meeting.from_time) and (times.from_time <= meeting.to_time):
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time >= meeting.from_time) and (times.to_time <= meeting.to_time):
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+
+

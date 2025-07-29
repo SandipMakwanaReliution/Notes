@@ -1,0 +1,3357 @@
+Install this module if restore a database.
+	account_reports
+	sale_purchase_filter_partner
+	stock_barcode
+
+Delivery Orders (Operation Type) > Barcode App > Source Location : No Sacn
+- directly validate a delivery using barcode app
+
+Configure Product:
+Price, Uom, , BOM, Type
+
+Routes:	Curtain > Manufacture, MTO
+		Fabric > Buy, MTO (Vendor)
+		Track > Buy, MTO (Vendor)
+		Roller > Buy, MTO
+		Motor > Buy, MTO
+
+Uom: Curtain (Unit)
+     Track (Miter) *Unit
+     Fabric (Miter)
+     Moter (Unit)
+
+Fabric Count
+------------
+if blackout:
+    if fabric width is lesser than height (f_width >= height + b_height):
+        fabric count = (width * b_width) / 100
+    else:
+        fabric count = ((width * small_b_width) / f_width ) * (height + small_b_height) / 100     
+
+Fabric Cost
+-----------
+Fabric Cost = Fabric Count * Fabric Stander(Cost) Price 
+
+Tracks Cost
+-----------
+Tracks Cost = (width / 100) * Track Stander(Cost) Price 
+
+
+
+Curtain | Width: *230, "Height: 300",  Qty: '1 Unit', Price: > Fabric  | Width:*280, "Height: 300", Qty: 'Fabrics Count', Price: 'Fabric Cost'
+                                                             > Track   | Width:*280,                Qty: '1 Unit'       , Price: 'Tracks Cost'
+
+Roller  | Width: *230, "Height: 300",  Qty: '1 Unit', Price: > Fabric  | Width:*280, "Height: 300", Qty: 'Fabrics Count', Price: 'Fabric Cost'
+
+Motor   | 
+
+
+[set recipt type (Delivery to) for fabric]
+=====================================================================================
+Fabric Purchase
+---------------
+Fabric  | Width:*280, "Height: 300", {Qty: 'Fabrics Count', Price: 'Fabric Cost'}, 
+Location
+    Purchase  : Vendor to Stock
+
+    *Purchase : Vandor To Input (Validate Receipt) (add lot with heigh and width)
+                Input To Stock/Sub ("Internal Transfer")
+
+Fabric Manufacture
+------------------
+Fabric  | Width:*280, "Height: 300", Qty: 'Fabrics Count'
+Location
+    Manufacture  : Stock to Production
+
+    *Transfer    : Stock/Sub to Output
+    *Select Lot  : Output to Lot Adjustment
+    *Manufacture : Output to Production
+
+Curtain
+-------
+Location
+    Manufacture : Production to Stock
+    Sales : Stock to Customer
+
+    *Manufacture : Production to Output
+    *Sales : Output to Customer
+
+Track Purchase
+--------------
+Track   | Width:*280,                Qty: '1 Unit'       , [Price: 'Tracks Cost'],
+Location
+    Purchase : Vendor to Stock
+    Sales : Stock to Customer
+
+
+Roller Purchase
+---------------
+Motor Purchase
+--------------
+==========================================================================================
+
+
+Q. Track Width add in PO? also its Cost? [Price: 'Tracks Cost']
+Q. Unit Price = Fabric Sale Price + Track Sale Price (Total Cost)
+
+Q. Button and Status
+Q. Order Report create or not in MO 
+
+
+* Delivery validate to create a invoice.
+* MO forcast red after start production
+* MO view order manage after start
+roller and fabric ?
+curtin inside not have motor?
+change purchase venodr name!
+
+
+Manufacutre Order
+-----------------
+Status : Waiting For Components
+       : Ready
+       : In Progress
+       : Finished
+
+: Pendding X
+: Cancelled
+
+
+
+
+
+
+
+
+
+
+Curtain manufacutre hvase set bom type manufacure
+- set its work center
+
+
+- trak create automatic po
+- mo have fabric product 
+
+
+
+
+
+
+
+
+
+
+
+======================
+======================
+jounal item not show currency after number like 200.00 "AED"
+X = stock.move and stock.move.line
+X = account_financial_report
+group id = # 82, 83, 87, 89, 90, 91, 92, 
+
+
+company
+user and partner
+inventory
+employee and expense
+accounting
+======================
+======================
+
+                            
+
+
+
+
+
+
+
+
+--
+
+Manufacture Order 
+- first validate a PO
+    component status = Not available
+        Purchase Order for Fabric
+        - Fabric Qty = Fabrics Count
+        - 
+        Work Order = Start > Done
+
+
+
+Delivery
+    Purchase Order for Track
+    *add Tax excl. in sale order line form
+    - Track 
+
+- track
+- manufacture
+
+
+
+
+
+
+
+
+Green: quantity of products which should be replenished to reach the expected safety stock considering the demand forecast and the indirect demand forecast.
+Grey: replenishment order has already been generated, and its quantity still matches current data.
+Red: replenishment order has already been generated, and its quantity was too high considering current data.
+Orange: replenishment order has already been generated, and its quantity was too low considering current data.
+The Forecasted stock line can also contain red cells, which means the stock will be negative during the period in question.
+
+
+
+
+
+
+
+===
+
+def _run_buy(self, procurements):
+
+
+
+stock rule and sale order line procurment check same or not 
+
+MO ➝ Raw Material Moves ➝ Stock Move ➝ Procurement ➝ Purchase Line ➝ Purchase Order
+
+for procurement in procurements:
+    for move in procurement.values.get('move_dest_ids', []) :
+        print(move.name)
+        print(move.origin)
+
+SO Line → Stock Rule → Procurement Group → Stock Move (with group_id) → purchase_line_id → PO
+
+When an MO contains a raw material with MTO + Buy route:
+    The stock move (in move_raw_ids) triggers a procurement.
+    The procurement creates a purchase order line.
+    The values of the PO line come from the procurement rules and product configuration.
+
+Stock Rule Model
+    _run_pull()
+    _run_buy()
+
+Confirm a Sale Order.
+    Ensure it creates a Manufacturing Order.
+    The MO has a move_raw_ids record for fabric_product_id with your custom fields (width, height, etc.).
+    Ensure MTO + Buy triggers procurement.
+    A Purchase Order should be created.
+    Open the PO → PO Line should now have width, height, fabric_width.
+
+
+==============
+==============
+    Subcontracting
+    Manufacturing app > Configuration > Settings > check "Subcontracting"
+
+    Product
+    - set Routes : Buy (shipped back to the contracting company)
+    - set Routes : Replenish on Order (MTO) (automatically create a PO when not enough stock on-hand)
+    - set Purchase vendor
+
+    Replenish on Order (MTO) 
+    - Inventory > Settings > set Multi-Step Routes
+    - Unarchive Replenish on Order (MTO) 
+
+    Component
+    - set Routes : Resupply Subcontractor on Order
+
+    Product > BOM
+    - set BOM Type : Subcontracting
+    - set Subcontractor : ----
+
+
+
+================
+================
+================
+
+INVENTORY > RULE
+----------------
+Pull From (WH/Stock -> Partner/Customer, Replenish on Order (MTO)) > Propagation of Procurement Group = Propagate 
+Buy > Propagation of Procurement Group = Propagate 
+
+Researched how to split a Purchase Order for each individual Sales Order.
+Implemented system configuration to automatically create a separate Purchase Order per Sales Order.
+(https://www.odoo.com/forum/help-1/how-to-automatically-create-a-purchase-order-per-sales-order-203946)
+
+PRODUCT CURTAIN, ROLLER
+-----------------------
+Routes = MTO, Manufacture
+Product Type = Curtain
+Curtain Type = ...
+Manufacture Product = set curtain manufacture, aslo manufacure have set bom type Manufacture, also add its operation
+
+PRODUCT CURTAIN, ROLLER MANUFACTURE
+-----------------------------------
+is_manufacured = True
+Routes = MTO, Manufacture
+Product Type = Curtain
+
+PRODUCT FABRIC
+--------------
+Routes = MTO, Buy(Need to set Product Vendor )
+Product Type = Fabric
+Fabric Type = ...
+Width = ...
+
+PRODUCT MOTOR
+-------------
+Routes = MTO, Buy(Need to set Product Vendor )
+Product Type = Motor
+
+================================================================================================================
+✅ 1. Direct PO for Delivery Product (MTO + Buy)
+Trigger: When a product on the sale order is configured as "MTO + Buy".
+
+Flow Used:
+    Sale Order Line → Procurement → Purchase Order Line
+
+Custom Logic Location:
+    You override:
+        sale.order.line._prepare_procurement_values() → inject custom description
+        purchase.order.line._prepare_purchase_order_line_from_procurement() → apply description
+================================================================================================================
+✅ 2. PO for Components in Manufacturing (BOM Product with Buy route)
+Trigger: When a product on the sale order creates a manufacturing order, and its components are configured as "Buy".
+
+Flow Used:
+    Stock Move (inside MO for component) → Procurement → Purchase Order Line
+
+Custom Logic Location:
+    You override:
+        stock.move._prepare_procurement_values() → inject component-level description (e.g., fabric details)
+        purchase.order.line._prepare_purchase_order_line_from_procurement() → apply it
+================================================================================================================
+✅ Final Summary
+Flow                Where to Set                                  Field to Pass        Result
+MO Component → PO   stock.move._prepare_procurement_values        fabric_description   PO line set via move
+SO Line → PO        sale.order.line._prepare_procurement_values   track_description    PO line set via SO
+===================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Upgraded DB Date : 23/6/25
+Current DB Date : 23/6/25
+
+5/7/25
+================
+MIGRATION STEPS:
+================
+
+Company:
+========
+Table 
+    res_company
+update res_company set old_id = id;
+
+- Migrate : phone, email
+
+Note:
+    partner_id : not update because old contact is archived in old database. 
+    company_registry : Partner name
+
+Table 
+    res_currency
+
+update res_currency set old_id = 127 where id = 129;
+
+- set old id of company and currency
+- set round
+
+vat,website : issue when get vat 
+psycopg2.errors.UndefinedColumn: column res_company.customer_pdc_account_id does not exist
+LINE 1: ...rder_template_id", "res_company"."security_lead", "res_compa...
+
+Partner:
+========
+
+Table
+=====
+    account_payment_term
+    skipping: early_pay_discount_computation
+
+update account_payment_term set old_id = 1 where id = 1; 
+update account_payment_term set old_id = 2 where id = 2; 
+update account_payment_term set old_id = 3 where id = 3; 
+update account_payment_term set old_id = 4 where id = 4; 
+update account_payment_term set old_id = 5 where id = 5; 
+update account_payment_term set old_id = 7 where id = 6; 
+update account_payment_term set old_id = 8 where id = 8;
+update account_payment_term set old_id = 12 where id = 9; 
+
+UPDATE account_payment_term
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+=====
+    account_payment_term_line
+
+update account_payment_term_line set old_id = 1 where id = 1;
+update account_payment_term_line set old_id = 2 where id = 2;
+update account_payment_term_line set old_id = 3 where id = 3;
+update account_payment_term_line set old_id = 4 where id = 4;
+update account_payment_term_line set old_id = 5 where id = 5;
+update account_payment_term_line set old_id = 7 where id = 6;
+update account_payment_term_line set old_id = 8 where id = 8;
+update account_payment_term_line set old_id = 9 where id = 9;
+update account_payment_term_line set old_id = 10 where id = 11;
+update account_payment_term_line set old_id = 12 where id = 13;
+
+Not show account payment tearm preview this fields are computed:
+    example_preview = fields.Html(compute='_compute_example_preview')
+    example_preview_discount = fields.Html(compute='_compute_example_preview')
+
+SELECT 
+    l.id,
+    l.old_id,
+    l.payment_id,
+    t.name AS payment_term_name
+FROM account_payment_term_line l
+JOIN account_payment_term t ON l.payment_id = t.id
+ORDER BY l.id;
+
+Table
+======
+    account_fiscal_position
+update account_fiscal_position set old_id = id;
+
+Table
+======
+    account_account -- Migrate it
+update account_account set old_id = id;
+
+UPDATE account_account
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+X
+account_group, account_root
+
+Table
+=====
+     res_partner skipping : peppol_eas, ubl_cii_format, tz, invoice_warn, picking_warn, sale_warn, purchase_warn
+update res_partner_industry set old_id = id;
+update res_country set old_id = id;
+update crm_team set old_id = id;
+update res_partner_title set old_id = id;
+X = res_country_state, res_partner_bank
+   
+    
+    - not set old id = id. 
+    - Migrate all partner of upgraded db to currenct db.
+
+    no need to migrate
+        - Tags(cetegory_id)
+        - Pricelist
+        - Customer and Vendor Loaction
+        - Buyer
+        - Receipt Reminder
+        - Indestry (indestry_id)
+        - Format (ubl_cii_format)
+
+
+Payment Terms (property_payment_term_id) Migrate data using script:
+===================================================================
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = ''
+table_name = 'res.partner'
+
+# Step 1: Get mapping of partner_id => payment_term_id from old DB
+old_partner_term_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    partners = env[table_name].search([])
+    for partner in partners:
+        if partner.property_payment_term_id:
+            old_partner_term_map[partner.id] = partner.property_payment_term_id.id
+            print(f"Old Partner ID {partner.id} -> Old Payment Term ID {partner.property_payment_term_id.id}")
+
+# Step 2: Update new DB using old_id and mapped new payment term
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_partner_id, old_term_id in old_partner_term_map.items():
+        new_partner = env[table_name].search([('old_id', '=', old_partner_id)], limit=1)
+        if not new_partner:
+            continue
+
+        new_term = env['account.payment.term'].search([('old_id', '=', old_term_id)], limit=1)
+        if not new_term:
+            print(f"⚠️ Payment Term with old_id {old_term_id} not found in new DB for partner old_id {old_partner_id}")
+            continue
+
+        new_partner.write({'property_payment_term_id': new_term.id})
+        print(f"✅ Updated partner {new_partner.name} (old_id {old_partner_id}) with new payment term {new_term.name}")
+=====
+import xmlrpc.client
+
+old_odoo_url = "http://localhost:1705"
+
+old_db_name = "korzo_accounting_v17"
+username = "admin"
+password = "admin"
+
+new_db_name = "korzo_migration"
+table_name = "res.partner"
+
+# XML-RPC setup
+common = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/common")
+models = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/object")
+
+# Authenticate
+old_uid = common.authenticate(old_db_name, username, password, {})
+new_uid = common.authenticate(new_db_name, username, password, {})
+
+old_record_ids = models.execute_kw(old_db_name, old_uid, password, table_name, 'search', [[('property_payment_term_id', '!=', False)]], {'context': {'active_test': False}})
+old_record_data = models.execute_kw(old_db_name, old_uid, password, 'res.partner', 'read', [old_record_ids], {'fields': ['id', 'property_payment_term_id']})
+
+result = f"Fetched partners from old DB: {old_record_data}"
+print(result)
+
+for rec in old_record_data:
+    old_rec_id = rec['id']
+    old_payment_term_id = rec['property_payment_term_id'][0]  # many2one field (ID only)
+
+    new_record_find = models.execute_kw(new_db_name, new_uid, password, table_name, 'search', [[('old_id', '=', old_rec_id)]], {'context': {'active_test': False}})
+
+    if not new_record_find:
+        result = f"⚠️ Partner with old_id {old_rec_id} not found in new DB."
+        continue
+
+    # Find payment term in NEW DB by old_id
+    new_payment_term_ids = models.execute_kw(new_db_name, new_uid, password, 'account.payment.term', 'search', [[('old_id', '=', old_payment_term_id)]])
+
+    if not new_payment_term_ids:
+        result = f"⚠️ Payment Term with old_id {old_payment_term_id} not found in new DB for partner old_id {old_rec_id}"
+        print(result)
+        continue
+
+    # Update partner's payment term
+    models.execute_kw(new_db_name, new_uid, password, table_name, 'write', [new_record_find, {'property_payment_term_id': new_payment_term_ids[0]}])
+
+    result = f"✅ Updated partner old_id {old_rec_id} with new payment term old_id {old_payment_term_id}"
+    print(result)
+=========================================================================
+
+
+Fiscal Position (property_account_position_id) Migrate data using script:
+==========================================================================
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = ''
+table_name = 'res.partner'
+
+# Step 1: Get mapping of partner_id => fiscal_position_id from old DB
+old_partner_fiscal_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    partners = env[table_name].search([])
+    for partner in partners:
+        if partner.property_account_position_id:
+            old_partner_fiscal_map[partner.id] = partner.property_account_position_id.id
+            print(f"Old Partner ID {partner.id} -> Old Fiscal Position ID {partner.property_account_position_id.id}")
+
+# Step 2: Update new DB using old_id and mapped fiscal positions
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_partner_id, old_fiscal_id in old_partner_fiscal_map.items():
+        new_partner = env[table_name].search([('old_id', '=', old_partner_id)], limit=1)
+        if not new_partner:
+            continue
+
+        new_fiscal = env['account.fiscal.position'].search([('old_id', '=', old_fiscal_id)], limit=1)
+        if not new_fiscal:
+            print(f"⚠️ Fiscal Position with old_id {old_fiscal_id} not found in new DB for partner old_id {old_partner_id}")
+            continue
+
+        new_partner.write({'property_account_position_id': new_fiscal.id})
+        print(f"✅ Updated partner {new_partner.name} (old_id {old_partner_id}) with fiscal position {new_fiscal.name}")
+===
+
+
+
+==========================================================================
+
+Migrate: property_supplier_payment_term_id
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = ''
+table_name = 'res.partner'
+
+# Step 1: Get mapping of partner_id => supplier_payment_term_id from old DB
+old_partner_supplier_term_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    partners = env[table_name].search([])
+    for partner in partners:
+        if partner.property_supplier_payment_term_id:
+            old_partner_supplier_term_map[partner.id] = partner.property_supplier_payment_term_id.id
+            print(f"Old Partner ID {partner.id} -> Old Supplier Payment Term ID {partner.property_supplier_payment_term_id.id}")
+
+# Step 2: Update new DB using old_id and mapped payment terms
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_partner_id, old_payment_term_id in old_partner_supplier_term_map.items():
+        new_partner = env[table_name].search([('old_id', '=', old_partner_id)], limit=1)
+        if not new_partner:
+            continue
+
+        new_payment_term = env['account.payment.term'].search([('old_id', '=', old_payment_term_id)], limit=1)
+        if not new_payment_term:
+            print(f"⚠️ Supplier Payment Term with old_id {old_payment_term_id} not found in new DB for partner old_id {old_partner_id}")
+            continue
+
+        new_partner.write({'property_supplier_payment_term_id': new_payment_term.id})
+        print(f"✅ Updated partner {new_partner.name} (old_id {old_partner_id}) with supplier payment term {new_payment_term.name}")
+---
+
+------------------------------------------------------------------------------------------------------
+Migrate: account receivable (property_account_receivable_id)
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = ''
+table_name = 'res.partner'
+
+# Step 1: Get mapping of partner_id => receivable_account_id from old DB
+old_partner_account_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr :
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    partners = env[table_name].search([])
+    for partner in partners :
+        if partner.property_account_receivable_id :
+            old_partner_account_map[partner.id] = partner.property_account_receivable_id.id
+            # Optional print
+            print(
+                f"Old Partner ID {partner.id} -> Old Receivable Account ID {partner.property_account_receivable_id.id}")
+
+# Step 2: Update new DB based on old_id match and mapped account
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr :
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_partner_id, old_account_id in old_partner_account_map.items() :
+        # Find new partner with old_id
+        new_partner = env[table_name].search([('old_id', '=', old_partner_id)], limit=1)
+        if not new_partner :
+            continue
+
+        # Find new account with old_id
+        new_account = env['account.account'].search([('old_id', '=', old_account_id)], limit=1)
+        if not new_account :
+            print(f"⚠️ Account with old_id {old_account_id} not found in new DB for partner old_id {old_partner_id}")
+            continue
+
+        # print(new_account.name)
+
+        # Update partner's receivable account
+        new_partner.write({'property_account_receivable_id' : new_account.id})
+        print(
+            f"✅ Updated partner {new_partner.name} (old_id {old_partner_id}) with new receivable account {new_account.code}")
+---
+
+Migrate: account payable
+
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = 'korzo_migration'
+table_name = 'res.partner'
+
+# Step 1: Get mapping of partner_id => receivable_account_id from old DB
+old_partner_account_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr :
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    partners = env[table_name].search([])
+    for partner in partners :
+        if partner.property_account_payable_id :
+            old_partner_account_map[partner.id] = partner.property_account_payable_id.id
+            # Optional print
+            print(
+                f"Old Partner ID {partner.id} -> Old Receivable Account ID {partner.property_account_payable_id.id}")
+
+# Step 2: Update new DB based on old_id match and mapped account
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr :
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_partner_id, old_account_id in old_partner_account_map.items() :
+        # Find new partner with old_id
+        new_partner = env[table_name].search([('old_id', '=', old_partner_id)], limit=1)
+        if not new_partner :
+            continue
+
+        # Find new account with old_id
+        new_account = env['account.account'].search([('old_id', '=', old_account_id)], limit=1)
+        if not new_account :
+            print(f"⚠️ Account with old_id {old_account_id} not found in new DB for partner old_id {old_partner_id}")
+            continue
+
+        # print(new_account.name)
+
+        # Update partner's receivable account
+        new_partner.write({'property_account_payable_id' : new_account.id})
+        print(
+            f"✅ Updated partner {new_partner.name} (old_id {old_partner_id}) with new receivable account {new_account.code}")
+---
+
+Users:
+======
+
+update res_users set old_id = 1 where id = 1; 
+update res_users set old_id = 2 where id = 2; 
+update res_users set old_id = 3 where id = 3; 
+update res_users set old_id = 4 where id = 4; 
+update res_users set old_id = 5 where id = 5; 
+update res_users set old_id = 6 where id = 6; 
+update res_users set old_id = 8 where id = 8; 
+update res_users set old_id = 24 where id = 10; 
+
+add user group, access right, record rules.
+-------------------------------------------
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+# Config
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+db_name = 'korzo_production_v17'
+source_user_id = 7
+target_user_id = 16
+
+# Preload and access DB registry
+odoo.service.server.preload_registries([db_name])
+registry = odoo.registry(db_name)
+
+with registry.cursor() as cr:
+    # Step 1: Copy Group Memberships
+    cr.execute("""
+        SELECT gid FROM res_groups_users_rel WHERE uid = %s
+    """, (source_user_id,))
+    group_ids = [gid for (gid,) in cr.fetchall()]
+
+    for gid in group_ids:
+        cr.execute("""
+            SELECT 1 FROM res_groups_users_rel WHERE uid = %s AND gid = %s
+        """, (target_user_id, gid))
+        if not cr.fetchone():
+            cr.execute("""
+                INSERT INTO res_groups_users_rel (uid, gid) VALUES (%s, %s)
+            """, (target_user_id, gid))
+            print(f"Added user {target_user_id} to group {gid}")
+
+    # Step 2: Copy Rule and Access Rights — if any were custom-defined for user
+    # Usually rights are per group, so we check if anything specific is assigned per user
+    # This section is optional unless you've used direct user-based rights
+
+    # Optional Debug:
+    print(f"Finished copying groups from user {source_user_id} to {target_user_id}")
+
+    cr.commit()
+
+
+# ✅ Notes:
+# Record rules (ir_rule) and model access (ir_model_access) are linked to groups, not directly to users.
+# So once groups are copied, the user automatically inherits those permissions.
+# If you're using custom user-specific rules, then you'll need to copy those explicitly — but that's uncommon.
+
+=========
+Employee:
+=========
+
+update hr_work_location set old_id = id;
+update hr_departure_reason set old_id = id;
+
+
+Table
+=====
+    resource_calendar -- Migrate it
+update resource_calendar set old_id = 1 where id = 1;
+
+Table
+=====
+    resource_resource -- Migrate it
+update resource_resource set old_id = 1 where id = 1; 
+update resource_resource set old_id = 3 where id = 4; 
+update resource_resource set old_id = 5 where id = 2;
+
+Table
+=====
+    hr_department -- MIgrate it
+
+update hr_department set old_id = 1 where id = 1;
+
+UPDATE hr_department
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+=====
+    mail_activity_plan (no need to migrate)
+update mail_activity_plan set old_id = id;
+
+Table
+=====
+    mail_activity_plan_template
+update mail_activity_plan_template set old_id = id;
+
+Table
+=====
+    mail_activity_type (no need to migrate)
+    
+update mail_activity_type set old_id = 1 where id = 1;
+update mail_activity_type set old_id = 2 where id = 2;
+update mail_activity_type set old_id = 3 where id = 3;
+update mail_activity_type set old_id = 4 where id = 4;
+update mail_activity_type set old_id = 5 where id = 5;
+update mail_activity_type set old_id = 6 where id = 6;
+update mail_activity_type set old_id = 7 where id = 8;
+update mail_activity_type set old_id = 8 where id = 9;
+
+Table
+=====
+    hr_attendance -- Migrate it
+
+
+Table
+=====
+    hr_employee
+    skip: lang, gender
+
+update hr_employee set old_id = 1 where id = 1;
+update hr_employee set old_id = 5 where id = 2;
+update hr_employee set old_id = 3 where id = 4;
+
+
+========
+Product:
+========
+Table
+=====
+    account_tax_group -- Migrate it
+
+update account_tax_group set old_id = 8 where id = 1;
+update account_tax_group set old_id = 7 where id = 2;
+update account_tax_group set old_id = 6 where id = 3;
+
+UPDATE account_tax_group
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+=====
+    account_tax 
+    Skip: tax_scope
+update account_tax set old_id = id; -- Migrate it
+
+UPDATE account_tax
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+UPDATE account_tax
+SET invoice_label = jsonb_build_object(
+    'en_US',
+    REPLACE(invoice_label ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (invoice_label ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+======
+    account_tax_repartition_line -- Migrate it
+update account_tax_repartition_line set old_id = id; 
+
+
+Table
+======
+    account_account_tag
+update account_account_tag set old_id = id; -- No migrate
+
+
+delete from account_account_tag_account_tax_repartition_line_rel; -- Migrate it
+
+
+
+Table
+    uom_category
+
+update uom_category set old_id = id; 
+
+UPDATE uom_category
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+    uom_uom -- Migrate it
+
+update uom_uom set old_id = id; 
+
+UPDATE uom_uom 
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+    product_category -- Migrate it
+ 
+update product_category set old_id = id;
+update product_removal set old_id = id;
+
+--
+Migrate : Expense Account and Income Account (BOTH)
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+# Load config
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = 'korzo_migration'
+table_name = 'product.category'
+
+# Step 1: Get mapping of old_category_id => (expense_account_id, income_account_id)
+old_category_account_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    categories = env[table_name].search([])
+    for category in categories:
+        expense_id = category.property_account_expense_categ_id.id if category.property_account_expense_categ_id else None
+        income_id = category.property_account_income_categ_id.id if category.property_account_income_categ_id else None
+
+        if expense_id or income_id:
+            old_category_account_map[category.id] = {
+                'expense': expense_id,
+                'income': income_id
+            }
+            print(f"Old Category ID {category.id} -> Expense: {expense_id}, Income: {income_id}")
+
+# Step 2: Update new DB based on old_id match and mapped accounts
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_cat_id, account_ids in old_category_account_map.items():
+        new_category = env[table_name].search([('old_id', '=', old_cat_id)], limit=1)
+        if not new_category:
+            continue
+
+        vals = {}
+        # Expense account
+        if account_ids['expense']:
+            new_expense = env['account.account'].search([('old_id', '=', account_ids['expense'])], limit=1)
+            if new_expense:
+                vals['property_account_expense_categ_id'] = new_expense.id
+                print(f"✅ Found new expense account {new_expense.code} for category old_id {old_cat_id}")
+            else:
+                print(f"⚠️ Expense account with old_id {account_ids['expense']} not found for category old_id {old_cat_id}")
+
+        # Income account
+        if account_ids['income']:
+            new_income = env['account.account'].search([('old_id', '=', account_ids['income'])], limit=1)
+            if new_income:
+                vals['property_account_income_categ_id'] = new_income.id
+                print(f"✅ Found new income account {new_income.code} for category old_id {old_cat_id}")
+            else:
+                print(f"⚠️ Income account with old_id {account_ids['income']} not found for category old_id {old_cat_id}")
+
+        # Write updates
+        if vals:
+            new_category.write(vals)
+            print(f"✅ Updated category {new_category.name} (old_id {old_cat_id}) with accounts: {vals}")
+--
+
+Migrate: Inventory Valuation
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+# Load config
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = 'korzo_migration'
+table_name = 'product.category'
+
+# Step 1: Get mapping of old_category_id => valuation method from old DB
+old_category_valuation_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    categories = env[table_name].search([])
+    for category in categories:
+        if category.property_valuation:
+            old_category_valuation_map[category.id] = category.property_valuation
+            print(f"Old Category ID {category.id} -> Valuation: {category.property_valuation}")
+
+# Step 2: Update new DB based on old_id match
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_cat_id, valuation_method in old_category_valuation_map.items():
+        new_category = env[table_name].search([('old_id', '=', old_cat_id)], limit=1)
+        if not new_category:
+            continue
+
+        new_category.write({'property_valuation': valuation_method})
+        print(f"✅ Updated category {new_category.name} (old_id {old_cat_id}) with valuation method '{valuation_method}'")
+--
+
+Migrate: Stock Valuation Account, Journal, Input Account, Output Account.
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+# Load config
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = 'korzo_migration'
+table_name = 'product.category'
+
+# Step 1: Get mapping from old DB
+old_category_fields_map = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    categories = env[table_name].search([])
+
+    for category in categories:
+        field_values = {}
+        if category.property_stock_valuation_account_id:
+            field_values['property_stock_valuation_account_id'] = category.property_stock_valuation_account_id.id
+        if category.property_stock_journal:
+            field_values['property_stock_journal'] = category.property_stock_journal.id
+        if category.property_stock_account_input_categ_id:
+            field_values['property_stock_account_input_categ_id'] = category.property_stock_account_input_categ_id.id
+        if category.property_stock_account_output_categ_id:
+            field_values['property_stock_account_output_categ_id'] = category.property_stock_account_output_categ_id.id
+
+        if field_values:
+            old_category_fields_map[category.id] = field_values
+            print(f"Old Category ID {category.id} -> Field Values: {field_values}")
+
+# Step 2: Update in new DB
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+
+    for old_cat_id, fields in old_category_fields_map.items():
+        new_category = env[table_name].search([('old_id', '=', old_cat_id)], limit=1)
+        if not new_category:
+            continue
+
+        vals = {}
+
+        for field_name, old_field_id in fields.items():
+            if field_name == 'property_stock_journal':
+                model = 'account.journal'
+            else:
+                model = 'account.account'
+
+            new_record = env[model].search([('old_id', '=', old_field_id)], limit=1)
+            if new_record:
+                vals[field_name] = new_record.id
+                print(f"✅ Found {model} for {field_name}: {new_record.name} (old_id {old_field_id})")
+            else:
+                print(f"⚠️ {model} with old_id {old_field_id} not found for category old_id {old_cat_id}")
+
+        if vals:
+            new_category.write(vals)
+            print(f"✅ Updated category {new_category.name} (old_id {old_cat_id}) with values: {vals}")
+---
+
+Operation Type ?
+
+In product triger expense tax:
+        supplier_taxes_id = fields.Many2many('account.tax', 'product_supplier_taxes_rel', 'prod_id', 'tax_id', string='Vendor Taxes', help='Default taxes used when buying the product.',
+        domain=[('type_tax_use', '=', 'purchase')],
+        default=lambda self: self.env.companies.account_purchase_tax_id or self.env.companies.root_id.sudo().account_purchase_tax_id,
+    )
+
+Table
+    product_template
+    product_product
+
+update product_template set old_id = id;
+update product_product set old_id = id;
+
+Skip:   service_type 
+        expense_policy 
+        invoice_policy 
+        purchase_method
+
+
+UPDATE product_template
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+UPDATE product_template
+SET name = to_jsonb(name ->> 'en_US')
+WHERE name::text LIKE '%en_US%';
+
+
+NOTE: After delete product_supplier_taxes_rel again migrate product template for complete count of product.
+
+again : update product_product set old_id = id;
+again : now migrate product_product first time
+
+For product template description:
+
+UPDATE product_template
+SET description = jsonb_build_object(
+    'en_US',
+    REGEXP_REPLACE(
+        REGEXP_REPLACE(
+            description ->> 'en_US',
+            '^<p>\{''en_US'': ''</p>',
+            '',
+            'g'
+        ),
+        '''\}$',
+        '',
+        'g'
+    )
+)
+WHERE description ->> 'en_US' ~ '<p>\{''en_US'': ''</p>';
+
+delete from product_supplier_taxes_rel;
+delete from product_taxes_rel;
+
+FOR PRODUCT SUPPLIER TAXES REL M2M TABLE (product_supplier_taxes_rel) , add code in action_migrate_for_related_tables method
+CUSTOMER TAXES (product_taxes_rel) ASLO WORK IT
+            for row in rows:
+                # record_data = {}
+                # for idx, field_name in enumerate(current_field_names):
+                #     value = row[idx]
+                #     if isinstance(value, dict):
+                #         value = psycopg2.extras.Json(value)  # Handle JSON if needed
+                #     record_data[field_name] = value
+
+                # insert_fields = ", ".join(current_field_names)
+                # insert_placeholders = ", ".join(["%s"] * len(current_field_names))
+                # sql_insert_query = f"INSERT INTO {current_table_name} ({insert_fields}) VALUES ({insert_placeholders})"
+                # insert_values = [record_data[field] for field in current_field_names]
+                # cursor_current.execute(sql_insert_query, insert_values)
+                # _logger.info(f"Inserted new record with fields: {insert_values}")
+
+                old_prod_id, old_tax_id = row
+
+                # Get new product_template ID using old_id
+                cursor_current.execute("SELECT id FROM product_template WHERE old_id = %s", (old_prod_id,))
+                result = cursor_current.fetchone()
+                new_prod_id = result[0] if result else None
+
+                # Get new account_tax ID using old_id
+                cursor_current.execute("SELECT id FROM account_tax WHERE old_id = %s", (old_tax_id,))
+                result = cursor_current.fetchone()
+                new_tax_id = result[0] if result else None
+
+                # Skip if either mapping not found
+                if not new_prod_id or not new_tax_id :
+                    _logger.warning(
+                        f"Skipping row: prod_id or tax_id not found for old_ids: {old_prod_id}, {old_tax_id}")
+                    continue
+
+                # Check if the record already exists to prevent duplicates
+                cursor_current.execute(
+                    f"""
+                       SELECT 1 FROM {current_table_name}
+                       WHERE prod_id = %s AND tax_id = %s
+                       """,
+                    (new_prod_id, new_tax_id)
+                )
+                if cursor_current.fetchone() :
+                    _logger.info(f"Relation already exists for prod_id={new_prod_id}, tax_id={new_tax_id}. Skipping.")
+                    continue
+
+                # Insert the record
+                cursor_current.execute(
+                    f"INSERT INTO {current_table_name} (prod_id, tax_id) VALUES (%s, %s)",
+                    (new_prod_id, new_tax_id)
+                )
+                _logger.info(f"Inserted new relation: prod_id={new_prod_id}, tax_id={new_tax_id}")
+
+            cursor_current.connection.commit()
+
+========
+Expense:
+========
+
+
+    tax_ids = fields.Many2many(
+        comodel_name='account.tax',
+        relation='expense_tax',
+        column1='expense_id',
+        column2='tax_id',
+        string="Included taxes",
+        compute='_compute_tax_ids', precompute=True, store=True, readonly=False,
+        domain="[('type_tax_use', '=', 'purchase')]",
+        check_company=True,
+        help="Both price-included and price-excluded taxes will behave as price-included taxes for expenses.",
+    )
+
+    @api.depends('product_id', 'company_id')
+    def _compute_tax_ids(self):
+        for _expense in self:
+            expense = _expense.with_company(_expense.company_id)
+            # taxes only from the same company
+            expense.tax_ids = expense.product_id.supplier_taxes_id.filtered_domain(self.env['account.tax']._check_company_domain(expense.company_id))
+
+FOR tax_ids of EXPENSE RECORD:
+for row in rows:
+    old_expense_id, old_tax_id = row
+
+    # Get new hr_expense ID using old_id
+    cursor_current.execute("SELECT id FROM hr_expense WHERE old_id = %s", (old_expense_id,))
+    result = cursor_current.fetchone()
+    new_expense_id = result[0] if result else None
+
+    # Get new account_tax ID using old_id
+    cursor_current.execute("SELECT id FROM account_tax WHERE old_id = %s", (old_tax_id,))
+    result = cursor_current.fetchone()
+    new_tax_id = result[0] if result else None
+
+    # Skip if mapping fails
+    if not new_expense_id or not new_tax_id:
+        _logger.warning(f"Skipping: expense_id or tax_id not found for old_ids: {old_expense_id}, {old_tax_id}")
+        continue
+
+    # Check for existing entry to avoid duplicates
+    cursor_current.execute(
+        f"""
+        SELECT 1 FROM {current_table_name}
+        WHERE expense_id = %s AND tax_id = %s
+        """,
+        (new_expense_id, new_tax_id)
+    )
+    if cursor_current.fetchone():
+        _logger.info(f"Relation already exists for expense_id={new_expense_id}, tax_id={new_tax_id}. Skipping.")
+        continue
+
+    # Insert the relation
+    cursor_current.execute(
+        f"INSERT INTO {current_table_name} (expense_id, tax_id) VALUES (%s, %s)",
+        (new_expense_id, new_tax_id)
+    )
+    _logger.info(f"Inserted: expense_id={new_expense_id}, tax_id={new_tax_id}")
+
+
+
+VERIFY HR_EXPENSE TOTAL AMOUNT USING GROUP BY ITS TAX_IDS:
+SELECT 
+    t.id AS tax_id,
+    t.name AS tax_name,
+    COUNT(e.id) AS expense_count,
+    SUM(e.total_amount) AS total_amount
+FROM 
+    hr_expense e
+JOIN 
+    expense_tax et ON et.expense_id = e.id
+JOIN 
+    account_tax t ON t.id = et.tax_id
+GROUP BY 
+    t.id, t.name
+ORDER BY 
+    t.name;
+
+VERIFY HR EXPENSE TOTAL AMOUNT USING GROUP BY ITS STATUS
+SELECT  
+    e.state,
+    COUNT(e.id) AS expense_count,
+    SUM(e.total_amount) AS total_amount
+FROM 
+    hr_expense e
+GROUP BY 
+    e.state
+ORDER BY 
+    e.state;
+
+
+Expense Line:
+-------------
+update payment_provider set old_id = 1 where id = 1;
+update payment_provider set old_id = 3 where id = 4;
+update payment_provider set old_id = 4 where id = 5;
+update payment_provider set old_id = 5 where id = 9;
+update payment_provider set old_id = 7 where id = 10;
+update payment_provider set old_id = 10 where id = 12;
+update payment_provider set old_id = 11 where id = 13;
+update payment_provider set old_id = 12 where id = 14;
+update payment_provider set old_id = 13 where id = 6;
+update payment_provider set old_id = 14 where id = 15;
+update payment_provider set old_id = 15 where id = 2;
+update payment_provider set old_id = 16 where id = 3;
+update payment_provider set old_id = 17 where id = 7;
+update payment_provider set old_id = 18 where id = 8;
+update payment_provider set old_id = 19 where id = 11;
+update payment_provider set old_id = 20 where id = 16;
+
+Table 
+    account_payment_method -- Migrate it
+
+update account_payment_method set old_id = id;
+
+UPDATE account_payment_method
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+    account_payment_method_line -- MIgrate it
+
+update account_payment_method_line set old_id = id;
+
+Table     
+    account_journal -- Migrate it
+    Skip : bank_statements_source
+
+update account_journal set old_id = 1 where id = 1;
+update account_journal set old_id = 2 where id = 2;
+update account_journal set old_id = 3 where id = 3;
+update account_journal set old_id = 4 where id = 4;
+update account_journal set old_id = 5 where id = 5;
+update account_journal set old_id = 6 where id = 8;
+update account_journal set old_id = 7 where id = 9;
+update account_journal set old_id = 8 where id = 10;
+update account_journal set old_id = 9 where id = 7;
+update account_journal set old_id = 10 where id = 6;
+
+
+
+UPDATE account_journal
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+    hr_expense_sheet
+
+skip : approval_sate
+
+VERIFY EXPENSE COUNT IN EXPENSE SHEET
+select id,name from hr_expense where sheet_id = 133; -- 2 
+select id,name from hr_expense_sheet where id = 133;
+
+
+==========
+Accounting 
+==========
+
+Table Already Done
+    account_payment_term
+    account_account
+    account_tax
+    account_tax_repartition_line
+    *account_journal
+    account_fiscal_position
+    account_tax_group
+    account_payment_method
+    account_payment_method_line
+    payment_provider
+    crm_team
+    *res_currency
+
+    (empty)
+    account_asset_asset
+    account_group Account Group
+    account_recurring_payments Recurring Templates
+    account_journal_group Jornal Group
+    payment_token
+    account_bank_statement
+    account_bank_statement_line
+    account_asset_category
+    account_cash_rounding
+
+Table
+    utm_stage
+update utm_stage set old_id = id; -- no migrate
+
+Table
+    utm_tag
+update utm_tag set old_id = id; -- no migrate
+
+Table
+    utm_campaign
+update utm_campaign set old_id = 610 where id = 1;
+update utm_campaign set old_id = 598 where id = 2;
+update utm_campaign set old_id = 609 where id = 3;
+update utm_campaign set old_id = 601 where id = 4;
+update utm_campaign set old_id = 608 where id = 5; -- Migrate it
+
+UPDATE utm_campaign
+SET title = jsonb_build_object(
+    'en_US',
+    REPLACE(title ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (title ->> 'en_US') LIKE '%''en_US''%';
+
+Table
+    utm_source
+update utm_source set old_id = id; -- No migrate
+
+Table
+    utm_medium
+update utm_medium set old_id = id; -- Migrate it
+
+
+Table
+    account_incoterms
+update account_incoterms set old_id = id; --  No migrate
+
+Table
+    account_reconcile_model
+update account_reconcile_model set old_id = id; -- No migrate
+
+Table
+    account_financial_report
+
+update account_financial_report set old_id = 1 where id = 1;
+update account_financial_report set old_id = 2 where id = 2;
+update account_financial_report set old_id = 7 where id = 3;
+update account_financial_report set old_id = 8 where id = 4;
+update account_financial_report set old_id = 9 where id = 5;
+update account_financial_report set old_id = 10 where id = 6;
+update account_financial_report set old_id = 11 where id = 7;
+update account_financial_report set old_id = 12 where id = 8; -- Migrate it
+
+UPDATE account_financial_report
+SET name = jsonb_build_object(
+    'en_US',
+    REPLACE(name ->> 'en_US', '''', '"')::jsonb ->> 'en_US'
+)
+WHERE (name ->> 'en_US') LIKE '%''en_US''%';
+
+Note : in account_financial_report model have not its realtion account_type_ids m2m table account_account_financial_report_type and also not have account_account_type
+
+======================================================
+4_Accounting_Config
+======================================================
+
+Note : No Migrate payment method, No update any changes "payment_method"
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SOLVE ISSUE OF PAYMENT METHOD NOT FOUND IN THIS PAYMENT
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Payment Method (payment_method_line_id) account_payment_method_line
+
+Open account_payment_method_line Table in Database Migration app
+
+Show
+====
+
+    Table
+    ======
+        account_payment_method
+
+    journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        ondelete="cascade",
+        check_company=True,
+    )
+    available_payment_method_ids = fields.Many2many(related='journal_id.available_payment_method_ids')
+
+    Table
+    ======
+        account_journal
+
+    available_payment_method_ids = fields.Many2many(
+    comodel_name='account.payment.method',
+    compute='_compute_available_payment_method_ids')
+
+    @api.depends('outbound_payment_method_line_ids', 'inbound_payment_method_line_ids')
+    def _compute_available_payment_method_ids(self):
+
+    inbound_payment_method_line_ids = fields.One2many(
+        comodel_name='account.payment.method.line',
+        domain=[('payment_type', '=', 'inbound')],
+        compute='_compute_inbound_payment_method_line_ids',
+        store=True,
+        readonly=False,
+        string='Inbound Payment Methods',
+        inverse_name='journal_id',
+        copy=False,
+        check_company=True,
+        help="Manual: Get paid by any method outside of Odoo.\n"
+        "Payment Providers: Each payment provider has its own Payment Method. Request a transaction on/to a card thanks to a payment token saved by the partner when buying or subscribing online.\n"
+        "Batch Deposit: Collect several customer checks at once generating and submitting a batch deposit to your bank. Module account_batch_payment is necessary.\n"
+        "SEPA Direct Debit: Get paid in the SEPA zone thanks to a mandate your partner will have granted to you. Module account_sepa is necessary.\n"
+    )
+    outbound_payment_method_line_ids = fields.One2many(
+        comodel_name='account.payment.method.line',
+        domain=[('payment_type', '=', 'outbound')],
+        compute='_compute_outbound_payment_method_line_ids',
+        store=True,
+        readonly=False,
+        string='Outbound Payment Methods',
+        inverse_name='journal_id',
+        copy=False,
+        check_company=True,
+        help="Manual: Pay by any method outside of Odoo.\n"
+        "Check: Pay bills by check and print it from Odoo.\n"
+        "SEPA Credit Transfer: Pay in the SEPA zone by submitting a SEPA Credit Transfer file to your bank. Module account_sepa is necessary.\n"
+    )
+
+
+    @api.depends('type', 'currency_id')
+    def _compute_inbound_payment_method_line_ids(self):
+
+    @api.depends('type', 'currency_id')
+    def _compute_outbound_payment_method_line_ids(self):
+
+    => Migrate inbound_payment_method_line_ids and outbound_payment_method_line_ids
+    => Migrate type and currency_id
+    => Solve issue of payment method not fount in this payment.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Table
+    account_payment -- Migrate it
+
+update account_move set old_id = id;
+
+Table
+    account_move -- Migrate it
+
+Agian Migrate account_payment.
+
+update account_move_line set old_id = id;
+
+Table
+    account_move_line -- Migrate it
+
+account_move_line model tax_ids m2m field table name account_move_line_account_tax_rel and its column name account_move_line_id, account_tax_id
+
+                old_move_line_id, old_tax_id = row
+
+                # Get new account.move.line ID using old_id
+                cursor_current.execute("SELECT id FROM account_move_line WHERE old_id = %s", (old_move_line_id,))
+                result = cursor_current.fetchone()
+                new_move_line_id = result[0] if result else None
+
+                # Get new account.tax ID using old_id
+                cursor_current.execute("SELECT id FROM account_tax WHERE old_id = %s", (old_tax_id,))
+                result = cursor_current.fetchone()
+                new_tax_id = result[0] if result else None
+
+                # Skip if mapping fails
+                if not new_move_line_id or not new_tax_id :
+                    _logger.warning(
+                        f"Skipping row: account_move_line_id or account_tax_id not found for old_ids: {old_move_line_id}, {old_tax_id}"
+                    )
+                    continue
+
+                # Check for existing record to avoid duplicates
+                cursor_current.execute(
+                    """
+                    SELECT 1 FROM account_move_line_account_tax_rel
+                    WHERE account_move_line_id = %s AND account_tax_id = %s
+                    """,
+                    (new_move_line_id, new_tax_id)
+                )
+                if cursor_current.fetchone() :
+                    _logger.info(
+                        f"Relation already exists for account_move_line_id={new_move_line_id}, account_tax_id={new_tax_id}. Skipping."
+                    )
+                    continue
+
+                # Insert the new relation
+                cursor_current.execute(
+                    """
+                    INSERT INTO account_move_line_account_tax_rel (account_move_line_id, account_tax_id)
+                    VALUES (%s, %s)
+                    """,
+                    (new_move_line_id, new_tax_id)
+                )
+                _logger.info(
+                    f"Inserted relation: account_move_line_id={new_move_line_id}, account_tax_id={new_tax_id}"
+                )
+=====
+
+
+=====
+account_move_line model tax_tag_ids m2m field table name account_account_tag_account_move_line_rel  and its column name  account_move_line_id and account_account_tag_id
+
+# Assuming row contains old_move_line_id and old_tag_id from old DB
+old_move_line_id, old_tag_id = row
+
+# Get new account.move.line ID using old_id
+cursor_current.execute("SELECT id FROM account_move_line WHERE old_id = %s", (old_move_line_id,))
+result = cursor_current.fetchone()
+new_move_line_id = result[0] if result else None
+
+# Get new account.account.tag ID using old_id
+cursor_current.execute("SELECT id FROM account_account_tag WHERE old_id = %s", (old_tag_id,))
+result = cursor_current.fetchone()
+new_tag_id = result[0] if result else None
+
+# Skip if mapping fails
+if not new_move_line_id or not new_tag_id:
+    _logger.warning(
+        f"Skipping row: account_move_line_id or account_account_tag_id not found for old_ids: {old_move_line_id}, {old_tag_id}"
+    )
+    continue
+
+# Check for existing record to avoid duplicates
+cursor_current.execute(
+    """
+    SELECT 1 FROM account_account_tag_account_move_line_rel
+    WHERE account_move_line_id = %s AND account_account_tag_id = %s
+    """,
+    (new_move_line_id, new_tag_id)
+)
+if cursor_current.fetchone():
+    _logger.info(
+        f"Relation already exists for account_move_line_id={new_move_line_id}, account_account_tag_id={new_tag_id}. Skipping."
+    )
+    continue
+
+# Insert the new relation
+cursor_current.execute(
+    """
+    INSERT INTO account_account_tag_account_move_line_rel (account_move_line_id, account_account_tag_id)
+    VALUES (%s, %s)
+    """,
+    (new_move_line_id, new_tag_id)
+)
+_logger.info(
+    f"Inserted relation: account_move_line_id={new_move_line_id}, account_account_tag_id={new_tag_id}"
+)
+
+
+Table
+=====
+    payment_transaction -- Migrate it
+
+invoice_ids m2m fields table name account_invoice_transaction_rel and column1='transaction_id', column2='invoice_id':
+
+                old_invoice_id, old_transaction_id  = row
+
+                # Get new transaction_id from old_id
+                cursor_current.execute("SELECT id FROM payment_transaction WHERE old_id = %s", (old_transaction_id,))
+                result = cursor_current.fetchone()
+                new_transaction_id = result[0] if result else None
+
+                # Get new invoice_id from old_id (account.move)
+                cursor_current.execute("SELECT id FROM account_move WHERE old_id = %s", (old_invoice_id,))
+                result = cursor_current.fetchone()
+                new_invoice_id = result[0] if result else None
+
+                # Skip if either mapping fails
+                if not new_transaction_id or not new_invoice_id :
+                    _logger.warning(
+                        f"Skipping row: transaction_id or invoice_id not found for old_ids: {old_transaction_id}, {old_invoice_id}"
+                    )
+                    continue
+
+                # Check for existing relation
+                cursor_current.execute(
+                    """
+                    SELECT 1 FROM account_invoice_transaction_rel
+                    WHERE transaction_id = %s AND invoice_id = %s
+                    """,
+                    (new_transaction_id, new_invoice_id)
+                )
+                if cursor_current.fetchone() :
+                    _logger.info(
+                        f"Relation already exists for transaction_id={new_transaction_id}, invoice_id={new_invoice_id}. Skipping."
+                    )
+                    continue
+
+                # Insert new relation
+                cursor_current.execute(
+                    """
+                    INSERT INTO account_invoice_transaction_rel (transaction_id, invoice_id)
+                    VALUES (%s, %s)
+                    """,
+                    (new_transaction_id, new_invoice_id)
+                )
+                _logger.info(f"Inserted new relation: transaction_id={new_transaction_id}, invoice_id={new_invoice_id}")
+
+
+
+
+Table
+=====
+    pdc_account_payment
+    account_move_pdc_account_payment_rel -- m2m table of invoice_ids
+
+Use this code for m2m invoice_ids field:
+
+                old_pdc_id, old_move_id = row
+
+                # Get new PDC payment ID using old_id
+                cursor_current.execute("SELECT id FROM pdc_account_payment WHERE old_id = %s", (old_pdc_id,))
+                result = cursor_current.fetchone()
+                new_pdc_id = result[0] if result else None
+
+                # Get new account_move ID using old_id
+                cursor_current.execute("SELECT id FROM account_move WHERE old_id = %s", (old_move_id,))
+                result = cursor_current.fetchone()
+                new_move_id = result[0] if result else None
+
+                # Skip if mapping fails
+                if not new_pdc_id or not new_move_id :
+                    _logger.warning(
+                        f"Skipping row: pdc_account_payment_id or account_move_id not found for old_ids: {old_pdc_id}, {old_move_id}"
+                    )
+                    continue
+
+                # Check for existing entry to avoid duplicates
+                cursor_current.execute(
+                    """
+                    SELECT 1 FROM account_move_pdc_account_payment_rel
+                    WHERE pdc_account_payment_id = %s AND account_move_id = %s
+                    """,
+                    (new_pdc_id, new_move_id)
+                )
+                if cursor_current.fetchone() :
+                    _logger.info(
+                        f"Relation already exists for pdc_account_payment_id={new_pdc_id}, account_move_id={new_move_id}. Skipping."
+                    )
+                    continue
+
+                # Insert the new relation
+                cursor_current.execute(
+                    """
+                    INSERT INTO account_move_pdc_account_payment_rel (pdc_account_payment_id, account_move_id)
+                    VALUES (%s, %s)
+                    """,
+                    (new_pdc_id, new_move_id)
+                )
+                _logger.info(
+                    f"Inserted new relation: pdc_account_payment_id={new_pdc_id}, account_move_id={new_move_id}")
+
+
+
+
+Table
+    account_report
+update account_report set old_id = 4 where id = 17;
+update account_report set old_id = 3 where id = 3;
+update account_report set old_id = 2 where id = 2;
+update account_report set old_id = 1 where id = 1;
+
+Table
+    account_partial_reconcile
+
+========================
+7_Pending_After_Partial_Reconcile
+========================
+
+Table 
+    account_full_reconcile
+
+class AccountFullReconcile(models.Model):
+    _name = "account.full.reconcile"
+    _description = "Full Reconcile"
+
+    partial_reconcile_ids = fields.One2many('account.partial.reconcile', 'full_reconcile_id', string='Reconciliation Parts')
+    reconciled_line_ids = fields.One2many('account.move.line', 'full_reconcile_id', string='Matched Journal Items')
+
+
+Table 
+    account_payment 
+    [bill,invocie] [partial,full] 
+
+@api.depends('move_id.line_ids.matched_debit_ids', 'move_id.line_ids.matched_credit_ids')
+
+acount_move_line:
+    partial:
+    matched_debit_ids
+    matched_credit_ids
+
+    full:
+    full_reconsile_id
+
+- Account Payment bill smart button
+ 
+@api.depends('move_id.line_ids.matched_debit_ids', 'move_id.line_ids.matched_credit_ids')
+def _compute_stat_buttons_from_reconciliation(self):
+
+
+Table 
+    hr_expense_sheet
+- account_move_ids o2m
+
+    acount_move
+- expense_sheet_id m2o "Done"
+
+
+FOR CURRENCY UPDATE
+---------------------
+add this code in action_migrate method
+                        if model_name in ("res.currency"):
+                            mapped_values = (
+                                self.env[model_name]
+                                .search(domain)
+                                .mapped(lambda r: (r.old_id, r.id))   # Changes here 
+                            )
+                        else:
+                            mapped_values = (
+                                self.env[model_name]
+                                .search(domain)
+                                .mapped(lambda r: (r.old_id, r.id))
+                            )
+
+account_move_line
+    - currency_id
+    - company_currency_id
+    - payment_pdc_id for Originator PDC payment
+
+account_move
+    - currency_id
+
+pdc_account_payment
+    - 
+
+
+FOR hr_expense_sheet , res_partner CREATE DATE # change only table name
+------------------------------------------------------------------------
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+
+# Load config
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = 'korzo_migration'
+table_name = 'hr.expense.sheet'
+
+
+field_values = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    old_records = env[table_name].search([])
+
+    for rec in old_records:
+        field_values[rec.id] = rec.create_date
+
+# Step 2: Update in new DB
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    for ids, values in field_values.items():
+        new_record = env[table_name].search([('old_id', '=', ids)], limit=1)
+
+        # if new_record:
+        #     new_record.write({'create_date': values})
+
+        print(new_record.create_date, new_record.old_id, values)
+
+        if new_record :
+            cr.execute(
+                f"UPDATE {table_name.replace('.', '_')} SET create_date = %s WHERE id = %s",
+                (values, new_record.id)
+            )
+
+
+
+Table
+    hr_expense_sheet
+    - update state for count match
+
+
+========================================================================================================
+========================================================================================================
+========================================================================================================
+========================================================================================================
+
+
+    account_root X
+
+*Right of use asset check in account_account [not migrate again beacuse aleardy migrate expence record]
+
+Table
+    payment_method skip : support_refund
+
+update payment_method set old_id = id; -- Migrate it
+
+Table
+    payment_transaction
+
+delete from payment_method_payment_provider_rel;
+
+MIGRAE PAYMENT METHOD M2M TABL : payment_method_payment_provider_rel
+
+                old_provider_id, old_method_id = row
+
+                # Get new account_payment_method ID using old_id
+                cursor_current.execute("SELECT id FROM payment_method WHERE old_id = %s", (old_method_id,))
+                result = cursor_current.fetchone()
+                new_method_id = result[0] if result else None
+
+                # Get new payment_provider ID using old_id
+                cursor_current.execute("SELECT id FROM payment_provider WHERE old_id = %s", (old_provider_id,))
+                result = cursor_current.fetchone()
+                new_provider_id = result[0] if result else None
+
+                # Skip if either mapping is missing
+                if not new_method_id or not new_provider_id :
+                    _logger.warning(
+                        f"Skipping: payment_method or provider not found for old_ids: {old_method_id}, {old_provider_id}"
+                    )
+                    continue
+
+                # Check if relation already exists
+                cursor_current.execute(
+                    f"""
+                        SELECT 1 FROM {current_table_name}
+                        WHERE payment_method_id = %s AND payment_provider_id = %s
+                        """,
+                    (new_method_id, new_provider_id)
+                )
+                if cursor_current.fetchone() :
+                    _logger.info(
+                        f"Relation already exists: method_id={new_method_id}, provider_id={new_provider_id}. Skipping."
+                    )
+                    continue
+
+                # Insert new record
+                cursor_current.execute(
+                    f"INSERT INTO {current_table_name} (payment_method_id, payment_provider_id) VALUES (%s, %s)",
+                    (new_method_id, new_provider_id)
+                )
+                _logger.info(
+                    f"Inserted relation: method_id={new_method_id}, provider_id={new_provider_id}"
+                )
+
+
+
+================
+
+
+
+import xmlrpc.client
+
+ODOO_URL = "http://localhost:1705"
+OLD_DB = "korzo_accounting_v17"
+USERNAME = "admin"
+PASSWORD = "admin"
+
+NEW_DB = "korzo_migration"
+MODEL_NAME = "hr.expense.sheet"
+
+
+common = xmlrpc.client.ServerProxy(f"{ODOO_URL}/xmlrpc/2/common")
+
+uid_old = common.authenticate(OLD_DB, USERNAME, PASSWORD, {})
+models_old = xmlrpc.client.ServerProxy(f"{ODOO_URL}/xmlrpc/2/object")
+
+uid_new = common.authenticate(NEW_DB, USERNAME, PASSWORD, {})
+models_new = xmlrpc.client.ServerProxy(f"{ODOO_URL}/xmlrpc/2/object")
+
+
+old_records = models_old.execute_kw(
+    OLD_DB, uid_old, PASSWORD,
+    MODEL_NAME, 'search_read',
+    [[]],
+    {'fields': ['id', 'create_date']}
+)
+
+for record in old_records:
+    old_id = record['id']
+    create_date = record['create_date']
+    new_record = models_new.execute_kw(
+        NEW_DB, uid_new, PASSWORD,
+        MODEL_NAME, 'search_read',
+        [[['old_id', '=', old_id]]],
+        {'fields': ['id'], 'limit': 1}
+    )
+
+    if new_record:
+        new_id = new_record[0]['id']
+        models_new.execute_kw(
+            NEW_DB, uid_new, PASSWORD,
+            MODEL_NAME, 'write',
+            [[new_id], {'create_date': create_date}]
+        )
+        print(f"Updated record ID {new_id} with create_date {create_date}")
+
+        # query = f"""
+        #     UPDATE {table_name}
+        #     SET create_date = %s
+        #     WHERE old_id = %s
+        # """
+        # self.env.cr.execute(query, (create_date, old_id))
+
+print("Migration completed successfully.")
+
+
+
+
+
+
+=============================
+=============================
+Table
+    account_move
+
+SELECT
+    j.id AS journal_id,
+    j.name AS journal_name,
+    COUNT(am.id) AS move_count,
+    SUM(am.amount_total_signed) AS total_amount_signed
+FROM account_move AS am
+JOIN account_journal AS j ON am.journal_id = j.id
+GROUP BY j.id, j.name
+ORDER BY j.id;
+
+SELECT state, COUNT(*) AS move_count
+FROM account_move
+GROUP BY state
+ORDER BY state;
+
+Table
+    account_move_line
+
+SELECT am.journal_id, j.name AS journal_name, COUNT(aml.id) AS line_count
+FROM account_move_line aml
+JOIN account_move am ON aml.move_id = am.id
+JOIN account_journal j ON am.journal_id = j.id
+GROUP BY am.journal_id, j.name
+ORDER BY j.name;
+
+
+
+
+++++++++++++++++++++++++++++++++++
+SELECT SUM(amount_company_currency_signed) AS total_amount
+FROM account_payment;
+
+SELECT
+    j.id AS journal_id,
+    j.name AS journal_name,
+    COUNT(am.id) AS move_count,
+    SUM(am.amount_total_signed) AS total_amount_signed
+FROM account_move AS am
+JOIN account_journal AS j ON am.journal_id = j.id
+GROUP BY j.id, j.name
+ORDER BY j.id;
+
+SELECT 
+    am.journal_id, 
+    j.name AS journal_name, 
+    COUNT(aml.id) AS line_count,
+    SUM(aml.debit) AS total_debit,
+    SUM(aml.credit) AS total_credit
+FROM account_move_line aml
+JOIN account_move am ON aml.move_id = am.id
+JOIN account_journal j ON am.journal_id = j.id
+GROUP BY am.journal_id, j.name
+ORDER BY j.name;
+
+SELECT 
+    state, 
+    COUNT(id) AS payment_count,
+    SUM(amount) AS total_amount
+FROM pdc_account_payment
+GROUP BY state
+ORDER BY state;
+
+SELECT id,old_id,move_id, name, debit, credit, account_id 
+FROM account_move_line 
+WHERE move_id = 4164
+ORDER BY id;
+
+select id,old_id,name from account_move_line where old_id = 14545;
+select id,old_id,name from account_move_line where old_id = 14546;
+
+SELECT COUNT(*) AS total_count
+FROM account_move;
+SELECT COUNT(*) AS total_count
+FROM account_move_line;
+
+
+
+=============================
+=============================
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+from collections import Counter
+
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = 'korzo_migration'
+table_name = 'account_move'
+
+old_rec_ids = []
+new_rec_ids = []
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    cr.execute(f"SELECT id FROM {table_name}")
+    for rec in cr.fetchall():
+        old_rec_ids.append(rec[0])
+
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    cr.execute(f"SELECT old_id FROM {table_name}")
+    for rec in cr.fetchall():
+        new_rec_ids.append(rec[0])
+
+missing_in_old = []
+for old_id in new_rec_ids:
+    if old_id not in old_rec_ids:
+        missing_in_old.append(old_id)
+
+# print(old_rec_ids)
+# print(new_rec_ids)
+print("Missing in old db:", missing_in_old)
+print("Missing Count:", len(missing_in_old))
+
+
+# # lists = [1,1,2,3,4,4,5]
+# counter = Counter(new_rec_ids)
+# for old_id, count in counter.items():
+#     # print(f"Old ID {old_id} appears {count} times in new records")
+#     if count > 1:
+#         print(f"Old ID {old_id} appears {count} times")
+
+==========================
+
+MATCH OLD DB ID INTO NEW DB OLD_ID 
+
+import xmlrpc.client
+
+# Old DB Connection
+old_odoo_url = "http://localhost:1500"
+old_db_name = "v15_korzo_6_7_25"
+username = "admin"
+password = "admin"
+table_name = "account.move.line"
+# table_name = "res.users"
+
+old_common = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/common")
+old_models = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/object")
+old_uid = old_common.authenticate(old_db_name, username, password, {})
+
+old_records = old_models.execute_kw(
+    old_db_name, old_uid, password,
+    table_name, 'search_read',
+    [[]],
+    {'fields': ['id']}
+)
+old_rec_ids = [rec['id'] for rec in old_records]
+# print("Old Record IDs:", old_rec_ids)
+
+
+# NEW DB Connection
+new_odoo_url = "http://localhost:1705"
+new_db_name = "korzo_production"
+
+new_common = xmlrpc.client.ServerProxy(f"{new_odoo_url}/xmlrpc/2/common")
+new_models = xmlrpc.client.ServerProxy(f"{new_odoo_url}/xmlrpc/2/object")
+new_uid = new_common.authenticate(new_db_name, username, password, {})
+
+# Fetch new DB record IDs and old_ids
+new_records = new_models.execute_kw(
+    new_db_name, new_uid, password,
+    table_name, 'search_read',
+    [[]],
+    {'fields': ['id', 'old_id']}
+)
+new_rec_ids = {rec['id']: rec['old_id'] for rec in new_records}
+# print("New Records with old_id:", new_rec_ids)
+
+# Comparison Logic
+missing_id = []
+for id in old_rec_ids:
+    if id not in new_rec_ids.values():
+        missing_id.append(id)
+
+print("Missing IDs in New DB old_id:", missing_id)
+print("Missing Count:", len(missing_id))
+
+
+========================
+
+COMPER NEW DATABASE "OLD ID" -> WITH -> OLD DATABASE "ID"
+
+
+import odoo
+import odoo.tools.config as config
+import odoo.service.server
+from odoo import SUPERUSER_ID
+from collections import Counter
+
+config.parse_config(['-c', r"D:\Projects\Projects_v17\v17_Korzo\conf\odoo.conf"])
+
+old_db = 'korzo_accounting_v17'
+new_db = 'korzo_migration'
+table_name = 'res_users'
+
+old_rec_ids = []
+new_rec_ids = {}
+
+odoo.service.server.preload_registries([old_db])
+old_registry = odoo.registry(old_db)
+with old_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    cr.execute(f"SELECT id FROM {table_name}")
+    for rec in cr.fetchall():
+        old_rec_ids.append(rec[0])
+
+odoo.service.server.preload_registries([new_db])
+new_registry = odoo.registry(new_db)
+with new_registry.cursor() as cr:
+    env = odoo.api.Environment(cr, SUPERUSER_ID, {})
+    cr.execute(f"SELECT id,old_id FROM {table_name}")
+    for rec in cr.fetchall():
+        new_rec_ids[rec[0]] = rec[1]
+
+missing_id = []
+missing_in_old = {}
+for id, old_id in new_rec_ids.items():
+    if old_id not in old_rec_ids:
+        missing_in_old[id] = old_id
+        missing_id.append(id)
+
+print(missing_id)
+print("Missing in old db:", missing_in_old)
+print("Missing Count:", len(missing_in_old))
+
+
+=============================
+
+
+-- DELETE FROM account_move WHERE id IN (
+--     6, 3, 5, 7, 8, 9, 10, 11, 12, 48, 49, 50, 51, 47, 477, 96, 97, 99, 117, 98, 100, 162, 170, 167, 499, 244, 280, 282, 284, 272, 279, 281, 283, 301, 516, 330, 403, 542, 577, 601, 623, 653, 662, 663, 668, 794, 789, 790,
+--     791, 792, 793, 795, 796, 797, 798, 799, 800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813, 814, 815, 816, 817, 818, 819, 833, 834, 835, 836, 861, 951, 969, 979, 997
+-- );
+
+-- DELETE FROM account_move_line WHERE id IN (
+--     24, 15, 21, 22, 19, 20, 11, 12, 13, 14, 17, 18, 25, 26, 1805, 1806, 23, 1807, 1808, 137, 138, 139, 140, 141, 142, 143, 144, 16, 1809, 1810, 1811, 1812, 223, 224, 299, 300, 297, 298,
+--     374, 375, 376, 552, 558, 570, 576, 1012, 1013, 1014, 866, 1015, 869, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 997, 1069, 1070, 301, 302, 1164, 1165, 1166, 632, 870, 135,
+--     136, 980, 1974, 1975, 1978, 1979, 1988, 1411, 1412, 996, 295, 2040, 2041, 2042, 294, 296, 1577, 1578, 1579, 1599, 1600, 1601, 1602, 1603, 2126, 2127, 2128, 2129, 1668, 1669, 1712, 1713,
+--     1760, 1766, 1767, 1768, 1769, 1770, 1771, 1803, 1804, 1795, 1796, 1797, 1798, 1799, 1800, 1801, 1802, 2153, 2154, 2194, 2195, 2196, 2227, 2279, 2280, 2281, 2307, 2304, 2305, 2306,
+--     2308, 2309, 2314, 2315, 2318, 2319, 2320, 2321, 2322, 2323, 2478, 2480, 571, 577, 2662, 2647, 2648, 2649, 2650, 2651, 2652, 2653, 2654, 2655, 2656, 2657, 2658, 2659, 2660, 2661, 2663,
+--     2664, 2665, 2666, 2667, 2668, 2669, 2670, 2671, 2672, 2673, 2712, 2713, 2714, 2715, 2716, 2717, 2718, 2719
+-- );
+
+
+================
+
+import xmlrpc.client
+
+old_odoo_url = "http://localhost:1705"
+old_db_name = "korzo_accounting_v17"
+new_db_name = "korzo_migration"
+username = "admin"
+password = "admin"
+table_name = "res.users"
+
+common = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/common")
+models = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/object")
+uid = common.authenticate(old_db_name, username, password, {})
+print(uid)
+record = models.execute_kw(old_db_name, uid, password, table_name, 'search', [[]])
+print(record)
+
+
+
+
+
+
+===========================
+===========================
+
+
+localhost/server : port
+
+
+
+
+Server Instense > Database > port
+                  upgraded > 1710
+                  current > 1717
+                  milano > 1705
+
+
+E.g. http://5.195.111.211  <-- Server
+
+     http://localhost:1710 
+     - Server (http://localhost) - Port (:1705) 
+
+
+
+=============================
+=============================
+
+
+
+                # Assuming row contains old_move_line_id and old_tag_id from old DB
+                old_move_line_id, old_tag_id = row
+
+                # Get new account.move.line ID using old_id
+                cursor_current.execute(
+                    "SELECT id FROM account_move_line WHERE old_id = %s",
+                    (old_move_line_id,),
+                )
+                result = cursor_current.fetchone()
+                new_move_line_id = result[0] if result else None
+
+                # Get new account.account.tag ID using old_id
+                cursor_current.execute(
+                    "SELECT id FROM account_account_tag WHERE old_id = %s",
+                    (old_tag_id,),
+                )
+                result = cursor_current.fetchone()
+                new_tag_id = result[0] if result else None
+
+                # Skip if mapping fails
+                if not new_move_line_id or not new_tag_id:
+                    _logger.warning(
+                        f"Skipping row: account_move_line_id or account_account_tag_id not found for old_ids: {old_move_line_id}, {old_tag_id}"
+                    )
+                    continue
+
+                # Check for existing record to avoid duplicates
+                cursor_current.execute(
+                    """
+                    SELECT 1 FROM account_account_tag_account_move_line_rel
+                    WHERE account_move_line_id = %s AND account_account_tag_id = %s
+                    """,
+                    (new_move_line_id, new_tag_id),
+                )
+                if cursor_current.fetchone():
+                    _logger.info(
+                        f"Relation already exists for account_move_line_id={new_move_line_id}, account_account_tag_id={new_tag_id}. Skipping."
+                    )
+                    continue
+
+                # Insert the new relation
+                cursor_current.execute(
+                    """
+                    INSERT INTO account_account_tag_account_move_line_rel (account_move_line_id, account_account_tag_id)
+                    VALUES (%s, %s)
+                    """,
+                    (new_move_line_id, new_tag_id),
+                )
+                _logger.info(
+                    f"Inserted relation: account_move_line_id={new_move_line_id}, account_account_tag_id={new_tag_id}"
+                )
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+DELETE FROM account_move 
+WHERE id IN (
+    8, 834, 5, 7, 818, 819, 6, 9, 10, 11, 12, 833, 835, 836, 47, 48, 49, 50, 51, 861, 96, 117, 97, 98, 99, 100,
+    162, 167, 170, 272, 244, 301, 283, 279, 280, 281, 284, 282, 330, 403, 477, 499, 516, 542, 577, 601, 623, 653,
+    663, 668, 662, 790, 791, 792, 793, 795, 796, 797, 799, 800, 801, 802, 798, 789, 794, 803, 804, 805, 806, 807,
+    810, 811, 812, 813, 814, 815, 816, 951, 808, 809, 817, 979, 969, 997, 1030, 1031, 1032, 1033, 1036, 1039,
+    1040, 1041, 1042, 1043, 1044, 1045, 1048, 1049, 1050, 1027, 1028, 1026, 1029, 1034, 1035, 1037, 1038, 1046,
+    1047, 1051, 1052, 1053, 1054, 1055, 1056, 1057
+);
+
+
+
+
+DELETE FROM account_move_line
+WHERE id IN (
+    784, 3308, 1805, 2647, 15, 16, 17, 18, 5, 6, 11, 12, 13, 14, 19, 20, 25, 26, 135, 136, 137, 138, 139, 140, 
+    223, 224, 996, 295, 296, 299, 300, 301, 302, 2279, 2280, 2281, 336, 374, 375, 376, 23, 24, 576, 21, 552, 
+    558, 559, 560, 570, 571, 572, 577, 632, 22, 3306, 2304, 677, 2305, 2306, 3307, 2307, 2308, 2309, 869, 870, 
+    3309, 2314, 3310, 980, 3311, 2315, 3312, 1069, 1070, 2318, 2319, 2320, 3313, 2321, 2322, 2323, 3314, 3315, 
+    1164, 1165, 1166, 3316, 1180, 3317, 3318, 3319, 1425, 3320, 3321, 3322, 1579, 1577, 1578, 1603, 1599, 1600, 
+    1601, 1602, 3323, 1769, 1668, 1669, 1670, 3324, 1712, 1713, 1760, 1766, 1770, 1797, 1771, 1798, 3325, 1795, 
+    1796, 1799, 1800, 1801, 1802, 1807, 1808, 1803, 1804, 1809, 1810, 1811, 1812, 3326, 141, 142, 3327, 143, 
+    144, 3328, 1974, 1975, 1978, 1979, 1988, 2041, 2042, 3329, 3330, 294, 1767, 1768, 2126, 1411, 1412, 297, 
+    298, 3331, 2127, 2128, 2129, 3332, 2153, 2154, 1806, 866, 2194, 2195, 2196, 2040, 3333, 2227, 3334, 2478, 
+    2480, 3335, 2648, 2649, 2650, 2651, 2652, 2653, 2654, 2655, 2656, 2657, 2658, 2659, 2660, 2661, 2662, 2663, 
+    2664, 2665, 2666, 2667, 2668, 2669, 2670, 2671, 2672, 2673, 2711, 2712, 2713, 2714, 2715, 2716, 2717, 2718, 
+    2719, 2793, 2794, 2805, 3045, 3046, 3047, 3048, 3049, 3050, 3051, 3052, 3093, 3094, 3135, 3136, 3244, 3259, 
+    3435, 3489, 3503, 3577, 3578, 3579, 3580, 3581, 3582, 3583, 3584, 3616, 3617, 3618, 3619, 3620, 3621, 3622, 
+    3623, 3624, 3625, 3694, 3695, 3696, 3697, 3698, 3699, 3722, 3723, 3724
+);
+
+
+
+===================================
+import xmlrpc.client
+
+# Connect to OLD DB
+old_odoo_url = "http://localhost:1500"
+old_db_name = "v15_korzo_6_7_25"
+username = "admin"
+password = "admin"
+table_name = "res.users"
+
+old_common = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/common")
+old_models = xmlrpc.client.ServerProxy(f"{old_odoo_url}/xmlrpc/2/object")
+old_uid = old_common.authenticate(old_db_name, username, password, {})
+
+old_records = old_models.execute_kw(old_db_name, old_uid, password, table_name, 'search', [[]])
+print("Old Records:", old_records)
+
+# Connect to NEW DB
+new_odoo_url = "http://localhost:1705"
+new_db_name = "korzo_production"
+
+new_common = xmlrpc.client.ServerProxy(f"{new_odoo_url}/xmlrpc/2/common")
+new_models = xmlrpc.client.ServerProxy(f"{new_odoo_url}/xmlrpc/2/object")
+new_uid = new_common.authenticate(new_db_name, username, password, {})
+
+new_records = new_models.execute_kw(new_db_name, new_uid, password, table_name, 'search', [[]])
+print("New Records:", new_records)
+
+
+===============
+
+    #
+    # def validate_incoming_move(self):
+    #     for move in self :
+    #         if move.move_state == "received":
+    #             # Check if other moves in same picking are not received
+    #             other_moves = move.picking_id.move_ids.filtered(
+    #                 lambda m: m.id != move.id and m.move_state != "received")
+    #             if other_moves:
+    #                 # Auto-create backorder
+    #                 backorder = self.env["stock.backorder.confirmation"].create({
+    #                     "pick_ids": [(4, move.picking_id.id)],
+    #                 })
+    #                 backorder.process()
+    #
+    #             # Validate picking after creating backorder (if any)
+    #             move.picking_id.button_validate()
+    #             move.move_state = "validate"
+
+
+
+
+
+    
+
+
+
+
+When creating incoming moves (in PO lines prepare_stock_moves).
+When processing outgoing moves (in your action_launch_stock_rule method).
+
+
+
+
+
+
+
+                    if product_id.product_types != 'roller':
+                        description_picking = f"{move.sale_line_id.name} - {product_id.display_name}"
+                    else:
+                        description_picking = product_id.display_name
+
+                    if move.picking_type_id.code == 'outgoing':
+                        move.write({
+                            "product_name": description_picking,
+                            "color": order.color,
+                            "sale_id": order.id if order.id else False,
+                        })
+
+
+
+
+
+
+
+
+
+
+Korzo Migration—v15 to v17
+
+DONE
+====
+
+Check the payment status
+    BILL/2024/03/0022
+    BILL/2024/03/0030
+    BILL/2024/11/000000002
+    BILL/2025/01/000000026
+    BILL/2025/02/000000029
+    BILL/2025/04/000000017
+    BILL/2025/05/000000075
+    BILL/2025/05/000000090
+    BILL/2025/06/000000072
+    - migrate account_move field id, state
+
+BILL/2024/05/0011 (There is 0 amount in this cancelled bill.)
+    - ready j che
+
+Can’t open journal entry and expense from expense reports because of payment method
+    - First migrate full account_payment_method_line
+    - After migrate id, journal_id, payment_method_line_id
+
+Amount_company_currency_signed not matched in payments (account_payment)
+    - Migrat account_payment field id, amount_company_currency_signed
+
+Check PDC payment journal entries have only one move line
+    - migrate account_move_line table field move_id 
+    - migrate account_move o2m line_ids
+        Error during migration: An error has occurred. The move (BNK1/2025/06/00033 (INV/2025/00180)) is not balanced. The total of debits equals 0.56 AED and the total of credits equals 1,224.56 AED. You might want to specify a default account on journal "Bank" to automatically balance each move.
+    - v15 databse fiend its id into new db old_id and get 33 record.
+    - After migrate account_move_line full record. 
+Progress
+========
+
+
+
+Check this expense report—Office Expense (no. 1506)—id 173
+    - ready j che
+
+Mismatched count of journal items - ready j che
+Mismatched debit/credit of journal items - ready j che
+Mismatched amount residual of journal items - ready j che
+
+Miscellaneous entry— 
+    amount_total_signed is different than debit and credit. - ready j che
+    Move lines missing of PDC payments in bank and cash entries - ready j che
+
+========================================================================
+
+acount_payment
+==============
+SELECT SUM(amount_company_currency_signed) AS total_amount
+FROM account_payment;
+
+account_move
+============
+SELECT
+    j.id AS journal_id,
+    j.name AS journal_name,
+    COUNT(am.id) AS move_count,
+    SUM(am.amount_total_signed) AS total_amount_signed
+FROM account_move AS am
+JOIN account_journal AS j ON am.journal_id = j.id
+GROUP BY j.id, j.name
+ORDER BY j.id;
+
+acount_move_line
+================
+SELECT 
+    am.journal_id, 
+    j.name AS journal_name, 
+    COUNT(aml.id) AS line_count,
+    SUM(aml.debit) AS total_debit,
+    SUM(aml.credit) AS total_credit
+FROM account_move_line aml
+JOIN account_move am ON aml.move_id = am.id
+JOIN account_journal j ON am.journal_id = j.id
+GROUP BY am.journal_id, j.name
+ORDER BY j.name;
+
+pdc_account_payment
+===================
+SELECT 
+    state, 
+    COUNT(id) AS payment_count,
+    SUM(amount) AS total_amount
+FROM pdc_account_payment
+GROUP BY state
+ORDER BY state;
+
+
+Production Server URL
+=====================
+URL: https://sys.korzointeriors.com/
+Username: admin
+Password: !@Korzo456Interiors*
+
+v15 Server
+==========
+URL: http://5.195.111.211:1501/web/login 
+Username: superadmin 
+Password: XUH_kwu2uat0vnp3dzu
+
+
+For connect server to upgraded
+==============================
+dbname= upgraded_korzo_final
+URL: http://localhost:1717
+admin
+admin
+
+
+Hello,
+
+I have checked the document and fixed all the issues. Also, the upgraded database has been migrated to the production database successfully, and all records have been migrated.
+
+Please review and let me know if anything else is required.
+
+
+
+
+
+
+
+
+
+    # def _prepare_purchase_order_values(self, supplier, **kwargs) :
+    #     res = super()._prepare_purchase_order_values(supplier, **kwargs)
+    #     res.update({'is_manual': False})
+    #     return res
+
+
+
+
+
+        @api.model_create_multi
+    def create(self, vals_list):
+        purchases = super().create(vals_list)
+        for purchase in purchases:
+            if self.env.context.get("default_sale_id"):
+                purchase.write({
+                    "sale_id": self.env.context.get("default_sale_id"),
+                    "is_manual": True
+                })
+            elif self.env.context.get("manual_create"):
+                purchase.write({"is_manual": True})
+        return purchases
+
+    def button_confirm(self):
+        for order in self :
+            if order.is_manual:
+                order.write({"state": "to_approve"})
+            else:
+                res = super().button_confirm()
+                return res
+        return True
+
+
+            <record id="purchase.purchase_rfq" model="ir.actions.act_window">
+        <field name="context">{'quotation_only': True, 'manual_create': True}</field>
+    </record>
+
+
+
+    def purchase_order_approve(self):
+        super(PurchaseOrder, self).button_confirm()
+        self.write({"state": "draft"})
+        return {}
+
+
+
+
+
+sale.order      -> preper kit
+sale.order.line -> stock.picking (delivery) (_action_launch_stock_rule)
+                   stock.move (_action_launch_stock_rule)
+
+                -> mrp.production (_action_launch_stock_rule)
+                   stock.move (_action_launch_stock_rule)
+
+purchase.order
+purchase.order.line (_prepare_purchase_order_line_from_procurement) -> stock.picking (receipt) (_prepare_stock_moves)
+                                                                       stock.move (_prepare_stock_moves)/(_action_launch_stock_rule)
+
+
+
+
+
+        #     ("waiting", "Waiting"),
+        #     ("assigned", "Available"),
+        #     ("receive_ready", "Ready to Receive"),
+        #     ("in_progress", "In Progress"),
+        #     ("received", "Received"),
+        #     ("completed", "Completed"),
+        #     ("validate", "Done"),
+
+    # receipt have three state : assigned, waiting, receive_ready, received, validate
+    # delivery have three state: assigned, in_progress, completed, validate
+
+
+
+
+
+
+
+
+    # @api.depends("track_product_id")
+    # def _compute_track_vendor(self):
+    #     for rec in self:
+    #         if rec.track_product_id:
+    #             if rec.track_product_id.seller_ids:
+    #                 seller_id = rec.track_product_id.seller_ids[0].partner_id
+    #                 if seller_id:
+    #                     rec.track_vendor_id = seller_id
+    #             else:
+    #                 rec.track_vendor_id = False
+    #         else:
+    #             rec.track_vendor_id = False
+
+
+        # @api.depends("track_product_id", "width")
+    # def _compute_track_cost(self):
+    #     for rec in self:
+    #         if rec.track_product_id:
+    #             rec.total_track_cost = (
+    #                 int(rec.width)
+    #             ) * rec.track_product_id.standard_price
+    #         else:
+    #             rec.total_track_cost = 0.0
+
+
+
+        # @api.model_create_multi
+    # def create(self, vals_list):
+    #     lines = super(SaleOrderLine, self).create(vals_list)
+    #     for line in lines:
+    #         if line.additional_product_id:
+    #             additional_prod_line_id = self.create({
+    #                 'order_id': line.order_id.id,
+    #                 'product_id': line.additional_product_id.id,
+    #                 'product_uom_qty': line.additional_qty or line.product_uom_qty,
+    #                 'price_unit': line.additional_product_id.lst_price
+    #             })
+    #             line.write({
+    #                 'additional_prod_line_id': additional_prod_line_id.id
+    #             })
+    #     return lines
+
+
+
+
+    def write(self, vals):
+        if 'additional_product_id' in vals or 'additional_qty' in vals:
+            if not self.additional_prod_line_id:
+                additional_prod_line_id = self.create({
+                    'order_id': self.order_id.id,
+                    'product_id': vals.get('additional_product_id'),
+                    'product_uom_qty': vals.get('additional_qty') or self.additional_qty,
+                    'price_unit': self.env['product.product'].browse(
+                        vals.get('additional_product_id')).lst_price if vals.get('additional_product_id') else 0.0,
+                })
+                self.write({
+                    'additional_prod_line_id': additional_prod_line_id.id
+                })
+            else:
+                self.additional_prod_line_id.write({
+                    'product_id': vals.get('additional_product_id') or self.additional_product_id.id,
+                    'product_uom_qty': vals.get('additional_qty') or self.additional_qty,
+                    'price_unit': self.env['product.product'].browse(
+                        vals.get('additional_product_id')).lst_price if vals.get('additional_product_id') else 0.0,
+                })
+        return super().write(vals)
+
+
+
+
+
+
+
+i have face issue 2025-07-09 12:55:09,736 15060 INFO v17_Korzo_08_07_25 odoo.models.unlink: User #1 deleted stock.move records with IDs: [232] 
+
+2025-07-09 12:55:09,472 15060 INFO v17_Korzo_08_07_25 odoo.models.unlink: User #1 deleted stock.move records with IDs: [231]
+
+2025-07-09 12:55:09,736 15060 INFO v17_Korzo_08_07_25 odoo.models.unlink: User #1 deleted stock.move records with IDs: [232] 
+
+
+
+
+
+
+
+
+
+
+sale line
+43,44
+
+43 move id =  40 (TR 103 Cord Track), 41 ([BOM] American Curtain > "MANF Curtain") ready 
+44 move id =  40 (TR 103 Cord Track), 41 ([BOM] American Curtain > "MANF Curtain")
+
+    - not direct Approval for manual purchase
+    - using sale order generate po button not direct Approval 
+
+    - only direct apporval when po create automatic
+
+2025-07-09 12:55:09,171 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,213 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,216 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,247 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,248 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,264 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,273 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,275 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,444 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,447 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,472 15060 INFO v17_Korzo_08_07_25 odoo.models.unlink: User #1 deleted stock.move records with IDs: [231] 
+2025-07-09 12:55:09,507 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,522 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,526 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,532 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,534 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,536 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,620 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,622 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,628 15060 INFO v17_Korzo_08_07_25 odoo.models.unlink: User #1 deleted stock.move records with IDs: [230] 
+2025-07-09 12:55:09,657 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,727 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,729 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+2025-07-09 12:55:09,736 15060 INFO v17_Korzo_08_07_25 odoo.models.unlink: User #1 deleted stock.move records with IDs: [232] 
+2025-07-09 12:55:09,767 15060 ERROR v17_Korzo_08_07_25 odoo.osv.expression: Non-stored field sale.order.mrp_production_ids cannot be searched. 
+NoneType: None
+
+
+
+
+
+
+
+
+
+    #
+    # def _merge_procurements(self, procurements_to_merge) :
+    #     res = super(StockRule, self)._merge_procurements(procurements_to_merge)
+    #     merged_procurements = []
+    #     for procurements in procurements_to_merge :
+    #         quantity = sum(p.product_qty for p in procurements)
+    #         move_dest_ids = self.env["stock.move"]
+    #         orderpoint_id = self.env["stock.warehouse.orderpoint"]
+    #         for procurement in procurements:
+    #             if procurement.values.get("move_dest_ids") :
+    #                 move_dest_ids |= procurement.values["move_dest_ids"]
+    #             if not orderpoint_id and procurement.values.get("orderpoint_id"):
+    #                 orderpoint_id = procurement.values["orderpoint_id"]
+    #         values = dict(procurements[0].values)
+    #         values.update(
+    #             {
+    #                 "move_dest_ids": move_dest_ids,
+    #                 "orderpoint_id": orderpoint_id,
+    #             }
+    #         )
+    #         merged_procurement = self.env["procurement.group"].Procurement(
+    #             procurements[0].product_id,
+    #             quantity,
+    #             procurements[0].product_uom,
+    #             procurements[0].location_id,
+    #             procurements[0].name,
+    #             procurements[0].origin,
+    #             procurements[0].company_id,
+    #             values,
+    #         )
+    #         merged_procurements.append(merged_procurement)
+    #     if merged_procurements :
+    #         return merged_procurements
+    #     return res
+
+
+
+
+
+
+
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        lines = super(SaleOrderLine, self).create(vals_list)
+        for line in lines:
+            if line.additional_product_id:
+                additional_prod_line_id = self.create({
+                    'order_id': line.order_id.id,
+                    'product_id': line.additional_product_id.id,
+                    'product_uom_qty': line.additional_qty or line.product_uom_qty,
+                    'price_unit': line.additional_product_id.lst_price,
+                    'max_height': line.max_height,
+                    'width': line.width,
+                    'track_fixing_method': line.track_fixing_method,
+                    'open_type': line.open_type,
+                })
+                line.write({
+                    'additional_prod_line_id': additional_prod_line_id.id
+                })
+                additional_prod_line_id.write({
+                    'max_height': line.max_height,
+                })
+
+            if line.sheer_track_additional_product_id:
+                sheer_additional_prod_line_id = self.create({
+                    'order_id': line.order_id.id,
+                    'product_id': line.sheer_track_additional_product_id.id,
+                    'product_uom_qty': line.sheer_track_additional_qty or line.product_uom_qty,
+                    'price_unit': line.sheer_track_additional_product_id.lst_price,
+                    'max_height': line.max_height,
+                    'width': line.width,
+                    'sheer_track_fixing_method': line.sheer_track_fixing_method,
+                    'open_type': line.open_type,
+                })
+                line.write({
+                    'sheer_track_additional_prod_line_id': sheer_additional_prod_line_id.id
+                })
+        return lines
+    #
+    # def write(self, vals):
+    #     if 'additional_product_id' in vals or 'additional_qty' in vals:
+    #         if not self.additional_prod_line_id:
+    #             additional_prod_line_id = self.create({
+    #                 'order_id': self.order_id.id,
+    #                 'product_id': vals.get('additional_product_id'),
+    #                 'product_uom_qty': vals.get('additional_qty') or self.additional_qty,
+    #                 'price_unit': self.env['product.product'].browse(
+    #                     vals.get('additional_product_id')).lst_price if vals.get('additional_product_id') else 0.0,
+    #                 'max_height': self.max_height,
+    #                 'width': vals.get('width') or self.width,
+    #                 'track_fixing_method': vals.get('track_fixing_method') or self.track_fixing_method,
+    #                 'open_type': vals.get('open_type') or self.open_type,
+    #             })
+    #             self.write({
+    #                 'additional_prod_line_id': additional_prod_line_id.id
+    #             })
+    #         else:
+    #             self.additional_prod_line_id.write({
+    #                 'product_id': vals.get('additional_product_id') or self.additional_product_id.id,
+    #                 'product_uom_qty': vals.get('additional_qty') or self.additional_qty,
+    #                 'price_unit': self.env['product.product'].browse(
+    #                     vals.get('additional_product_id')).lst_price if vals.get('additional_product_id') else 0.0,
+    #                 'max_height': self.max_height,
+    #                 'width': vals.get('width') or self.width,
+    #                 'track_fixing_method': vals.get('track_fixing_method') or self.track_fixing_method,
+    #                 'open_type': vals.get('open_type') or self.open_type,
+    #             })
+    #
+    #     if 'sheer_track_additional_product_id' in vals or 'sheer_track_additional_qty' in vals:
+    #         if not self.sheer_track_additional_prod_line_id:
+    #             sheer_additional_prod_line_id = self.create({
+    #                 'order_id': self.order_id.id,
+    #                 'product_id': vals.get('sheer_track_additional_product_id'),
+    #                 'product_uom_qty': vals.get('sheer_track_additional_qty') or self.sheer_track_additional_qty,
+    #                 'price_unit': self.env['product.product'].browse(
+    #                     vals.get('sheer_track_additional_product_id')).lst_price if vals.get(
+    #                     'sheer_track_additional_product_id') else 0.0,
+    #                 'max_height': self.max_height,
+    #                 'width': vals.get('width') or self.width,
+    #                 'sheer_track_fixing_method': vals.get('sheer_track_fixing_method') or self.sheer_track_fixing_method,
+    #                 'open_type': vals.get('open_type') or self.open_type,
+    #             })
+    #             self.write({
+    #                 'sheer_track_additional_prod_line_id': sheer_additional_prod_line_id.id
+    #             })
+    #         else:
+    #             self.sheer_track_additional_prod_line_id.write({
+    #                 'product_id': vals.get(
+    #                     'sheer_track_additional_product_id') or self.sheer_track_additional_product_id.id,
+    #                 'product_uom_qty': vals.get('sheer_track_additional_qty') or self.sheer_track_additional_qty,
+    #                 'price_unit': self.env['product.product'].browse(
+    #                     vals.get('sheer_track_additional_product_id')).lst_price if vals.get(
+    #                     'sheer_track_additional_product_id') else 0.0,
+    #                 'max_height': self.max_height,
+    #                 # 'max_height': vals['max_height'] if 'max_height' in vals else self.max_height,
+    #                 'width': vals.get('width') or self.width,
+    #                 'sheer_track_fixing_method': vals.get(
+    #                     'sheer_track_fixing_method') or self.sheer_track_fixing_method,
+    #                 'open_type': vals.get('open_type') or self.open_type,
+    #             })
+    #
+    #     return super().write(vals)
+
+
+
+
+
+
+    @api.depends(
+        "purchase_line_id.height",
+        "purchase_line_id.width",
+        "purchase_line_id.open_type",
+    )
+    def _compute_height_width(self):
+        for move in self:
+            height = 1
+            width = 1
+            open_type = False
+            if move.purchase_line_id:
+                if move.purchase_line_id.height:
+                    height = move.purchase_line_id.height
+                if move.purchase_line_id.width:
+                    width = move.purchase_line_id.width
+                if move.purchase_line_id.open_type:
+                    open_type = move.purchase_line_id.open_type
+            if move.raw_material_production_id:
+                if move.raw_material_production_id.
+            move.height = height
+            move.width = width
+            move.open_type = open_type
+
+
+stock.move
+    @api.depends(
+        "purchase_line_id.height",
+        "purchase_line_id.width",
+        "purchase_line_id.open_type",
+    )
+    def _compute_height_width(self):
+        for move in self:
+            height = 1
+            width = 1
+            open_type = False
+            if move.purchase_line_id:
+                if move.purchase_line_id.height:
+                    height = move.purchase_line_id.height
+                if move.purchase_line_id.width:
+                    width = move.purchase_line_id.width
+                if move.purchase_line_id.open_type:
+                    open_type = move.purchase_line_id.open_type
+            move.height = height
+            move.width = width
+            move.open_type = open_type
+
+
+            <xpath expr="//field[@name='order_line']/kanban/templates/t[@t-name='kanban-box']//strong[@t-out='record.product_id.value']" position="replace">
+                <strong t-out="record.name.value"/>
+            </xpath>
+
+
+=============
+
+            <xpath expr="//field[@name='order_line']/kanban/templates/t[@t-name='kanban-box']//div[@class='col-10']/div[@class='row'][1]/div[@class='col']" position="replace">
+                <div class="col">
+                    <strong t-out="record.name.value"/>
+                </div>
+            </xpath>
+
+=============
+
+
+                    # po = (move.created_purchase_line_ids.order_id).ids
+                    # po = (move.move_orig_ids.purchase_line_id.order_id).ids
+
+@api.depends('move_raw_ids.move_orig_ids.created_purchase_line_id.order_id')
+def _compute_po_id(self):
+    for mo in self:
+        purchase_orders = mo.move_raw_ids \
+            .mapped('move_orig_ids') \
+            .mapped('created_purchase_line_id') \
+            .mapped('order_id')
+
+        # Set the first PO found, or None if no PO is linked
+        mo.po_id = purchase_orders[0] if purchase_orders else False
+
+
+production.procurement_group_id.stock_move_ids.created_purchase_line_ids.order_id
+
+
+===============
+
+
+                    # if self.sale_line_id.fabric_note and self.sale_line_id.fabric_product_id:
+                    #     move_vals["product_name"] = f"{product_id.display_name} - {self.sale_line_id.fabric_product_id.product_variant_id.display_name} - {self.sale_line_id.fabric_note}"
+                    # elif not self.sale_line_id.fabric_note and self.sale_line_id.fabric_product_id:
+                    #     move_vals["product_name"] = f"{product_id.display_name} - {self.sale_line_id.fabric_product_id.product_variant_id.display_name}"
+                    # else:
+                    #     move_vals["product_name"] = f"{product_id.display_name}"
+
+
+
+                            # if move.sale_line_id.fabric_note and move.sale_line_id.fabric_product_id:
+                            #     product_name = f"{move.sale_line_id.fabric_product_id.product_variant_id.display_name} - {move.sale_line_id.fabric_note}"
+                            # elif not move.sale_line_id.fabric_note and move.sale_line_id.fabric_product_id:
+                            #     product_name = f"{move.sale_line_id.fabric_product_id.product_variant_id.display_name}"
+                            # else:
+                            #     product_name = f"{product_id.display_name}"
+
+
+class ProcurementGroup(models.Model):
+    _inherit = "procurement.group"
+
+    @api.model
+    def run(self, procurements, raise_user_error=True):
+        procurements_without_kit = []
+        for procurement in procurements:
+            ...
+            ...
+            ...
+            purchase_order = procurement.values.get('group_id').stock_move_ids.created_purchase_line_ids.order_id
+            ...
+            ...
+            ...
+            sale_line_id = procurement.values.get("sale_line_id")
+            if not sale_line_id:
+                continue
+
+
+
+
+    @api.model
+    def _run_buy(self, procurements):
+        procurements_by_po_domain = defaultdict(list)
+        errors = []
+        for procurement, rule in procurements:
+
+            # Get the schedule date in order to find a valid seller
+            procurement_date_planned = fields.Datetime.from_string(procurement.values['date_planned'])
+
+            supplier = False
+            if procurement.values.get('supplierinfo_id'):
+                supplier = procurement.values['supplierinfo_id']
+            elif procurement.values.get('orderpoint_id') and procurement.values['orderpoint_id'].supplier_id:
+                supplier = procurement.values['orderpoint_id'].supplier_id
+            else:
+                supplier = procurement.product_id.with_company(procurement.company_id.id)._select_seller(
+                    partner_id=self._get_partner_id(procurement.values, rule),
+                    quantity=procurement.product_qty,
+                    date=max(procurement_date_planned.date(), fields.Date.today()),
+                    uom_id=procurement.product_uom)
+
+            # Fall back on a supplier for which no price may be defined. Not ideal, but better than
+            # blocking the user.
+            supplier = supplier or procurement.product_id._prepare_sellers(False).filtered(
+                lambda s: not s.company_id or s.company_id == procurement.company_id
+            )[:1]
+
+            if not supplier:
+                msg = _('There is no matching vendor price to generate the purchase order for product %s (no vendor defined, minimum quantity not reached, dates not valid, ...). Go on the product form and complete the list of vendors.', procurement.product_id.display_name)
+                errors.append((procurement, msg))
+
+            partner = supplier.partner_id
+            # we put `supplier_info` in values for extensibility purposes
+            procurement.values['supplier'] = supplier
+            procurement.values['propagate_cancel'] = rule.propagate_cancel
+
+            domain = rule._make_po_get_domain(procurement.company_id, procurement.values, partner)
+            procurements_by_po_domain[domain].append((procurement, rule))
+
+        if errors:
+            raise ProcurementException(errors)
+
+        for domain, procurements_rules in procurements_by_po_domain.items():
+            # Get the procurements for the current domain.
+            # Get the rules for the current domain. Their only use is to create
+            # the PO if it does not exist.
+            procurements, rules = zip(*procurements_rules)
+
+            # Get the set of procurement origin for the current domain.
+            origins = set([p.origin for p in procurements])
+            # Check if a PO exists for the current domain.
+            po = self.env['purchase.order'].sudo().search([dom for dom in domain], limit=1)
+            company_id = procurements[0].company_id
+            if not po:
+                positive_values = [p.values for p in procurements if float_compare(p.product_qty, 0.0, precision_rounding=p.product_uom.rounding) >= 0]
+                if positive_values:
+                    # We need a rule to generate the PO. However the rule generated
+                    # the same domain for PO and the _prepare_purchase_order method
+                    # should only uses the common rules's fields.
+                    vals = rules[0]._prepare_purchase_order(company_id, origins, positive_values)
+                    # The company_id is the same for all procurements since
+                    # _make_po_get_domain add the company in the domain.
+                    # We use SUPERUSER_ID since we don't want the current user to be follower of the PO.
+                    # Indeed, the current user may be a user without access to Purchase, or even be a portal user.
+                    po = self.env['purchase.order'].with_company(company_id).with_user(SUPERUSER_ID).create(vals)
+            else:
+                # If a purchase order is found, adapt its `origin` field.
+                if po.origin:
+                    missing_origins = origins - set(po.origin.split(', '))
+                    if missing_origins:
+                        po.write({'origin': po.origin + ', ' + ', '.join(missing_origins)})
+                else:
+                    po.write({'origin': ', '.join(origins)})
+
+            mo = self.env['mrp.production'].sudo().search([('name', 'in', list(origins))])
+            if mo:
+                mo.write({
+                    'po_id': po,
+                })
+
+            procurements_to_merge = self._get_procurements_to_merge(procurements)
+            procurements = self._merge_procurements(procurements_to_merge)
+
+            po_lines_by_product = {}
+            grouped_po_lines = groupby(po.order_line.filtered(lambda l: not l.display_type and l.product_uom == l.product_id.uom_po_id), key=lambda l: l.product_id.id)
+            for product, po_lines in grouped_po_lines:
+                po_lines_by_product[product] = self.env['purchase.order.line'].concat(*po_lines)
+            po_line_values = []
+            for procurement in procurements:
+                po_lines = po_lines_by_product.get(procurement.product_id.id, self.env['purchase.order.line'])
+                po_line = po_lines._find_candidate(*procurement)
+
+                if po_line:
+                    # If the procurement can be merge in an existing line. Directly
+                    # write the new values on it.
+                    vals = self._update_purchase_order_line(procurement.product_id,
+                        procurement.product_qty, procurement.product_uom, company_id,
+                        procurement.values, po_line)
+                    po_line.sudo().write(vals)
+                else:
+                    if float_compare(procurement.product_qty, 0, precision_rounding=procurement.product_uom.rounding) <= 0:
+                        # If procurement contains negative quantity, don't create a new line that would contain negative qty
+                        continue
+                    # If it does not exist a PO line for current procurement.
+                    # Generate the create values for it and add it to a list in
+                    # order to create it in batch.
+                    partner = procurement.values['supplier'].partner_id
+                    po_line_values.append(self.env['purchase.order.line']._prepare_purchase_order_line_from_procurement(
+                        procurement.product_id, procurement.product_qty,
+                        procurement.product_uom, procurement.company_id,
+                        procurement.values, po))
+                    # Check if we need to advance the order date for the new line
+                    order_date_planned = procurement.values['date_planned'] - relativedelta(
+                        days=procurement.values['supplier'].delay)
+                    if fields.Date.to_date(order_date_planned) < fields.Date.to_date(po.date_order):
+                        po.date_order = order_date_planned
+            self.env['purchase.order.line'].sudo().create(po_line_values)
+

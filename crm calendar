@@ -1,0 +1,298 @@
+   
+    name = fields.Char('Meeting Subject', required=True, compute='_compute_name')
+
+
+    @api.model
+    def default_get(self, fields):
+        defaults = super(CalendarEvent, self).default_get(fields)
+        if 'name' in fields:
+            defaults['name'] = ''
+        if 'partner_ids' in fields:
+            defaults['partner_ids'] = [(6, 0, [])]
+        return defaults
+
+    @api.depends('team')
+    def _compute_partners(self):
+        for record in self:
+            partner_ids = []
+            if record.team and record.team.member_ids:
+                for user in record.team.member_ids :
+                    if user.partner_id :
+                        partner_ids.append(user.partner_id.id)
+                record.partner_ids = [(6, 0, partner_ids)]
+
+    # @api.onchange('visit')
+    # def _onchange_visit(self):
+    #     lead_id = self.env.context.get('default_res_id')
+    #     if lead_id:
+    #         lead = self.env['crm.lead'].browse(lead_id)
+    #         if lead and lead.partner_id and self.visit:
+    #             self.name = f"{lead.partner_id.name} {self.visit.name}"
+    #         else:
+    #             self.name = ''
+    #     else:
+    #         lead_smart_id = self.env.context.get('active_id')
+    #         if lead_smart_id:
+    #             lead_smart = self.env['crm.lead'].browse(lead_smart_id)
+    #             if lead_smart and lead_smart.partner_id and self.visit:
+    #                 self.name = f"{lead_smart.partner_id.name} {self.visit.name}"
+    #             else:
+    #                 self.name = ''
+
+    @api.depends('visit')
+    def _compute_name(self):
+        for record in self:
+            visit_name = record.visit.name
+            if visit_name:
+                record.name = f"{visit_name}"
+
+
+
+
+
+
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="calendar_event_view_form_quick_create_inherit" model="ir.ui.view">
+        <field name="name">calendar.event.view.form.quick_create_inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form_quick_create"/>
+        <field name="arch" type="xml">
+            <!--      invisible      -->
+            <xpath expr="//form/sheet/group/field[@name='start']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//form/sheet/group/field[@name='allday']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/sheet/group/div/field[@name='videocall_location']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/sheet/group/div/button[@name='clear_videocall_location']" position="replace"/>
+            <xpath expr="//form/sheet/group/div/button[@name='set_discuss_videocall_location']" position="replace"/>
+            <xpath expr="//form/sheet/group/div/button[@name='action_join_video_call']" position="replace"/>
+
+            <!--      visible      -->
+            <xpath expr="//form/sheet/group/field[@name='start_date']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="options"/>
+            </xpath>
+            <xpath expr="//form/sheet/group/field[@name='partner_ids']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+
+            <!--      add      -->
+            <xpath expr="//form/sheet/group/field[@name='allday']" position="after">
+                <label for="from_time" string="Time"/>
+                <div class="o_row">
+                    <label for="from_time" string="From"/>
+                    <field name="from_time" widget="float_time_selection"/>
+                    <label for="to_time" string="To"/>
+                    <field name="to_time" widget="float_time_selection"/>
+                </div>
+                <field name="team"/>
+            </xpath>
+            <xpath expr="//form/sheet/group/field[@name='partner_ids']" position="after">
+                <field name="visit"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_calendar_event_form_inherit" model="ir.ui.view">
+        <field name="name">calendar.view.calendar.event.form</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <!--      invisible      -->
+            <xpath expr="//form/sheet/group/group/field[@name='start']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--            <xpath expr="//form/sheet/group/group/div/div/field[@name='duration']" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </xpath>-->
+
+            <!--            <xpath expr="//form/sheet/group/group/div[@class='d-flex gap-2'][0]" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </xpath>-->
+
+            <xpath expr="//form/sheet/group/group/div/field[@name='videocall_location']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/sheet//group/group/div/button[@name='clear_videocall_location']" position="replace"/>
+            <xpath expr="//form/sheet//group/group/div/button[@name='set_discuss_videocall_location']"
+                   position="replace"/>
+            <xpath expr="//form/sheet//group/group/div/button[@name='action_join_video_call']" position="replace"/>
+
+            <!--      visible      -->
+            <xpath expr="//form/sheet/group/group/field[@name='start_date']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+
+            <!--      add      -->
+            <xpath expr="//form/sheet/group/group/field[@name='start']" position="after">
+                <label for="from_time" string="Time"/>
+                <div class="o_row">
+                    <label for="from_time" string="From"/>
+                    <field name="from_time" widget="float_time_selection"/>
+                    <label for="to_time" string="To"/>
+                    <field name="to_time" widget="float_time_selection"/>
+                </div>
+                <field name="visit"/>
+            </xpath>
+            <xpath expr="//form/sheet/group/group/field[@name='alarm_ids']" position="after">
+                <field name="team"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+
+=====
+
+# -*- coding: utf-8 -*-
+from odoo import api, fields, models
+from datetime import datetime, time
+from pytz import timezone, UTC
+from odoo.exceptions import ValidationError
+
+
+class CalendarEvent(models.Model) :
+    _inherit = 'calendar.event'
+
+    from_time = fields.Float('From', store=True, tracking=True, compute='_compute_dates', inverse='_inverse_dates')
+    to_time = fields.Float('To', store=True, tracking=True, compute='_compute_dates', inverse='_inverse_dates')
+    visit = fields.Many2one('mail.activity.type', string='Visit', domain='[("category", "=", "meeting")]')
+    team = fields.Many2one('crm.team', string='Team')
+    partner_ids = fields.Many2many('res.partner', 'calendar_event_res_partner_rel', string='Attendees', default=False)
+
+    @api.onchange('visit')
+    def _onchange_visit(self):
+        lead_id = self.env.context.get('default_res_id')
+        if lead_id:
+            lead = self.env['crm.lead'].browse(lead_id)
+            if lead and lead.partner_id and self.visit:
+                self.name = f"{lead.partner_id.name} {self.visit.name}"
+            else:
+                self.name = ''
+        else:
+            lead_smart_id = self.env.context.get('active_id')
+            if lead_smart_id:
+                lead_smart = self.env['crm.lead'].browse(lead_smart_id)
+                if lead_smart and lead_smart.partner_id and self.visit:
+                    self.name = f"{lead_smart.partner_id.name} {self.visit.name}"
+                else:
+                    self.name = ''
+
+    @api.onchange('team')
+    def _onchange_team(self):
+        if self.team:
+            partner_ids = []
+            team_user = self.team.member_ids
+            for user in team_user:
+                if user.partner_id:
+                    partner_ids.append(user.partner_id.id)
+            self.partner_ids = [(6, 0, partner_ids)]
+
+    @api.depends('start', 'stop')
+    def _compute_dates(self):
+        user_timezone_name = self.env.user.tz or 'UTC'
+        user_timezone = timezone(user_timezone_name)
+        for meeting in self:
+            if not meeting.allday and meeting.start and meeting.stop:
+                start = meeting.start.astimezone(user_timezone)
+                stop = meeting.stop.astimezone(user_timezone)
+                meeting.start_date = start.date()
+                meeting.stop_date = stop.date()
+                meeting.from_time = start.hour + (start.minute / 60.0)
+                meeting.to_time = stop.hour + (stop.minute / 60.0)
+            else:
+                meeting.start_date = False
+                meeting.stop_date = False
+                meeting.from_time = False
+                meeting.to_time = False
+
+    def _inverse_dates(self) :
+        user_timezone_name = self.env.user.tz or 'UTC'
+        user_timezone = timezone(user_timezone_name)
+        for meeting in self :
+            if not meeting.allday :
+                start_hour = int(meeting.from_time)
+                start_minute = int((meeting.from_time - start_hour) * 60)
+                stop_hour = int(meeting.to_time)
+                stop_minute = int((meeting.to_time - stop_hour) * 60)
+                start_datetime = datetime.combine(meeting.start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(meeting.stop_date, time(stop_hour, stop_minute))
+                start_datetime = user_timezone.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime = user_timezone.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+                meeting.write({
+                    'start' : start_datetime,
+                    'stop' : stop_datetime
+                })
+
+    @api.onchange('start_date', 'stop_date', 'from_time', 'to_time')
+    def _onchange_date(self) :
+        user_timezone_name = self.env.user.tz or 'UTC'
+        user_timezone = timezone(user_timezone_name)
+        for event in self :
+            if not event.allday and event.stop_date and event.start_date :
+                start_hour = int(event.from_time)
+                start_minute = int((event.from_time - start_hour) * 60)
+                stop_hour = int(event.to_time)
+                stop_minute = int((event.to_time - stop_hour) * 60)
+                start_datetime = datetime.combine(event.start_date, time(start_hour, start_minute))
+                stop_datetime = datetime.combine(event.stop_date, time(stop_hour, stop_minute))
+                start_datetime = user_timezone.localize(start_datetime).astimezone(UTC).replace(tzinfo=None)
+                stop_datetime = user_timezone.localize(stop_datetime).astimezone(UTC).replace(tzinfo=None)
+                event.with_context(is_calendar_event_new=True).write({
+                    'start' : start_datetime,
+                    'stop' : stop_datetime,
+                })
+
+    @api.constrains('start_date', 'stop_date', 'from_time', 'to_time', 'team')
+    def _check_meeting(self) :
+        for meeting in self :
+            find_start_date_in_start = self.env['calendar.event'].search(
+                [('team.user_id.id', '=', meeting.team.user_id.id), ('id', '!=', meeting.id),
+                 ('start_date', '=', meeting.start_date)])
+            if find_start_date_in_start :
+                for times in find_start_date_in_start :
+                    if (times.from_time > meeting.from_time) and (times.from_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time > meeting.from_time) and (times.to_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+            find_start_date_in_end = self.env['calendar.event'].search(
+                [('team.user_id.id', '=', meeting.team.user_id.id), ('id', '!=', meeting.id),
+                 ('stop_date', '=', meeting.start_date)])
+            if find_start_date_in_end :
+                for times in find_start_date_in_end :
+                    if (times.from_time > meeting.from_time) and (times.from_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time > meeting.from_time) and (times.to_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+            find_stop_date_in_start = self.env['calendar.event'].search(
+                [('team.user_id.id', '=', meeting.team.user_id.id), ('id', '!=', meeting.id),
+                 ('start_date', '=', meeting.stop_date)])
+            if find_stop_date_in_start :
+                for times in find_stop_date_in_start :
+                    if (times.from_time > meeting.from_time) and (times.from_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time > meeting.from_time) and (times.to_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+            find_end_date_in_end = self.env['calendar.event'].search(
+                [('team.user_id.id', '=', meeting.team.user_id.id), ('id', '!=', meeting.id),
+                 ('stop_date', '=', meeting.stop_date)])
+            if find_end_date_in_end:
+                for times in find_end_date_in_end:
+                    if (times.from_time > meeting.from_time) and (times.from_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+                    elif (times.to_time > meeting.from_time) and (times.to_time < meeting.to_time) :
+                        raise ValidationError("A meeting is already scheduled during this time period.")
+
+
+
+
+=====
+=====

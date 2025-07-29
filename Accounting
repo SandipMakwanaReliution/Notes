@@ -1,0 +1,119 @@
+
+Assests (Things the company owns)                       =   Liabilites (What the company owes)                  +   Equity (Owner’s interest in the company)
+
+Bank and Cash                                                                                                           Unallocated Earnings (or Retained Earnings)
+•   Increases with Sales (+)                                                                                            •   Increases with Sales (+)
+•   Decreases with Purchases (-)                                                                                        •   Decreases with Purchases (-)
+
+Receivable (Accounts Receivable)                            Payable (Accounts Payable)
+•   Increases when Invoice is posted (Pending Payment)          •   Increases when a Bill is posted (Pending Payment)
+•   Decreases when Payment is received                          •   Decreases when Payment is made
+
+Current Assests                                             Current Liabilities
+•   Increases when Tax is Receivable                            •   Increases when Tax is Payable
+•   Decreases when Tax Return                                   •   Decreases when Tax Return 
+
+----------
+
+Net Profit = Expenses (Purchase +) - Income (Sales +)
+
+=================           
+ACCOUNT TYPES:
+=================   
+Balance Sheet:
+    Assests:
+        Receivable
+        Bank and Cash
+        Current Assests 
+        Non-current Assets
+        Prepayments
+        Fixed Assests
+    Liabilites:
+        Payable
+        Credit Card
+        Current Liabilites
+        Non-current Liabilites
+    Equity:
+        Equity
+        Current Year Earnings [Mandatory]
+
+Profit and Loss:
+    Other:
+        Off-Balance Sheet
+    Expenses:
+        Cost of Revenue
+        Depreciation
+        Expenses    
+    Income:
+        Income
+        Other Income
+
+=================
+JOURNAL TYPES:
+=================
+Sales Journal
+- [Default Account] : Income 
+- Receivable 
+
+Purchase Journal
+- [Default Account] : Expenses
+- Payable
+
+Cash Journal
+- [Cash Account] : Bank and Cash 
+- [Suspense Account] : Current Assests 
+- [Profit Account] : Income 
+- [Loss Account] : Expenses 
+
+Bank Journal
+- [Bank Account] : Bank and Cash 
+- [Suspense Account] : Current Assests 
+
+Miscellaneous
+- [Default Account]
+
+=================
+TAX TYPES:
+=================
+Sales
+- Current Liabilites [Tax Receive]
+
+Purchase
+- Current Assets [Tax Paid]
+
+================
+Invoices Conf:
+================
+1. Receivable on contact forms.
+
+2. Accounts on the 'taxes'.
+
+3. Default 'income' account on Sales Journal.
+Optional: 'default income' account on peoduct or product category.
+
+4. Invoice Layout.
+
+================
+Bills Conf:
+================
+1. Payable on contact forms.
+
+2. Accounts on the 'taxes'.
+
+3. Default 'expense' account on Purchase Journal.
+Optional: 'default expense' account on peoduct or product category.
+
+================
+Reporting:
+================
+1. Legal
+    - Balance Sheet
+    - Profit and Loss Statement
+    - Tax report
+2. Management
+    - General ledger
+    - Trial balance
+    - Partner ledger
+    - Aged balances
+    - Depreciaiton board
+

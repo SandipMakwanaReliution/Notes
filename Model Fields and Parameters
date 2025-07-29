@@ -1,0 +1,58 @@
+FILE PATH[odoo/fields.py]
+
+1 index
+name = fields.Char(string="Name", index=True)
+name: This field has index=True, meaning an index will be created on this column in the database. Searching by name will be faster.
+
+precompute parameter
+
+
+
+
+
+
+
+Relational Fields
+---------------------------
+Many2one
+--------
+- use in child model and it set foreign keys
+- default store in db.
+
+One2many is not store in db.
+Many2many is not store in db.
+
+ondelete 
+--------
+(no action,set default)
+
+Many2one 
+- restrict
+- cascade
+- set null
+
+Many2many
+- restrict
+- cascade (not sence)
+
+One2many
+- restrict
+
+domain
+-------
+domain="[('parent_model_field','CONDITION',current_model_field)]"
+ex 1: domain="[('active_status', '=', True)]"
+ex 2: private_state_id = fields.Many2one("res.country.state",domain="[('country_id', '=?', private_country_id)]")
+      private_country_id = fields.Many2one("res.country", string="Private Country", groups="hr.group_hr_user")
+
+
+
+widget = many2many_binary
+--------------------------
+binary_multi_file = fields.Many2many(comodel_name='ir.attachment')
+<field name="binary_multi_file" widget="many2many_binary"/>
+
+
+html
+-----
+options="{'sandboxedPreview':true}"
