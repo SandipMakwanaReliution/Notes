@@ -18,9 +18,9 @@ FABRIC AND BLIND FABRIC
 {Purchase Order}-> Purchase order create manually & file -> Delivery To (My Company: Receipts)
 {Import Picking Lines}-> Create Lots/Serailnumber
 {Receipt Step 1}-> Vandor To Input (Validate Receipt)
-{Receipt Step 2}-> Input To Stock/Sub ("Internal Transfer") -> Scan Lots/Serailnumber -> Scan Stock/Sub Location Barcode  
+{Receipt Step 2}-> Input To Stock/Sub ("Internal Transfer") -> Scan Lots/Serailnumber -> Scan Stock/Sub Location Barcode 
 
-{Sale Order}-> Confirm -> Approve Order  
+{Sale Order}-> Confirm -> Approve Order 
 {"Transfer Details"}-> Stock/Sub To Output : If Product not in Output Location *Full stock qty [Automatic create a Transfer Details]
 {Delivery}-> Put In Pack -> Validate -> Output To Customers -> {Cutting To Stock} Output To Stock/Sub -> Scan Lots/Serailnumber -> Scan Stock/Sub Location Barcode 
 
@@ -117,12 +117,68 @@ Return
 => Output To Component-Output {Inventory Adjustment}
 
 
+---------------
+# DAZZLE FABRIC
+---------------
 
+Product : Fabric
 
+Purchase : Fabric
+Manufacutre : No
+Sale: Fabric
 
-            if line.order_id.picking_type_id.id == self.env.ref('stock.picking_type_in').id:
-                line.picking_type_product_domain = [ ("purchase_ok", "=", True), "|", ("product_types", "in", ["fabric", "blind_fabrics"] ), ("detailed_type", "in", ["service","consu"]) ]
-            elif line.order_id.picking_type_id.id == self.env.ref('inventory_customization.picking_type_receipt_component').id:
-                line.picking_type_product_domain = [ ("purchase_ok", "=", True), ("is_bom", "!=", True), "|", ("product_types", "in", ["blind", "tracks"]),  ("detailed_type", "in", ["service","consu"]) ]
-            else:
-                line.picking_type_product_domain = [ ("purchase_ok", "=", True) ]
+# DAZZLE SHOES 
+
+- 2 company (DAZZLE SHOES & LEVIOTTO)
+
+# Thamees #
+
+Tesro Furnishing Fabrics L.L.C
+	1. Tesro
+	2. Tesr Blind
+	3. Korzo
+
+-------
+# Tesro
+-------
+
+Product : Fabric, Track
+
+Purchase : Fabric, Track(Component)
+Mandufacture : Track
+Sale:
+  Track (Track(Component)) *Manufacture
+  Fabric
+  Track (component) manualy sale
+
+-------------
+# Tesro Blind
+-------------
+
+Product : Blind, Track, Blind Fabric
+
+Purchase : Blind(Component), Track(Component), Blind Fabric
+Manifacture : Blind, Track
+Sale: 
+   Blind (Blind(Component), Blind Fabric(Manualy add when sale)) *Manufacture [Fabric Cutting > Blind Order > Delivery]
+   Track (Track(Component)) *Manufacture [Track Order > Delivery]
+
+-------
+# Korzo
+-------
+
+Product : Fabric, Track, Motor
+
+Purchase : Fabric, Track, Motor
+Manufacture : Fabric
+Sale:
+   Curtain (Fabric, Track, Motor) *Manufacture
+   Blackout & Sheer (Fabric, Track, Motor) *Manufacture
+   Roller (Fabric) 
+
+# APP #
+	
+	1. Transfer Details
+	   - In Sale order have product and that product available in stock. but stock location not have Output. That time crete Transfer Details.
+	   - After transfer stock. In delivery show qty available.
+	   - If not stock in location output delivery not reserve qty. 

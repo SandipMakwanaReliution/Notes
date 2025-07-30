@@ -3087,15 +3087,20 @@ t-on-input is triggered immediately as the user types.
 🗓️ Today’s Work:
 
 🔍 R&D: Fix Issue 
-   - add fresh database and restore it.
-   - face issue is track orders are not being assigned.
-   - debug assigne method to show singlton error when check product qty to invenotry.
-   - that time show two location at a time.
-   - i resolve issue using normal loop, but help of manager no need to loop and manage code in short lines.
+   - Restored a fresh database.
+   - Faced an issue where track orders were not being assigned.
+   - Debugged the assignment method and encountered a singleton error when checking product quantity in inventory.
+   - Found that the system was detecting two locations simultaneously.
+   - Initially resolved the issue using a loop, but with the manager's help, optimized the logic without using a loop for cleaner code.
    12:40
 
+🔧 Project: Internal 
+   - Attempted to modify the invoice report header.
+   - Analyzed product types in Tesro and Tesro Blind.
+   - Checked which products are used in manufacturing, purchasing, and sales.
+   
+   - 15:20 to 16:25 report
 
-- test
 --------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
 	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")
@@ -3330,15 +3335,8 @@ git config --list
 
 -------------------------------------
 - https://stackoverflow.com/questions/2505096/clone-a-private-repository-github
-- go to github > Developer Settings > Personal access token > Token Classic > Genertae new token > add note and muste select repo checkbox
+- go to github > Developer Settings > Personal access token > Token Classic > Genertae new token (classic) > add note and muste select repo checkbox
 
-- privet toakn of github:
-- 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
-
-- git clone -b stage https://github.com/reliution/korzo_v17.git
-- Username for 'https://github.com': SandipMakwanaReliution
-- Password for 'https://SandipMakwanaRel
-                  
 ------------------------------------------
 
 - python3.10 -m pip install --upgrade pip
@@ -5035,28 +5033,16 @@ Your order contains the following items:
 
 -------------------
 
-# DAZZLE FABRIC
 
-- all product types "FABRIC" [Purchase and Sale]
-- no manufacutre 
-- no track product
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)" />
+                <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
+                <div class="row">
+                    <p>Testing..</p>
 
-# DAZZLE SHOES 
-
-- 2 company (DAZZLE SHOES & LEVIOTTO)
-
-# Thamees #
-
-Tesro Furnishing Fabrics L.L.C
-	1. Tesro
-	2. Tesr Blind
-	3. Korzo
-	
-# APP #
-	
-	1. Transfer Details
-	   - In Sale order have product and that product available in stock. but stock location not have Output. That time crete Transfer Details.
-	   - After transfer stock. In delivery show qty available.
-	   - If not stock in location output delivery not reserve qty. 
 	   
 
