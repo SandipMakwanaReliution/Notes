@@ -3070,37 +3070,63 @@ t-on-input is triggered immediately as the user types.
    - Created a new view for invoices and credit notes.
    - In the new view, displayed only the necessary buttons.
    - Prevented opening related records in many2one fields and restricted editing or creating other information within the invoice and credit note views.
---------------------------------------------------------------------------
-
-📅 Date: 29 July 2025
-🔧 Project: Tesro
- 
-🗓️ Today’s Plan:
-🔍 R&D: Fix Issue – Estimated: 00:30
-   - Fix the issue where track orders are not being assigned.
 
 --------------------------------------------------------------------------
 
 📅 Date: 29 July 2025
-🔧 Project: Tesro
+🔧 Project: Korzo
  
 🗓️ Today’s Work:
 
 🔍 R&D: Fix Issue 
+   03:10
    - Restored a fresh database.
    - Faced an issue where track orders were not being assigned.
    - Debugged the assignment method and encountered a singleton error when checking product quantity in inventory.
    - Found that the system was detecting two locations simultaneously.
    - Initially resolved the issue using a loop, but with the manager's help, optimized the logic without using a loop for cleaner code.
-   12:40
-
+   01:00
+   - Attempted to customize the Odoo invoice report header to match client requirements.
+   
 🔧 Project: Internal 
-   - Attempted to modify the invoice report header.
+   01:50
    - Analyzed product types in Tesro and Tesro Blind.
    - Checked which products are used in manufacturing, purchasing, and sales.
-   
-   - 15:20 to 16:25 report
+   - Executed a full test flow for both projects to validate operations.
+   01:10
+   - Tried to fix a module error shown every time during project runs, related to undefined fields in two custom modules.
+   - Manually updated module using PyCharm configurations for each project run to temporarily bypass the issue.
+   - Switched to another browser to test if it affected project stability, but the issue remained unresolved.
+   - Faced system freezes while running two Odoo projects simultaneously — encountered the issue three times today. 
+   - After each freeze, the system became unresponsive; had to unplug the charger and restart the system to resume work.
+   00:20
+   - With the manager's help, clarified the usage of products across manufacturing, purchasing, and sales modules.
+   - Updated internal notes accordingly to improve future development accuracy.
+   00:30
+   - Encountered a Git error while pushing project documentation.
+   - Identified that a private GitHub token was accidentally exposed in the file.
+   - Removed sensitive token and successfully pushed all pending documents.
+--------------------------------------------------------------------------
 
+📅 Date: 30 July 2025
+🔧 Project: Korzo Interiors v17
+ 
+🗓️ Today’s Plan:
+🔍 Development: Korzo Documentation – Estimated: 02:00
+   - Prepare user guide documentation for the Korzo Interiors project.
+   
+--------------------------------------------------------------------------
+
+📅 Date: 30 July 2025
+🔧 Project: Korzo Interiors v17
+ 
+🗓️ Today’s Work:
+
+🔍 Development: Korzo Documentation 9:30 to 3:30
+   - 
+
+   - korzo pul
+   
 --------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
 	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")
