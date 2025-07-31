@@ -1,20 +1,3 @@
-# DAZZLE FABRIC
-
-- **Product**: Fabric 
-- **Purchase**: Fabric 
-- **Manufacture**: No 
-- **Sale**: Fabric 
-
----
-
-# DAZZLE SHOES
-
-- **Companies**: 
-  1. DAZZLE SHOES 
-  2. LEVIOTTO 
-
----
-
 # Thamees
 
 Includes the following business units:
@@ -54,18 +37,6 @@ Includes the following business units:
   - Track *(manufactured from Track components)* 
     - **Flow**: Track Order → Delivery 
   - Blind and Track components (sold manually)
-
----
-
-## Korzo
-
-- **Products**: Fabric, Track, Motor 
-- **Purchase**: Fabric, Track, Motor 
-- **Manufacture**: Fabric 
-- **Sale**: 
-  - Curtain *(Fabric Cutting, Track, Motor)* 
-  - Blackout & Sheer *(Fabric Cutting, Track, Motor)* 
-  - Roller *(Fabric)*
 
 ---
 
