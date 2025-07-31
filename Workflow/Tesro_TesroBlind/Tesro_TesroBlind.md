@@ -133,7 +133,7 @@ To get the **Badge ID**, go to:
    - Validate the receipt
 
 3. **Receipt Step 2** *(using Barcode > Internal Transfer)* 
-   - Transfer: Input → Stock/Sub (*Internal Transfer*) 
+   - **Internal Transfer** (Input → Stock/Sub)
    - Scan Lots / Serial Numbers of products currently in the Input location 
    - Scan the Stock/Sub Location barcode (destination) 
    - Validate
@@ -167,7 +167,9 @@ To get the **Badge ID**, go to:
 - **Return Location**: Set to **Output** 
   - *(Because product was delivered from Output → Customer; returning means Customer → Output)* 
 
-3. Click **Return** to create a return picking. 
+3. Click **Return** to create a return picking.
+
+### In Return App 
 4. Add Lot / Serial Numbers 
 5. Validate return picking 
 
@@ -177,3 +179,71 @@ To get the **Badge ID**, go to:
    - Scan Lots / Serial Numbers of output location.
    - Scan Stock/Sub Location barcode 
    - Validate 
+   
+---
+
+# TRACK AND BLIND COMPONENT FLOW
+
+## Purchase Flow
+
+1. **Purchase Order**: 
+   - Compulsory Purchase order create manually, not use file.
+   - *Delivery To*: My Company: Receipt (Component) 
+   
+2. **Receipt Step 1** 
+   - **Import Picking Lines**: 
+     - Use the *Import Picking Lines* feature to create Package. 
+     - The Excel file should include the following columns: `Product`, `Quantity`, `packages`
+   - Transfer: Vendor → Input 
+   - Validate the receipt
+
+3. **Receipt Step 2** *(using Barcode > Internal Transfer)* 
+   - **Internal Transfer** (Input → Stock/Sub)
+   - Scan Package name of products currently in the Input location 
+   - Scan the Stock/Sub Location barcode (destination) 
+   - Validate
+   
+## Sale Flow
+
+1. **Sale Order**: 
+   - Confirm 
+   - Approve Order 
+
+2. **Component Internal Transfer**: (Stock/Sub → Component-Output )
+   - If product is not in Component-Output location 
+   - Scan Package name of products currently in the Stock/sub location.
+   - Validate.
+
+3. **Delivery**: 
+   - Put in Pack 
+   - Validate 
+   - Output → Customer 
+
+> ⚠️ Note: **Component products** do not require transfer from Component-Output → Stock/Sub.
+
+## Return Flow
+
+1. Open the **Sale Order**, go to the **Delivery** tab. 
+- Click the **Return** button. 
+
+### On Return Screen:
+2. **Return Location**: Set to **Output** 
+- Click **Return** to create a return picking. 
+
+### In Return App
+3. Validate return picking 
+
+4. Use **Inventory Adjuctment** to transfer: 
+   - From: **Output** 
+   - To: **Component-Output** 
+   - Add Package Name
+   
+---
+
+# TRACK AND BLIND FLOW (MAIN PRODUCT)
+
+
+
+
+
+

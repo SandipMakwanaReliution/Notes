@@ -13,8 +13,9 @@ Blind Order
 1.Cut Done > Cutting Done (state)
 2.Validate->[Done]
 
+=======================
 FABRIC AND BLIND FABRIC
-========================
+=======================
 {Purchase Order}-> Purchase order create manually & file -> Delivery To (My Company: Receipts)
 {Import Picking Lines}-> Create Lots/Serailnumber
 {Receipt Step 1}-> Vandor To Input (Validate Receipt)
@@ -26,6 +27,7 @@ FABRIC AND BLIND FABRIC
 
 {Return}-> Add Lots/Serial number -> Customer To Output (Validate) -> {Cutting To Stock} Output To Stock/Sub -> Scan Lots/Serailnumber -> Scan Stock/Sub Location Barcode 
 
+=========
 COMPONENT
 =========
 {Purchase Order}-> "Purchase" order compulsory create manually, not use file. -> Delivery To (My Company: Receipt Component)
@@ -74,19 +76,6 @@ BLIND
     Main Product (Output To Virtual Location)
     Fabric (Virtual Loaction To Output)
 
-
-SET DELIVERY INFO BY BARCODE
-============================
-Invoice
-.....
-.....
-Badge ID
-space
-
-Salesman/Employee > HR Settings > Badge ID
-
-
-
 =============
 FABRIC
 =============
@@ -115,4 +104,15 @@ Sale
 Return
 => Customer To Output
 => Output To Component-Output {Inventory Adjustment}
+
+============================
+SET DELIVERY INFO BY BARCODE
+============================
+Invoice
+.....
+.....
+Badge ID
+space
+
+Salesman/Employee > HR Settings > Badge ID
 
