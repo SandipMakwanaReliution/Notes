@@ -3122,10 +3122,26 @@ t-on-input is triggered immediately as the user types.
  
 🗓️ Today’s Work:
 
-🔍 Development: Korzo Documentation 9:30 to 3:30
-   - 
+🔍 Development: Korzo Documentation 9:30 to 3:30, 5 to 6:45
+   - Prepared detailed documentation of the Korzo workflow.
+   - Documented product configuration, sales flow, purchase process, and curtain cutting operations.
+   - Added curtain type configuration.
+   - Included the flow and usage of the "Generate PO" button from the sale order.
+   - Restored a fresh database and updated screenshots/images in the document.
+   - Made several improvements and adjustments to enhance the document’s clarity and accuracy
 
-   - korzo pul
+🔧 Project: Internal 
+   - Reviewed the "Set Delivery Info by Barcode" app.
+   - Analyzed its workflow and source code logic.
+   - Integrated its key functionality and explanation into the my documentation for internal reference.
+
+--------------------------------------------------------------------------
+
+📅 Date: 31 July 2025
+🗓️ Today’s Plan:
+
+🔍 Project: Workflow 
+   - Review the custom modules of Tesro and Tesro Blind, and analyze their code logic.
    
 --------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))

@@ -29,6 +29,9 @@ Includes the following business units:
 
 - **Products**: Fabric, Track 
 - **Purchase**: Fabric, Track (as components) 
+  - **2-step purchase**: 
+    1. Vendor → Input Location 
+    2. Input Location → Stock Location 
 - **Manufacture**: Track 
 - **Sale**: 
   - Track *(manufactured from Track components)* 
@@ -40,7 +43,10 @@ Includes the following business units:
 ## Tesro Blind
 
 - **Products**: Blind, Track, Blind Fabric 
-- **Purchase**: Blind (components), Track (components), Blind Fabric 
+- **Purchase**: Blind (components), Track (components), Blind Fabric
+  - **2-step purchase**: 
+    1. Vendor → Input Location 
+    2. Input Location → Stock Location 
 - **Manufacture**: Blind, Track 
 - **Sale**: 
   - Blind *(manufactured from Blind components, Blind Fabric manually added at time of sale)* 
@@ -65,7 +71,39 @@ Includes the following business units:
 
 # APP: Transfer Details
 
-- In the **Sales Order**, if the product is available in stock but not in the **Output** location, a **Transfer Detail** needs to be created.
+- In the **Sales Order**, if the product is available in stock but not in the **Output** location, a **Transfer Detail** needs to be manage.
 - After the transfer, the **Delivery Order** will show the quantity as available.
 - If the Output location does not have stock, the delivery will **not reserve** any quantity.
+
+---
+
+# APP: Set Delivery Info By Barcode
+
+Using this app, you can automatically set the following fields in an invoice (under the **Other Info** tab):
+
+- **Delivery Date** 
+- **Delivered By** 
+- **Delivery Entity** 
+- **Delivery Salesperson**
+
+## Select "Delivered By"
+
+You can choose from the following delivery entities:
+
+- Salesman 
+- Driver 
+- Courier 
+
+## Invoice Barcode Format:
+	Invoice1Name
+	Invoice2Name
+	.....
+	.....
+	Badge ID
+	space
+
+## Badge ID 
+
+To get the **Badge ID**, go to: 
+`Salesman/Employee > HR Settings > Badge ID`
 
