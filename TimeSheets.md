@@ -3074,11 +3074,10 @@ t-on-input is triggered immediately as the user types.
 --------------------------------------------------------------------------
 
 📅 Date: 29 July 2025
-🔧 Project: Korzo
- 
 🗓️ Today’s Work:
 
-🔍 R&D: Fix Issue 
+
+🔧 Project: Tesro v17 - ERP | Fix Issue 
    03:10
    - Restored a fresh database.
    - Faced an issue where track orders were not being assigned.
@@ -3088,7 +3087,7 @@ t-on-input is triggered immediately as the user types.
    01:00
    - Attempted to customize the Odoo invoice report header to match client requirements.
    
-🔧 Project: Internal 
+🔧 Project: Tesro v17 - ERP | Internal 
    01:50
    - Analyzed product types in Tesro and Tesro Blind.
    - Checked which products are used in manufacturing, purchasing, and sales.
@@ -3106,34 +3105,32 @@ t-on-input is triggered immediately as the user types.
    - Encountered a Git error while pushing project documentation.
    - Identified that a private GitHub token was accidentally exposed in the file.
    - Removed sensitive token and successfully pushed all pending documents.
+
 --------------------------------------------------------------------------
 
 📅 Date: 30 July 2025
-🔧 Project: Korzo Interiors v17
- 
-🗓️ Today’s Plan:
-🔍 Development: Korzo Documentation – Estimated: 02:00
-   - Prepare user guide documentation for the Korzo Interiors project.
-   
---------------------------------------------------------------------------
-
-📅 Date: 30 July 2025
-🔧 Project: Korzo Interiors v17
- 
 🗓️ Today’s Work:
 
-🔍 Development: Korzo Documentation 9:30 to 3:30, 5 to 6:45
+🔧 Project: Korzo Interiors v17 | Korzo Documentation 
+   04:00
    - Prepared detailed documentation of the Korzo workflow.
    - Documented product configuration, sales flow, purchase process, and curtain cutting operations.
+   03:15
    - Added curtain type configuration.
    - Included the flow and usage of the "Generate PO" button from the sale order.
    - Restored a fresh database and updated screenshots/images in the document.
    - Made several improvements and adjustments to enhance the document’s clarity and accuracy
 
-🔧 Project: Internal 
+🔧 Project: Korzo Interiors v17 | Internal 
+   00:10
+   - Discussed Korzo documentation with the manager and identified areas for improvement.
+
+🔧 Project: Tesro v17 - ERP | Internal 
+   00:35
    - Reviewed the "Set Delivery Info by Barcode" app.
    - Analyzed its workflow and source code logic.
    - Integrated its key functionality and explanation into the my documentation for internal reference.
+   - Also discussed the structure of custom modules in Tesro and Tesro Blind.
 
 --------------------------------------------------------------------------
 
@@ -3142,7 +3139,17 @@ t-on-input is triggered immediately as the user types.
 
 🔍 Project: Workflow 
    - Review the custom modules of Tesro and Tesro Blind, and analyze their code logic.
-   
+
+--------------------------------------------------------------------------
+
+📅 Date: 31 July 2025
+🗓️ Today’s Work:
+
+🔧 Project: Tesro v17 - Workflow
+   - Performed fabric purchase and sales operations to understand the flow.
+   - Explored the “Import Picking Line” button in the purchase receipt "step one"; 
+   - Reviewed the Internal Transfer menu.
+   - Analyzed the Transfer Details menu.
 --------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
 	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")

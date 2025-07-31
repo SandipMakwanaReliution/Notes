@@ -109,28 +109,63 @@ To get the **Badge ID**, go to:
 
 ---
 
+# APP: Barcode > Internal Transfers
+
+- After completing Step 1 of fabric purchase, the product is stored in the **Input** location.
+- In Step 2, the product should be transferred to a **Stock/Sub** location using the barcode-based **Internal Transfer** app.
+- Scan Lots / Serial Numbers of products currently in the Input location 
+- Scan the Stock/Sub Location barcode (destination) 
+- Validate
+
+---
+
+# APP: Transfer Details
+
+- When a **Sale Order** is created and confirmed, an **Approve** button will appear.
+- On clicking the **Approve** button, a **Transfer Detail** is automatically created **if the product is not available in the Output location**.
+- You must **scan or select the Lot** that you want to transfer from **Stock/Sub → Output**.
+- Once scanned or selected, the system will update the transfer to move stock from **Stock/Sub → Output**.
+
+---
+
+# APP: Cutting to Stock
+
+- When stock is available in the **Output** location and needs to be transferred to a **Stock/Sub** location, use the **Cutting to Stock** process.
+
+**Transfer Flow**: 
+`Output → Stock/Sub`
+
+### Steps:
+
+1. Scan **Lot / Serial Numbers** of the product in the Output location 
+2. Scan the **Stock/Sub Location** barcode (destination)
+
+---
+
 # FABRIC AND BLIND FABRIC FLOW
 
 ## Purchase Flow
 
 1. **Purchase Order**: 
-   - Create manually 
-   - Attach file if needed 
-   - *Delivery To*: My Company → Receipts 
+   - Create manually or Purchase Order From File (if needed) 
+   - *Delivery To*: My Company: Receipts (Fabric) 
    
-2. **Import Picking Lines**: 
-   - Create Lots / Serial Numbers 
+2. **Receipt Step 1** 
+   - **Import Picking Lines**: 
+     - Use the *Import Picking Lines* feature to create Lots / Serial Numbers. 
+     - The Excel file should include the following columns: `Product`, `Quantity`, `Price`, `Lot`. 
+     - If **Price** is not provided, the system will use the product's default purchase price. 
+     - If **Lot** is not provided: 
+       - The system will auto-generate a lot number. 
+       - ⚠️ **Important**: If you do not want to provided lots in excel, remove the "Lot" column entirely. Do **not** leave it empty—this may cause errors. 
+   - Transfer: Vendor → Input 
+   - Validate the receipt
 
-3. **Receipt Step 1**: 
-   - Vendor → Input 
-   - Validate receipt 
-
-4. **Receipt Step 2**: 
-   - Input → Stock/Sub (*Internal Transfer*) 
-   - Scan Lots/Serial Numbers 
-   - Scan Stock/Sub Location Barcode 
-
----
+3. **Receipt Step 2** *(using Barcode > Internal Transfer)* 
+   - Transfer: Input → Stock/Sub (*Internal Transfer*) 
+   - Scan Lots / Serial Numbers of products currently in the Input location 
+   - Scan the Stock/Sub Location barcode (destination) 
+   - Validate
 
 ## Sale Flow
 
@@ -149,16 +184,25 @@ To get the **Badge ID**, go to:
 
 4. **Cutting to Stock**: 
    - Output → Stock/Sub 
-   - Scan Lots/Serial Numbers 
-   - Scan Stock/Sub Location Barcode 
-
----
+   - 1. Scan Lots/Serial Numbers 
+   - 2. Scan Stock/Sub Location Barcode 
 
 ## Return Flow
 
-1. Add Lot/Serial Number 
-2. Customer → Output (Validate) 
-3. **Cutting to Stock**: 
-   - Output → Stock/Sub 
-   - Scan Lots/Serial Numbers 
-   - Scan Stock/Sub Location Barcode
+1. Open the **Sale Order**, go to the **Delivery** tab. 
+2. Click the **Return** button. 
+
+### On Return Screen:
+- **Return Location**: Set to **Output** 
+  - *(Because product was delivered from Output → Customer; returning means Customer → Output)* 
+
+3. Click **Return** to create a return picking. 
+4. Add Lot / Serial Numbers 
+5. Validate return picking 
+
+6. Use **Cutting to Stock** to transfer: 
+   - From: **Output** 
+   - To: **Stock/Sub** 
+   - Scan Lots / Serial Numbers of output location.
+   - Scan Stock/Sub Location barcode 
+   - Validate 
