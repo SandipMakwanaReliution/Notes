@@ -40,14 +40,6 @@ Includes the following business units:
 
 ---
 
-# APP: Transfer Details
-
-- In the **Sales Order**, if the product is available in stock but not in the **Output** location, a **Transfer Detail** needs to be manage.
-- After the transfer, the **Delivery Order** will show the quantity as available.
-- If the Output location does not have stock, the delivery will **not reserve** any quantity.
-
----
-
 # APP: Set Delivery Info By Barcode
 
 Using this app, you can automatically set the following fields in an invoice (under the **Other Info** tab):
@@ -80,7 +72,7 @@ To get the **Badge ID**, go to:
 
 ---
 
-# APP: Barcode > Internal Transfers
+# 1. APP: Barcode > Internal Transfers
 
 - After completing Step 1 of fabric purchase, the product is stored in the **Input** location.
 - In Step 2, the product should be transferred to a **Stock/Sub** location using the barcode-based **Internal Transfer** app.
@@ -88,28 +80,43 @@ To get the **Badge ID**, go to:
 - Scan the Stock/Sub Location barcode (destination) 
 - Validate
 
+**Transfer Flow**: 
+`Input → Stock/Sub`
+
 ---
 
-# APP: Transfer Details
+# 2.1 APP: Transfer Details
 
 - When a **Sale Order** is created and confirmed, an **Approve** button will appear.
 - On clicking the **Approve** button, a **Transfer Detail** is automatically created **if the product is not available in the Output location**.
 - You must **scan or select the Lot** that you want to transfer from **Stock/Sub → Output**.
 - Once scanned or selected, the system will update the transfer to move stock from **Stock/Sub → Output**.
 
+**Transfer Flow**: 
+`Stock/Sub → Output`
+
 ---
 
-# APP: Cutting to Stock
+# 2.2 APP: Component Internal Transfer
+
+- When a **Sale Order** is created and confirmed, an **Approve** button will appear.
+- On clicking the **Approve** button, **if the product is not available in the Component-Output location** you need to use Component Internal Transfer.
+- Scan Package name of products currently in the Stock/sub location.
+- Validate.
+
+**Transfer Flow**: 
+`Stock/Sub → Component-Output`
+
+---
+
+# 3. APP: Cutting to Stock
 
 - When stock is available in the **Output** location and needs to be transferred to a **Stock/Sub** location, use the **Cutting to Stock** process.
+- Scan **Lot / Serial Numbers** of the product in the Output location 
+- Scan the **Stock/Sub Location** barcode (destination)
 
 **Transfer Flow**: 
 `Output → Stock/Sub`
-
-### Steps:
-
-1. Scan **Lot / Serial Numbers** of the product in the Output location 
-2. Scan the **Stock/Sub Location** barcode (destination)
 
 ---
 
@@ -233,7 +240,7 @@ To get the **Badge ID**, go to:
 ### In Return App
 3. Validate return picking 
 
-4. Use **Inventory Adjuctment** to transfer: 
+4. Use **Inventory Adjuctment** to transfer:
    - From: **Output** 
    - To: **Component-Output** 
    - Add Package Name
@@ -242,7 +249,43 @@ To get the **Badge ID**, go to:
 
 # TRACK AND BLIND FLOW (MAIN PRODUCT)
 
+TRACK
+=====
 
+{Sale Order}-> Confirm
+
+{Track Order} Assing : if Component not in Componet-Output Location -> {Component Internal Transfer} Stock/Sub To Component-Output
+{Track Order} Cut Done -> Validate
+
+{Delivery}-> Put In Pack -> Validate
+    Component (Component-Output To Virtual Location)
+    Main Product (Output To Customers)
+
+{Return}-> Return 
+    Main Product (Customer To Output)
+    Component (Virtual Location To Component-Output)
+    Main Product (Output To Virtual Location)
+
+BLIND
+=====
+
+{Sale Order}-> Confirm
+
+{Fabric Cutting}-> if Order have Blind Fabric
+
+{Track Order} Assing : if Component not in Componet-Output Location -> {Component Internal Transfer} Stock To Component-Output
+{Track Order} Cut Done : Validate
+
+{Delivery}-> Put In Pack -> Validate
+    Component (Component-Output To Virtual Location)
+    Fabric (Output To Virtual Location) if Order have Blind Fabric
+    Main Product (Output To Customers)
+
+{Return}-> Return
+    Main Product (Customer To Output)
+    Component (Virtual Location To Component-Output)
+    Main Product (Output To Virtual Location)
+    Fabric (Virtual Loaction To Output)
 
 
 
