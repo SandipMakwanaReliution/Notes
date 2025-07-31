@@ -107,3 +107,58 @@ You can choose from the following delivery entities:
 To get the **Badge ID**, go to: 
 `Salesman/Employee > HR Settings > Badge ID`
 
+---
+
+# FABRIC AND BLIND FABRIC FLOW
+
+## Purchase Flow
+
+1. **Purchase Order**: 
+   - Create manually 
+   - Attach file if needed 
+   - *Delivery To*: My Company → Receipts 
+   
+2. **Import Picking Lines**: 
+   - Create Lots / Serial Numbers 
+
+3. **Receipt Step 1**: 
+   - Vendor → Input 
+   - Validate receipt 
+
+4. **Receipt Step 2**: 
+   - Input → Stock/Sub (*Internal Transfer*) 
+   - Scan Lots/Serial Numbers 
+   - Scan Stock/Sub Location Barcode 
+
+---
+
+## Sale Flow
+
+1. **Sale Order**: 
+   - Confirm 
+   - Approve Order 
+
+2. **Transfer Details**: 
+   - If product is not in Output location 
+   - Create automatic transfer from Stock/Sub → Output 
+
+3. **Delivery**: 
+   - Put in Pack 
+   - Validate 
+   - Output → Customer 
+
+4. **Cutting to Stock**: 
+   - Output → Stock/Sub 
+   - Scan Lots/Serial Numbers 
+   - Scan Stock/Sub Location Barcode 
+
+---
+
+## Return Flow
+
+1. Add Lot/Serial Number 
+2. Customer → Output (Validate) 
+3. **Cutting to Stock**: 
+   - Output → Stock/Sub 
+   - Scan Lots/Serial Numbers 
+   - Scan Stock/Sub Location Barcode
