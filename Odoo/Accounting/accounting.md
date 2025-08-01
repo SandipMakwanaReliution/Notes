@@ -53,6 +53,12 @@
 - Taxes calculate **GST/VAT** automatically on invoices and bills.
 - Odoo uses tax records to apply the correct tax percentage and post to the correct tax accounts.
 
+## Sales 
+- Current Liabilites [Tax Receive]
+
+## Purchase 
+- Current Assets [Tax Paid]
+
 ---
 
 # 4. Bank Accounts (Optional)
@@ -63,53 +69,33 @@ If your company uses banks for transactions, you should add your bank accounts i
 
 # 5. Journal
 
-- `Sales`
-- `Purchase`
-- `Cash`
-- `Bank`
-- `Miscellaneous`
-	
+## Sales Journal
+- [Default Account] : Income 
+- Receivable 
+
+## Purchase Journal
+- [Default Account] : Expenses
+- Payable
+
+## Cash Journal
+- [Cash Account] : Bank and Cash 
+- [Suspense Account] : Current Assests 
+- [Profit Account] : Income 
+- [Loss Account] : Expenses 
+
+## Bank Journal
+- [Bank Account] : Bank and Cash 
+- [Suspense Account] : Current Assests 
+
+## Miscellaneous
+- [Default Account]
+
 ---
 
 Invoice/Bill
 ------------
 
 - when create a invoice odoo find "Account Payable" and "Account Reciable" from Customer or Vendor Contect form.
-
-
-
-=================
-JOURNAL TYPES:
-=================
-Sales Journal
-- [Default Account] : Income 
-- Receivable 
-
-Purchase Journal
-- [Default Account] : Expenses
-- Payable
-
-Cash Journal
-- [Cash Account] : Bank and Cash 
-- [Suspense Account] : Current Assests 
-- [Profit Account] : Income 
-- [Loss Account] : Expenses 
-
-Bank Journal
-- [Bank Account] : Bank and Cash 
-- [Suspense Account] : Current Assests 
-
-Miscellaneous
-- [Default Account]
-
-=================
-TAX TYPES:
-=================
-Sales
-- Current Liabilites [Tax Receive]
-
-Purchase
-- Current Assets [Tax Paid]
 
 ================
 Invoices Conf:
