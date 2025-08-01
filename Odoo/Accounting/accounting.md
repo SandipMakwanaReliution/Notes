@@ -187,3 +187,7 @@ Current Assests                                             Current Liabilities
 
 Net Profit = Expenses (Purchase +) - Income (Sales +)
 
+
+![Schema](Images/accounting.png)
+
+
