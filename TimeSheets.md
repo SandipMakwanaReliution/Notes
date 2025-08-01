@@ -3173,6 +3173,21 @@ t-on-input is triggered immediately as the user types.
    - Perform and practice key operations such as invoices, payments, journal entries, and reconciliation.
 
 --------------------------------------------------------------------------
+
+📅 Date: 1 Aug 2025
+🗓️ Today’s Work:
+
+🔍 Project: Accounting Workflow
+   - Studied fiscal localization and its purpose in Odoo accounting.
+   - Understood the concept of fiscal year and how it's configured.
+   - Learned the differences and roles of assets, liabilities, and equity in financial accounting.
+   - Explored how Receivable and Payable accounts are linked to customer/vendor in contact forms.
+   - Understood the setup of Sales, Purchase, Bank, and Cash Journals, and how default accounts are configured and used.
+   - Configured Bank Journal, set Outstanding Account, and tested automatic reconciliation.
+   - Removed outstanding account in journal and performed partial and full payments across multiple invoices using reconciliation.
+   - Explored Inventory Module to understand how to track the history of lot/serial numbers using smart buttons and move history.
+	
+--------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
 	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")
 

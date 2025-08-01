@@ -16,38 +16,42 @@
 
 - Assets – What your business owns / બિઝનેસ પાસે શું છે
   - Assets are all the things that your business has or controls that have value.
-  - Examples:
-    - Bank balance 
-    - Inventory
-    - Machinery
-    - Accounts Receivable (customers owe you / ગ્રાહક પાસેથી મળવાનું બાકી)
-    - Office buildings
-    - Vehicles
-    - Product stock
+  - Examples: Bank balance, Inventory, Machinery, Accounts Receivable (customers owe you / ગ્રાહક પાસેથી મળવાનું બાકી), Office buildings, Vehicles, Product stock
 	    
   - In Odoo, asset-related account types include:
-    - `Receivable` 
-    - `Bank and Cash`
-    - `Current Assets`
-    - `Non-current Assets`
-    - `Prepayments`
-    - `Fixed Assets`
+    - **Receivable** 
+      - Whenever you create a customer invoice (Draft), Odoo puts the amount in Receivable account until payment is made(paid).
+      - Example:
+	    ```
+	    Draft Invoice:
+	    Debit   | Credit
+	    ------------------------
+	    100.00  |        -        ← Account Receivable
+	      -     |    100.00       ← Income
+
+	    Paid Invoice:
+	    Debit   | Credit
+	    ------------------------
+	    100.00  |        -        ← Bank or Cash
+	      -     |    100.00       ← Account Receivable
+	    ```
+
+    - **Bank and Cash**
+    - **Current Assets**
+    - **Non-current Assets**
+    - **Prepayments**
+    - **Fixed Assets**
 
 - Liabilities - What your business owes to others / બિઝનેસે બીજાને શું આપવાનું છે
   - Liabilities are what your company needs to pay to others — debts and obligations.
   - These are things you have to pay later – so they’re called liabilities.
-  - Examples:
-    - Vendor bills (Accounts Payable)
-    - Loans
-    - Tax payable (e.g., GST Payable)
-    - Salaries payable
-    - Credit card dues
+  - Examples: Vendor bills (Accounts Payable), Loans, Tax payable (e.g., GST Payable), Salaries payable, Credit card dues
 	
   - In Odoo, liability-related account types include:
-    - `Payable`
-    - `Credit Card`
-    - `Current Liabilities`
-    - `Non-current Liabilities`
+    - **Payable**
+    - **Credit Card**
+    - **Current Liabilities**
+    - **Non-current Liabilities**
 
 - Equity - What’s left for the owner / માલિકીનો હિસ્સો
   - Simple formula:
@@ -56,22 +60,22 @@
     - Equity (₹70,000) = Assets (₹1,00,000) - Liabilities (₹30,000)
      
   - In Odoo, equity-related account types include:
-    - `Equity`
-    - `Current Year Earnings` – **⚠️ Mandatory** – Holds current year net profit/loss
+    - **Equity**
+    - **Current Year Earnings** – **⚠️ Mandatory** – Holds current year net profit/loss
 
 2. Profit and Loss Accounts
 
 - Income
-  - `Income`
-  - `Other Income`
+  - **Income**
+  - **Other Income**
 
 - Expenses
-  - `Cost of Revenue`
-  - `Depreciation`
-  - `Expenses`
+  - **Cost of Revenue**
+  - **Depreciation**
+  - **Expenses**
 
 - Other
-  - `Off-Balance Sheet`
+  - **Off-Balance Sheet**
 
 ---
 
@@ -117,53 +121,52 @@ If your company uses banks for transactions, you should add your bank accounts i
 - Miscellaneous
   - [Default Account]
 
+---
 
+# 6. Invoice / Bill
 
+To properly record invoices or vendor bills in Odoo, you need the following key accounts and journals:
 
+Required:
+- **Sales Journal** → Income Account
+- **Bank Journal / Cash Journal** → Bank or Cash Account
+- **Receivable and Payable Accounts** → Used to track outstanding amounts
 
+When you **create** a customer invoice, it affects your **Assets (Receivable)** and **Income**.
 
+	Account 		| Debit | Credit
+Account Receivable (Customer) 	| 100.00|   -
+Income (from Sales Journal) 	|   - 	| 100.00
 
-------------
-Invoice/Bill
-------------
+- **Effect**:
+  - Increases **Assets** (Receivable – money customer owes you)
+  - Increases **Income**
 
-- when create a invoice odoo find "Account Payable" and "Account Reciable" from Customer or Vendor Contect form.
+### Status: Paid via Bank
 
-================
-Invoices Conf:
-================
-1. Receivable on contact forms.
+When payment is **received**, the receivable is cleared, and money is added to your **Bank**.
 
-2. Accounts on the 'taxes'.
+	Account 		| Debit | Credit
+Bank Account (from Bank Journal)| 100.00| -
+Account Receivable (Customer) 	| - 	| 100.00
 
-3. Default 'income' account on Sales Journal.
-Optional: 'default income' account on peoduct or product category.
+- **Effect**:
+  - Increases **Bank** balance
+  - Decreases **Receivable**
 
-4. Invoice Layout.
+---
 
-================
-Bills Conf:
-================
-1. Payable on contact forms.
+> 🔁 The same logic applies for Vendor Bills:
+> - Uses **Payable** instead of **Receivable**
+> - Uses **Expense** instead of **Income**
 
-2. Accounts on the 'taxes'.
+---
 
-3. Default 'expense' account on Purchase Journal.
-Optional: 'default expense' account on peoduct or product category.
+# 7. Reconciliation
 
-================
-Reporting:
-================
-1. Legal
-    - Balance Sheet
-    - Profit and Loss Statement
-    - Tax report
-2. Management
-    - General ledger
-    - Trial balance
-    - Partner ledger
-    - Aged balances
-    - Depreciaiton board
+- In odoo 18: https://youtube.com/playlist?list=PLGcOZ-0xnkZ7HhTHfEA1Nf0o6GNUnfZda&si=IZNrT2f0TcIwztnt
+
+---
     
 Assests (Things the company owns)                       =   Liabilites (What the company owes)                  +   Equity (Owner’s interest in the company)
 
@@ -179,7 +182,7 @@ Current Assests                                             Current Liabilities
 •   Increases when Tax is Receivable                            •   Increases when Tax is Payable
 •   Decreases when Tax Return                                   •   Decreases when Tax Return 
 
-----------
+---
 
 Net Profit = Expenses (Purchase +) - Income (Sales +)
 

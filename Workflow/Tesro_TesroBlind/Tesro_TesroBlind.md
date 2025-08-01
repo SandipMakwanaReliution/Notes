@@ -19,7 +19,7 @@ Includes the following business units:
 - **Sale**: 
   - Track *(manufactured from Track components)* 
   - Fabric 
-  - Track (components sold manually)
+  - Track (components sale manually)
 
 ---
 
@@ -196,7 +196,7 @@ To get the **Badge ID**, go to:
 ## Purchase Flow
 
 1. **Purchase Order**: 
-   - Compulsory Purchase order create manually, not use file.
+   - Create manually or Purchase Order From File (if needed) 
    - *Delivery To*: My Company: Receipt (Component) 
    
 2. **Receipt Step 1** 
