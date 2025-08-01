@@ -14,37 +14,37 @@
 
 ## 🧮 Balance Sheet Accounts
 
-### 📂 Assets
-- `Receivable` 
-- `Bank and Cash`
-- `Current Assets`
-- `Non-current Assets`
-- `Prepayments`
-- `Fixed Assets`
+- Assets
+  - `Receivable` 
+  - `Bank and Cash`
+  - `Current Assets`
+  - `Non-current Assets`
+  - `Prepayments`
+  - `Fixed Assets`
 
-### 📂 Liabilities
-- `Payable`
-- `Credit Card`
-- `Current Liabilities`
-- `Non-current Liabilities`
+- Liabilities
+  - `Payable`
+  - `Credit Card`
+  - `Current Liabilities`
+  - `Non-current Liabilities`
 
-### 📂 Equity
-- `Equity`
-- `Current Year Earnings` – **⚠️ Mandatory** – Holds current year net profit/loss
+- Equity
+  - `Equity`
+  - `Current Year Earnings` – **⚠️ Mandatory** – Holds current year net profit/loss
 
 ## 📉 Profit and Loss Accounts
 
-### 📂 Income
-- `Income`
-- `Other Income`
+- Income
+  - `Income`
+  - `Other Income`
 
-### 📂 Expenses
-- `Cost of Revenue`
-- `Depreciation`
-- `Expenses`
+- Expenses
+  - `Cost of Revenue`
+  - `Depreciation`
+  - `Expenses`
 
-### 📂 Other
-- `Off-Balance Sheet`
+- Other
+  - `Off-Balance Sheet`
 
 ---
 
@@ -53,11 +53,11 @@
 - Taxes calculate **GST/VAT** automatically on invoices and bills.
 - Odoo uses tax records to apply the correct tax percentage and post to the correct tax accounts.
 
-## Sales 
-- Current Liabilites [Tax Receive]
+- Sales 
+  - Current Liabilites [Tax Receive]
 
-## Purchase 
-- Current Assets [Tax Paid]
+- Purchase 
+  - Current Assets [Tax Paid]
 
 ---
 
@@ -69,29 +69,34 @@ If your company uses banks for transactions, you should add your bank accounts i
 
 # 5. Journal
 
-## Sales Journal
-- [Default Account] : Income 
-- Receivable 
+- Sales Journal
+  - [Default Account] : Income 
+  - Receivable 
 
-## Purchase Journal
-- [Default Account] : Expenses
-- Payable
+- Purchase Journal
+  - [Default Account] : Expenses
+  - Payable
 
-## Cash Journal
-- [Cash Account] : Bank and Cash 
-- [Suspense Account] : Current Assests 
-- [Profit Account] : Income 
-- [Loss Account] : Expenses 
+- Cash Journal
+  - [Cash Account] : Bank and Cash 
+  - [Suspense Account] : Current Assests
+  - [Profit Account] : Income 
+  - [Loss Account] : Expenses 
 
-## Bank Journal
-- [Bank Account] : Bank and Cash 
-- [Suspense Account] : Current Assests 
+- Bank Journal
+  - [Bank Account] : Bank and Cash 
+  - [Suspense Account] : Current Assests 
 
-## Miscellaneous
-- [Default Account]
+- Miscellaneous
+  - [Default Account]
 
----
 
+
+
+
+
+
+------------
 Invoice/Bill
 ------------
 
