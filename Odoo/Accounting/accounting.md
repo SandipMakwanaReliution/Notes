@@ -1,6 +1,4 @@
-## ✅ 1. Set Up Fiscal Localization and Fiscal Year
-
-### 📘 What is it?
+# 1. Fiscal Localization and Fiscal Year
 
 - **Fiscal Localization**: Country-specific accounting rules and tax structures (e.g., GST for India).
 - **Fiscal Year**: Defines the accounting start and end dates.
@@ -8,19 +6,15 @@
   
 ---
 
-## ✅ 2. Set Up Chart of Accounts, Journals, and Taxes
-
-### 📘 What is a Chart of Account (CoA)?
+# 2. Chart of Accounts (CoA)
 
 - The Chart of Accounts is a **list of all accounts** used to record financial transactions in your company.
 - Each account belongs to a specific **account type**, which determines where it appears in reports (Balance Sheet or Profit & Loss).
 - It forms the backbone of your accounting setup in Odoo.
 
-### 🧾 Account Types in Odoo
+## 🧮 Balance Sheet Accounts
 
-#### 🧮 Balance Sheet Accounts
-
-##### 📂 Assets
+### 📂 Assets
 - `Receivable` 
 - `Bank and Cash`
 - `Current Assets`
@@ -28,54 +22,55 @@
 - `Prepayments`
 - `Fixed Assets`
 
-##### 📂 Liabilities
+### 📂 Liabilities
 - `Payable`
 - `Credit Card`
 - `Current Liabilities`
 - `Non-current Liabilities`
 
-##### 📂 Equity
+### 📂 Equity
 - `Equity`
 - `Current Year Earnings` – **⚠️ Mandatory** – Holds current year net profit/loss
 
-#### 📉 Profit and Loss Accounts
+## 📉 Profit and Loss Accounts
 
-##### 📂 Income
+### 📂 Income
 - `Income`
 - `Other Income`
 
-##### 📂 Expenses
+### 📂 Expenses
 - `Cost of Revenue`
 - `Depreciation`
 - `Expenses`
 
-##### 📂 Other
+### 📂 Other
 - `Off-Balance Sheet`
 
 ---
 
-### 📘 What Are Taxes in Odoo?
+# 3. Taxes
 
 - Taxes calculate **GST/VAT** automatically on invoices and bills.
 - Odoo uses tax records to apply the correct tax percentage and post to the correct tax accounts.
 
 ---
 
-## ✅ 3. Set Up Bank Accounts (Optional)
+# 4. Bank Accounts (Optional)
 
 If your company uses banks for transactions, you should add your bank accounts in Odoo.
 
 ---
 
-Journal
--------
-Type:
-	- Sales
-	- Purchase
-	- Cash
-	- Bank
-	- Miscellaneous
+# 5. Journal
+
+- `Sales`
+- `Purchase`
+- `Cash`
+- `Bank`
+- `Miscellaneous`
 	
+---
+
 Invoice/Bill
 ------------
 
