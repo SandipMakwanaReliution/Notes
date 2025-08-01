@@ -10,17 +10,49 @@
 
 ## ✅ 2. Set Up Chart of Accounts, Journals, and Taxes
 
----
-
 ### 📘 What is a Chart of Account (CoA)?
 
-- A list of all accounts used to record financial transactions in your company.
-- Examples:
-  - **Receivable Account** (for customers)
-  - **Payable Account** (for vendors)
-  - **Sales Income**
-  - **Purchase Expense**
-  - **Bank/Cash Accounts**
+- The Chart of Accounts is a **list of all accounts** used to record financial transactions in your company.
+- Each account belongs to a specific **account type**, which determines where it appears in reports (Balance Sheet or Profit & Loss).
+- It forms the backbone of your accounting setup in Odoo.
+
+## 🧾 Account Types in Odoo
+
+### 🧮 Balance Sheet Accounts
+
+#### 📂 Assets
+- `Receivable` – Used for customer outstanding amounts (linked to partners)
+- `Bank and Cash` – Cash, Bank accounts
+- `Current Assets` – Inventory, advances
+- `Non-current Assets` – Long-term receivables, investments
+- `Prepayments` – Prepaid rent, insurance, etc.
+- `Fixed Assets` – Machinery, Equipment, Vehicles
+
+#### 📂 Liabilities
+- `Payable` – Used for vendor outstanding amounts (linked to partners)
+- `Credit Card` – Company credit cards
+- `Current Liabilities` – Taxes payable, short-term obligations
+- `Non-current Liabilities` – Loans, bonds payable
+
+#### 📂 Equity
+- `Equity` – Capital, Reserves, Retained earnings
+- `Current Year Earnings` – **⚠️ Mandatory** – Holds current year net profit/loss
+
+---
+
+### 📉 Profit and Loss Accounts
+
+#### 📂 Income
+- `Income` – Sales Revenue
+- `Other Income` – Interest received, non-core income
+
+#### 📂 Expenses
+- `Cost of Revenue` – COGS, Raw materials
+- `Depreciation` – Asset depreciation expenses
+- `Expenses` – Salaries, Rent, Utilities, etc.
+
+#### 📂 Other
+- `Off-Balance Sheet` – Memo entries or items tracked outside accounting books
 
 ---
 
@@ -51,36 +83,7 @@ Invoice/Bill
 
 - when create a invoice odoo find "Account Payable" and "Account Reciable" from Customer or Vendor Contect form.
 
-=================           
-ACCOUNT TYPES:
-=================   
-Balance Sheet:
-    Assests:
-        Receivable
-        Bank and Cash
-        Current Assests
-        Non-current Assets
-        Prepayments
-        Fixed Assests
-    Liabilites:
-        Payable
-        Credit Card
-        Current Liabilites
-        Non-current Liabilites
-    Equity:
-        Equity
-        Current Year Earnings [Mandatory]
 
-Profit and Loss:
-    Other:
-        Off-Balance Sheet
-    Expenses:
-        Cost of Revenue
-        Depreciation
-        Expenses    
-    Income:
-        Income
-        Other Income
 
 =================
 JOURNAL TYPES:
