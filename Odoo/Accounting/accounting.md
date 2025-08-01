@@ -134,10 +134,11 @@ Required:
 
 When you **create** a customer invoice, it affects your **Assets (Receivable)** and **Income**.
 
+```
 	Account 		| Debit | Credit
 Account Receivable (Customer) 	| 100.00|   -
 Income (from Sales Journal) 	|   - 	| 100.00
-
+```
 - **Effect**:
   - Increases **Assets** (Receivable – money customer owes you)
   - Increases **Income**
@@ -145,11 +146,11 @@ Income (from Sales Journal) 	|   - 	| 100.00
 ### Status: Paid via Bank
 
 When payment is **received**, the receivable is cleared, and money is added to your **Bank**.
-
+```
 	Account 		| Debit | Credit
 Bank Account (from Bank Journal)| 100.00| -
 Account Receivable (Customer) 	| - 	| 100.00
-
+```
 - **Effect**:
   - Increases **Bank** balance
   - Decreases **Receivable**
