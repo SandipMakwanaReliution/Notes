@@ -16,43 +16,41 @@
 - Each account belongs to a specific **account type**, which determines where it appears in reports (Balance Sheet or Profit & Loss).
 - It forms the backbone of your accounting setup in Odoo.
 
-## 🧾 Account Types in Odoo
+### 🧾 Account Types in Odoo
 
-### 🧮 Balance Sheet Accounts
+#### 🧮 Balance Sheet Accounts
 
-#### 📂 Assets
-- `Receivable` – Used for customer outstanding amounts (linked to partners)
-- `Bank and Cash` – Cash, Bank accounts
-- `Current Assets` – Inventory, advances
-- `Non-current Assets` – Long-term receivables, investments
-- `Prepayments` – Prepaid rent, insurance, etc.
-- `Fixed Assets` – Machinery, Equipment, Vehicles
+##### 📂 Assets
+- `Receivable` 
+- `Bank and Cash`
+- `Current Assets`
+- `Non-current Assets`
+- `Prepayments`
+- `Fixed Assets`
 
-#### 📂 Liabilities
-- `Payable` – Used for vendor outstanding amounts (linked to partners)
-- `Credit Card` – Company credit cards
-- `Current Liabilities` – Taxes payable, short-term obligations
-- `Non-current Liabilities` – Loans, bonds payable
+##### 📂 Liabilities
+- `Payable`
+- `Credit Card`
+- `Current Liabilities`
+- `Non-current Liabilities`
 
-#### 📂 Equity
-- `Equity` – Capital, Reserves, Retained earnings
+##### 📂 Equity
+- `Equity`
 - `Current Year Earnings` – **⚠️ Mandatory** – Holds current year net profit/loss
 
----
+#### 📉 Profit and Loss Accounts
 
-### 📉 Profit and Loss Accounts
+##### 📂 Income
+- `Income`
+- `Other Income`
 
-#### 📂 Income
-- `Income` – Sales Revenue
-- `Other Income` – Interest received, non-core income
+##### 📂 Expenses
+- `Cost of Revenue`
+- `Depreciation`
+- `Expenses`
 
-#### 📂 Expenses
-- `Cost of Revenue` – COGS, Raw materials
-- `Depreciation` – Asset depreciation expenses
-- `Expenses` – Salaries, Rent, Utilities, etc.
-
-#### 📂 Other
-- `Off-Balance Sheet` – Memo entries or items tracked outside accounting books
+##### 📂 Other
+- `Off-Balance Sheet`
 
 ---
 
