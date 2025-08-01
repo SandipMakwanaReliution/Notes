@@ -3146,19 +3146,32 @@ t-on-input is triggered immediately as the user types.
 🗓️ Today’s Work:
 
 🔧 Project: Tesro v17 - Workflow
-
+   2:00
    - Performed fabric purchase, sales and return operations to understand the flow.
-   - Explored the “Import Picking Line” button in the purchase receipt "step one"; 
-   - Performed the Internal Transfer and Transfer Details operation.
+   - Reviewed how product moves across different locations in each operation.
+   - Took detailed notes on encountered behaviors for future documentation.
+   2:45
+   - Explored the “Import Picking Line” button in the purchase receipt "step one".
+   - Executed the Internal Transfer and Transfer Details operation.
    - Performed the Cutting to Stock operation.
-   - full fabric flow step are note in file.
-   
+   - Documented the full fabric flow steps for future reference.
+   2:15
    - Performed component purchase, slaes and return operations to understand the flow.
-   - Performed Component Internal Transfer operation.
-   - also its step are note.
-   
-   - 
-   
+   - Executed Component Internal Transfer operation.
+   - Documented all steps related to component flow as well.
+   01:00
+   - Performed full operation of Track and Blind product in both Tesro and Tesro Blind.
+   - Reviewed Inventory Stock Report, Catalogue Distribution, and Catalogue Management processes.
+
+--------------------------------------------------------------------------
+
+📅 Date: 1 Aug 2025
+🗓️ Today’s Plan:
+
+🔍 Project: Accounting Workflow
+   - Watch tutorials to understand the core functionalities of the Accounting module.
+   - Perform and practice key operations such as invoices, payments, journal entries, and reconciliation.
+
 --------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
 	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")

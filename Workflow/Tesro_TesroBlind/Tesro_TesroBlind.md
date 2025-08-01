@@ -118,6 +118,8 @@ To get the **Badge ID**, go to:
 **Transfer Flow**: 
 `Output → Stock/Sub`
 
+> ⚠️ Note: **Component products** do not require transfer from Component-Output → Stock/Sub.
+
 ---
 
 # FABRIC AND BLIND FABRIC FLOW
@@ -249,8 +251,7 @@ To get the **Badge ID**, go to:
 
 # TRACK AND BLIND FLOW (MAIN PRODUCT)
 
-TRACK
-=====
+##TRACK
 
 {Sale Order}-> Confirm
 
@@ -266,8 +267,7 @@ TRACK
     Component (Virtual Location To Component-Output)
     Main Product (Output To Virtual Location)
 
-BLIND
-=====
+##BLIND
 
 {Sale Order}-> Confirm
 
