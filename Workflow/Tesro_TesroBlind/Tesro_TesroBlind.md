@@ -119,6 +119,11 @@ To get the **Badge ID**, go to:
 `Output → Stock/Sub`
 
 > ⚠️ Note: **Component products** do not require transfer from Component-Output → Stock/Sub.
+---
+
+# 4. APP: Stock to Stock
+
+- One Stock/sub location To Other Stock/sub Location
 
 ---
 
@@ -286,7 +291,6 @@ To get the **Badge ID**, go to:
     Component (Virtual Location To Component-Output)
     Main Product (Output To Virtual Location)
     Fabric (Virtual Loaction To Output)
-
 
 
 

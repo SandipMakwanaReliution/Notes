@@ -203,3 +203,10 @@ git pull origin main
 scaffold
 ========
 python "D:\Projects\Odoo_Base\v17\odoo-bin" scaffold test_module "D:\Projects\Projects_v17\v17_Custom\v17_Addons"
+
+
+
+
+
+
+----------------------

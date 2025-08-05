@@ -3092,20 +3092,24 @@ t-on-input is triggered immediately as the user types.
    - Analyzed product types in Tesro and Tesro Blind.
    - Checked which products are used in manufacturing, purchasing, and sales.
    - Executed a full test flow for both projects to validate operations.
+   00:20
+   - With the manager's help, clarified the usage of products across manufacturing, purchasing, and sales modules.
+   - Updated internal notes accordingly to improve future development accuracy.
+   
+
+
+Internal - Internal
    01:10
    - Tried to fix a module error shown every time during project runs, related to undefined fields in two custom modules.
    - Manually updated module using PyCharm configurations for each project run to temporarily bypass the issue.
    - Switched to another browser to test if it affected project stability, but the issue remained unresolved.
    - Faced system freezes while running two Odoo projects simultaneously — encountered the issue three times today. 
    - After each freeze, the system became unresponsive; had to unplug the charger and restart the system to resume work.
-   00:20
-   - With the manager's help, clarified the usage of products across manufacturing, purchasing, and sales modules.
-   - Updated internal notes accordingly to improve future development accuracy.
+   
    00:30
    - Encountered a Git error while pushing project documentation.
    - Identified that a private GitHub token was accidentally exposed in the file.
    - Removed sensitive token and successfully pushed all pending documents.
-
 --------------------------------------------------------------------------
 
 📅 Date: 30 July 2025
@@ -3135,14 +3139,6 @@ t-on-input is triggered immediately as the user types.
 --------------------------------------------------------------------------
 
 📅 Date: 31 July 2025
-🗓️ Today’s Plan:
-
-🔍 Project: Workflow 
-   - Review the custom modules of Tesro and Tesro Blind, and analyze their code logic.
-
---------------------------------------------------------------------------
-
-📅 Date: 31 July 2025
 🗓️ Today’s Work:
 
 🔧 Project: Tesro v17 - Workflow
@@ -3166,44 +3162,82 @@ t-on-input is triggered immediately as the user types.
 --------------------------------------------------------------------------
 
 📅 Date: 1 Aug 2025
-🗓️ Today’s Plan:
-
-🔍 Project: Accounting Workflow
-   - Watch tutorials to understand the core functionalities of the Accounting module.
-   - Perform and practice key operations such as invoices, payments, journal entries, and reconciliation.
-
---------------------------------------------------------------------------
-
-📅 Date: 1 Aug 2025
 🗓️ Today’s Work:
 
-🔍 Project: Accounting Workflow
+🔧 Project: Internal
+🔍 R&D: Accounting Workflow
+
+   02:00
    - Studied fiscal localization and its purpose in Odoo accounting.
    - Understood the concept of fiscal year and how it's configured.
    - Learned the differences and roles of assets, liabilities, and equity in financial accounting.
+   01:00
    - Explored how Receivable and Payable accounts are linked to customer/vendor in contact forms.
    - Understood the setup of Sales, Purchase, Bank, and Cash Journals, and how default accounts are configured and used.
+   03:00
    - Configured Bank Journal, set Outstanding Account, and tested automatic reconciliation.
    - Removed outstanding account in journal and performed partial and full payments across multiple invoices using reconciliation.
-   - Explored Inventory Module to understand how to track the history of lot/serial numbers using smart buttons and move history.
-	
+   01:00
+   - Prepared documentation for all the above learnings for future reference.
+   01:00
+   - Explored Inventory Module to understand how to track the history of lot/serial numbers.
+   - Identified usable and unusable lots and reviewed their stock move history.
+   - Analyzed how stock is moved between locations through purchases, sales, scrap, and inventory adjustments.
+
+--------------------------------------------------------------------------
+
+📅 Date: 2 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Internal
+ 
+   Task: Project setup - 00:15
+   - Set up Odoo 17 and 18 Enterprise practice environments to perform accounting operations for better understanding.
+
+   Task: Team Metting - 01:30
+   - Attended the weekly team discussion meeting.
+   - Discussed functional workflows of the Two Guys and Clean Freak projects. 
+
+🔍 R&D: Accounting Workflow - 02:15
+   - Performed invoice, bill, payment, and reconciliation operations.
+   - Cleared core concepts of reconciliation, including:
+     - When journal entries post to the Outstanding Account.
+     - When this step is skipped and the payment is posted directly to the bank account.
+
+--------------------------------------------------------------------------
+
+📅 Date: 5 Aug 2025
+🗓️ Today’s Plan:
+
+🔧 Project: Internal 
+🔍 R&D: Accounting Workflow
+   - Explore other account types used in Odoo and understand their purpose in financial reporting.
+   - Learn how tax configuration works in Odoo, including tax groups, tax tags.
+   - Learn how taxes apply to sales and purchase transactions.
+
+--------------------------------------------------------------------------
+
+📅 Date: 5 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Sam Boutique
+🔧 Development: POS Cash Payment - 02:30
+   - set up sam boutique project in my system. install required python librery.
+   - override payment screen class of pos, and add auto select cash payment method.
+   - check session configuration and enable automatic receipt printing.
+   - perform test cash work was properly or not.
+   12:00
+
+🔧 Project: Internal 
+🔍 R&D: Accounting Workflow
+   -  
+   
+   
 --------------------------------------------------------------------------
 Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
 	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")
 
-
-1. no_open in invocie and credite note
-2. Automatically save the sale order whenever a sales order line is added one by one.
-3. Today invoice (Done)
-4. in purchse order add button for open new window tab with whatsapp.
-5. addtional product chnages add in kit insted of sale order line.
-6. Consumable Product Flow (Done)
-
-review chnages:	
-  - For korzo, Need to filter out leads from blocked email addresses.
- 
 - add custome script of migration
-
 
 mapped 
 lambda
@@ -3236,74 +3270,9 @@ filterd
 📌 Notes (Optional):
       [Anything to note]
 
+
+internal Discussion
 --------------------------------------------------------------------------
-
-
-first time get all product qty and create invcoice 
-then second time run backourder that time also create invoice and that time show all product and thats product qty is 0 thats why error show 
-
-
--------------------------------------------------------------------
-Exam
-
-v17 custome sale target management
-- hendal employee of user, that was murge record value of migrate data using two database.
-- migrate value of not stroed in database and insuerd field was compute or realated.
-
-sales traget module
-
-date whys sales targer give to sales person with particuler amount
-how achive record of sales person.
-
-
-sales pesron only current user traget, its traget read only
-sales manager see all traget
-
---------------------------------------------------------------------------
-
-When You Purchase a Product
-    Debit:  Stock Valuation Account (200001 Closing Stock)
-    Credit: Stock Input Account     (200002 Stock Interim (Received))
-
-When You Sell a Product
-    Credit: Stock Valuation Account (200001 Closing Stock)
-    Debit:  Stock Output Account    (200003 Stock Interim (Delivered))
-
--------------------------------------------------------------------
-Increases product cost
-    Credit: Expense Account         (600001 Purchase)
-    Debit:  Stock Valuation Account (200001 Closing Stock)
-
-Decreases product cost
-    Credit: Stock Valuation Account (200001 Closing Stock)
-    Debit:  Expense Account         (600001 Purchase)
-
--------------------------------------------------------------------
-Create customer invoice
-    Credit: Income Account (500001 Sales Account)
-    Debit:                 (Trade Receivables)
-
-Create vendor bill
-    Credit:                (Trade Payables)
-    Debit: Expense Account (600001 Purchase)
-
-===================================================================
-Scenario — Change a Expanse Account
-
-- Vendor Bill
-- Changing Product Cost Price 
-- Employee Expenses
-- Inventory Loss / Scrap
-
-
-Expanse account change na kari aki , 
-- Vendor Bill
-- Changing Product Cost Price 
-- Employee Expenses
-- Inventory Loss / Scrap
-a badha scenario ma expence account triger thay , 
-emne acutle purchase figure out karvu hoy to journal item ma filter no use karvo pade  
-
 
 compute method
 ================
@@ -3423,14 +3392,6 @@ git config --list
 - https://stackoverflow.com/questions/2505096/clone-a-private-repository-github
 - go to github > Developer Settings > Personal access token > Token Classic > Genertae new token (classic) > add note and muste select repo checkbox
 
-------------------------------------------
-
-- python3.10 -m pip install --upgrade pip
-
-- python3.10 -m pip uninstall cryptography -y
-- python3.10 -m pip install cryptography
-
-- python3.10 -m pip install --upgrade pyOpenSSL urllib3
 
 --------------------
 

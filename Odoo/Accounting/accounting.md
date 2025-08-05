@@ -12,37 +12,33 @@
 - Each account belongs to a specific **account type**, which determines where it appears in reports (Balance Sheet or Profit & Loss).
 - It forms the backbone of your accounting setup in Odoo.
 
-1. Balance Sheet Accounts
+## 1. Balance Sheet Accounts
 
-- Assets – What your business owns / બિઝનેસ પાસે શું છે
+### Assets – What your business owns / બિઝનેસ પાસે શું છે
   - Assets are all the things that your business has or controls that have value.
-  - Examples: Bank balance, Inventory, Machinery, Accounts Receivable (customers owe you / ગ્રાહક પાસેથી મળવાનું બાકી), Office buildings, Vehicles, Product stock
+  - Examples: Bank balance, Inventory, Machinery, Accounts Receivable , Office buildings, Vehicles, Product stock
 	    
   - In Odoo, asset-related account types include:
     - **Receivable** 
       - Whenever you create a customer invoice (Draft), Odoo puts the amount in Receivable account until payment is made(paid).
-      - Example:
-	    ```
-	    Draft Invoice:
-	    Debit   | Credit
-	    ------------------------
-	    100.00  |        -        ← Account Receivable
-	      -     |    100.00       ← Income
-
-	    Paid Invoice:
-	    Debit   | Credit
-	    ------------------------
-	    100.00  |        -        ← Bank or Cash
-	      -     |    100.00       ← Account Receivable
-	    ```
+      - (customers owe you / ગ્રાહક પાસેથી મળવાનું બાકી)
 
     - **Bank and Cash**
     - **Current Assets**
+      - All assets that can be converted into cash or used within 1 year
+      ```
+      Inventory – stock you will sell
+      Advance to Vendor – you paid money in advance
+      Employee Advance – employee owes the company
+      Prepaid Rent or Insurance – paid for future use
+      ```
+      - પૈસા આપ્યા પણ પાછા મળી જશે (vendor advance), અથવા પૈસા નથી પણ કિંમત છે (stock), એટલે તે Current Asset છે.
+	
     - **Non-current Assets**
     - **Prepayments**
     - **Fixed Assets**
-
-- Liabilities - What your business owes to others / બિઝનેસે બીજાને શું આપવાનું છે
+    
+### Liabilities - What your business owes to others / બિઝનેસે બીજાને શું આપવાનું છે
   - Liabilities are what your company needs to pay to others — debts and obligations.
   - These are things you have to pay later – so they’re called liabilities.
   - Examples: Vendor bills (Accounts Payable), Loans, Tax payable (e.g., GST Payable), Salaries payable, Credit card dues
@@ -53,28 +49,36 @@
     - **Current Liabilities**
     - **Non-current Liabilities**
 
-- Equity - What’s left for the owner / માલિકીનો હિસ્સો
+### Equity - What’s left for the owner / માલિકીનો હિસ્સો
   - Simple formula:
     - Equity = Assets - Liabilities
   - Example:
     - Equity (₹70,000) = Assets (₹1,00,000) - Liabilities (₹30,000)
      
   - In Odoo, equity-related account types include:
-    - **Equity**
-    - **Current Year Earnings** – **⚠️ Mandatory** – Holds current year net profit/loss
+    - **1. Equity**
+    
+    - **2. Current Year Earnings** 
+           - Holds current year net profit/loss
+           - **⚠️ Important Note**
+               - This is a required account in Odoo.
+               - Never create multiple accounts of this type.
+               - Do not update this account manually
 
-2. Profit and Loss Accounts
+## 2. Profit and Loss Accounts
 
-- Income
+### Income 
   - **Income**
   - **Other Income**
+  - e.g. (Sales)
 
-- Expenses
+### Expenses 
   - **Cost of Revenue**
   - **Depreciation**
   - **Expenses**
+  - e.g. (Purchase, Inventory Loss, Internal Expenses)
 
-- Other
+### Other
   - **Off-Balance Sheet**
 
 ---
@@ -143,7 +147,7 @@ Income (from Sales Journal) 	|   - 	| 100.00
   - Increases **Assets** (Receivable – money customer owes you)
   - Increases **Income**
 
-### Status: Paid via Bank
+**Status: Paid via Bank**
 
 When payment is **received**, the receivable is cleared, and money is added to your **Bank**.
 ```
@@ -161,6 +165,57 @@ Account Receivable (Customer) 	| - 	| 100.00
 > - Uses **Payable** instead of **Receivable**
 > - Uses **Expense** instead of **Income**
 
+
+- **Example 1:**
+	    ```
+	    Invoice (Post): Journal 1
+	    Debit   | Credit
+	    ------------------------
+	    100.00  |        -        ← Receivable (From Contect)
+	      -     |    100.00       ← Income (From Sales Journal)
+
+	    Create Payment
+	    Invoice (In Payment): Journal 2
+	    Debit   | Credit
+	    ------------------------
+	    100.00  |        -        ← Current Assets/Outstanding Receipts (From Bank Journal/Setting Configuration)
+	      -     |    100.00       ← Receivable (From Contect)
+	    
+	    Bank Reconciliation: Journal 3 (Invoice Paid)
+	    Debit   | Credit
+	    ------------------------
+	      	-   |   100.00       ← Current Assets/Outstanding Receipts (From Bank Journal/Setting Configuration)
+	     100.00 |     -          ← Bank and Cash (From Bank Journal)
+	    ```
+- **Example 2:**
+	    ```
+	    Invoice (Post): Journal 1
+	    Debit   | Credit
+	    ------------------------
+	    100.00  |        -        ← Receivable (From Contect)
+	      -     |    100.00       ← Income (From Sales Journal)
+
+	    Create Bank Reconciliation: Journal 2 (Invoice Paid)
+	    Debit   | Credit
+	    ------------------------
+	      	-   |   100.00       ← Receivable (From Contect)
+	     100.00 |     -          ← Bank and Cash (From Bank Journal)
+	    ```
+- **Example 3:**
+	    ```
+	    Invoice (Post): Journal 1
+	    Debit   | Credit
+	    ------------------------
+	    100.00  |        -        ← Receivable (From Contect)
+	      -     |    100.00       ← Income (From Sales Journal)
+
+	    - Configure Outstanding Receipts and Payment account to set Bank Account
+	    Create Payment: Journal 2 (Invoice Paid)
+	    Debit   | Credit
+	    ------------------------
+	      	-   |   100.00       ← Receivable (From Contect)
+	     100.00 |     -          ← Bank and Cash (From Bank Journal)
+	    ```
 ---
 
 # 7. Reconciliation
@@ -189,5 +244,37 @@ Net Profit = Expenses (Purchase +) - Income (Sales +)
 
 
 ![Schema](Images/accounting.png)
+
+
+---
+
+When You Purchase a Product
+    Debit:  Stock Valuation Account (200001 Closing Stock)
+    Credit: Stock Input Account     (200002 Stock Interim (Received))
+
+When You Sell a Product
+    Credit: Stock Valuation Account (200001 Closing Stock)
+    Debit:  Stock Output Account    (200003 Stock Interim (Delivered))
+
+---
+
+Increases product cost
+    Credit: Expense Account         (600001 Purchase)
+    Debit:  Stock Valuation Account (200001 Closing Stock)
+
+Decreases product cost
+    Credit: Stock Valuation Account (200001 Closing Stock)
+    Debit:  Expense Account         (600001 Purchase)
+
+---
+
+Create customer invoice
+    Credit: Income Account (500001 Sales Account)
+    Debit:                 (Trade Receivables)
+
+Create vendor bill
+    Credit:                (Trade Payables)
+    Debit: Expense Account (600001 Purchase)
+
 
 
