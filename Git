@@ -204,9 +204,46 @@ scaffold
 ========
 python "D:\Projects\Odoo_Base\v17\odoo-bin" scaffold test_module "D:\Projects\Projects_v17\v17_Custom\v17_Addons"
 
-
-
-
-
-
 ----------------------
+git clone -b dev1 https://github.com/RajkotiyaChirag/tesro_v17.git
+
+- git status
+- git init
+- gh --version
+- gh auth login
+- git add .
+- git commit -m ""
+- gh repo create
+- git remote add REMOTE_NAME <URL>
+- git remote -v
+- git push -u REMOTE_NAME BRANCH_NAME
+- pre-commit run --all-files
+
+- git clone -b <branch_name> <repository_url>
+- git pull origin <branch_name>
+- git push origin <branch_name>
+
+
+- git clone https://github.com/odoo/odoo.git -b 17.0 --depth 1 <local_folder_name>
+
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+
+git config --list
+-> for check config
+
+- …or create a new repository on the command line
+- echo "# Odoo-Tutorials" >> README.md
+- git init
+- git add README.md
+- git commit -m "first commit"
+- git branch -M main
+- git remote add origin https://github.com/SandipMakwanaReliution/Odoo-Tutorials.git
+- git push -u origin main
+
+
+- …or push an existing repository from the command line
+- git remote add origin https://github.com/SandipMakwanaReliution/Odoo-Tutorials.git
+- git branch -M main
+- git push -u origin main
+

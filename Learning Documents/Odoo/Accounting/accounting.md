@@ -12,27 +12,26 @@
 - Each account belongs to a specific **account type**, which determines where it appears in reports (Balance Sheet or Profit & Loss).
 - It forms the backbone of your accounting setup in Odoo.
 
-## 1. Balance Sheet Accounts
+## I. Balance Sheet Accounts
 
 ### Assets – What your business owns / બિઝનેસ પાસે શું છે
   - Assets are all the things that your business has or controls that have value.
   - Examples: Bank balance, Inventory, Machinery, Accounts Receivable , Office buildings, Vehicles, Product stock
 	    
   - In Odoo, asset-related account types include:
-    - **Receivable** 
-      - Whenever you create a customer invoice (Draft), Odoo puts the amount in Receivable account until payment is made(paid).
-      - (customers owe you / ગ્રાહક પાસેથી મળવાનું બાકી)
-
-    - **Bank and Cash**
-    - **Current Assets**
-      - All assets that can be converted into cash or used within 1 year
-      ```
-      Inventory – stock you will sell
-      Advance to Vendor – you paid money in advance
-      Employee Advance – employee owes the company
-      Prepaid Rent or Insurance – paid for future use
-      ```
-      - પૈસા આપ્યા પણ પાછા મળી જશે (vendor advance), અથવા પૈસા નથી પણ કિંમત છે (stock), એટલે તે Current Asset છે.
+  
+  Account type				Description
+  **Receivable** 		- Whenever you create a customer invoice (Draft), Odoo puts the amount in Receivable account until payment is made(paid).
+      				- (customers owe you / ગ્રાહક પાસેથી મળવાનું બાકી)
+ **Bank and Cash**
+ **Current Assets**		- All assets that can be converted into cash or used within 1 year
+      				```
+      				Inventory – stock you will sell
+      				Advance to Vendor – you paid money in advance
+      				Employee Advance – employee owes the company
+      				Prepaid Rent or Insurance – paid for future use
+      				```
+      				- પૈસા આપ્યા પણ પાછા મળી જશે (vendor advance), અથવા પૈસા નથી પણ કિંમત છે (stock), એટલે તે Current Asset છે.
 	
     - **Non-current Assets**
     - **Prepayments**
@@ -65,7 +64,7 @@
                - Never create multiple accounts of this type.
                - Do not update this account manually
 
-## 2. Profit and Loss Accounts
+## II. Profit and Loss Accounts
 
 ### Income 
   - **Income**

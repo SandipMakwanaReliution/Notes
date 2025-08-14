@@ -134,6 +134,13 @@ To get the **Badge ID**, go to:
 1. **Purchase Order**: 
    - Create manually or Purchase Order From File (if needed) 
    - *Delivery To*: My Company: Receipts (Fabric) 
+
+*. Purchase order From File
+   - Excel file should include the following columns: `Product`, `Quantity`, `Price`, `Lot/Packages`.
+   - If **Price** is not provided, remove the "Lot" column entirely. Do **not** leave it empty—this may cause errors.
+     - the system will use the product's default purchase price.
+   - If Lot is not provided:
+     - 
    
 2. **Receipt Step 1** 
    - **Import Picking Lines**: 
@@ -143,8 +150,8 @@ To get the **Badge ID**, go to:
      - If **Lot** is not provided: 
        - The system will auto-generate a lot number. 
        - ⚠️ **Important**: If you do not want to provided lots in excel, remove the "Lot" column entirely. Do **not** leave it empty—this may cause errors. 
+   - Manually "Validate" the receipt via open receipt picking.
    - Transfer: Vendor → Input 
-   - Validate the receipt
 
 3. **Receipt Step 2** *(using Barcode > Internal Transfer)* 
    - **Internal Transfer** (Input → Stock/Sub)
@@ -208,8 +215,8 @@ To get the **Badge ID**, go to:
    - **Import Picking Lines**: 
      - Use the *Import Picking Lines* feature to create Package. 
      - The Excel file should include the following columns: `Product`, `Quantity`, `packages`
+   - Manually "Validate" the receipt via open receipt picking.
    - Transfer: Vendor → Input 
-   - Validate the receipt
 
 3. **Receipt Step 2** *(using Barcode > Internal Transfer)* 
    - **Internal Transfer** (Input → Stock/Sub)

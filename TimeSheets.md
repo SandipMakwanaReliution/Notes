@@ -3207,41 +3207,415 @@ Internal - Internal
 --------------------------------------------------------------------------
 
 📅 Date: 5 Aug 2025
-🗓️ Today’s Plan:
-
-🔧 Project: Internal 
-🔍 R&D: Accounting Workflow
-   - Explore other account types used in Odoo and understand their purpose in financial reporting.
-   - Learn how tax configuration works in Odoo, including tax groups, tax tags.
-   - Learn how taxes apply to sales and purchase transactions.
-
---------------------------------------------------------------------------
-
-📅 Date: 5 Aug 2025
 🗓️ Today’s Work:
 
 🔧 Project: Sam Boutique
 🔧 Development: POS Cash Payment - 02:30
-   - set up sam boutique project in my system. install required python librery.
-   - override payment screen class of pos, and add auto select cash payment method.
-   - check session configuration and enable automatic receipt printing.
-   - perform test cash work was properly or not.
-   12:00
-
-🔧 Project: Internal 
+   - Set up the Sam Boutique project on my system and installed required Python libraries.
+   - Overrode the POS PaymentScreen class to auto-select Cash as the default payment method.
+   - Performed testing to ensure that the cash payment auto-selection worked correctly.
+   - Verified POS session configuration and enabled automatic receipt printing.
+ 
+🔧 Project: Internal - 2:40
 🔍 R&D: Accounting Workflow
-   -  
+   - Studied various "tax types" and understood how they apply to sales orders, purchase orders, invoices, and vendor bills in Odoo.
+   - Practiced configuration and validation of tax behavior through examples.
+
+🔧 Project: Korzo - 01:10
+🔍 R&D: Delivery and Receipt app
+   - Added track product name on the Delivery for better tracking.
+   - Displayed customer name on the Receipt for easy identification.
+   - Verified the changes by performing test cases to ensure correct behavior.
    
+🔧 Project: Tesro Blind
+🔍 R&D: Gross Profit Issue Analysis
+   00:20
+   - Discussed P&L reporting and accounting behavior with the manager.
+   01:20
+   - Restored a fresh database to simulate stock flows.
+   - Investigated scrap orders affect Gross Profit and add screenshots in document.
    
 --------------------------------------------------------------------------
-Task Time F2 =ARRAYFORMULA(IF((D2:D1001<>"") * (E2:E1001<>""), TEXT(E2:E1001 - D2:D1001, "hh:mm"), ""))
-	     =TEXT(SUM(ARRAYFORMULA(IF(F2:F5<>"", TIMEVALUE(F2:F5), 0))), "hh:mm")
 
+📅 Date: 6 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Internal - 00:10
+   - Created a new task and updated the timesheet separately.
+
+🔧 Project: Tesro Blind
+🔍 R&D: Gross Profit Issue Analysis - 02:05
+   - Added relevant screenshots and key explanation points to the documentation to clarify why Gross Profit turns negative in certain cases.
+   - Verified the Profit and Loss reports for the previous month by checking each day’s report individually.
+   - Identified that on some days, large stock quantities were manually adjusted or reset to zero, which directly impacted the stock valuation.
+   - Concluded that these stock adjustments led to negative Gross Profit in the final week of the month.
+   
+🔧 Project: Internal
+🔍 R&D: Accounting Workflow
+   02:15
+   - Watched tutorials related to tax configuration in the Accounting module.
+   - Learned how the "default tax" settings work and how to configure them properly.
+   - Applied the configuration and performed operations involving Sales Orders, Purchase Orders, Invoices, and Bills to verify tax behavior.
+   3:30
+   - Understood the use of Current Assets and Current Liabilities type accounts in tax configuration.
+   - Explored and practiced various "tax computation" types: Group of Taxes, Fixed Amount, Percentage of Price, Percentage of Price Tax Included, and Python Code. 
+   - Added screenshots of all operations performed to the documentation for future reference.
+   
+--------------------------------------------------------------------------
+
+📅 Date: 7 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+🔍 R&D: Invoice and credit note menu - 00:10
+   - Reviewed user group configurations to verify how "All Records" and "Own Records" access settings affect visibility of menus and records.
+   - Discussed the current behavior with the manager to determine whether any changes are required, pending confirmation.
+
+🔍 R&D: Internal
+   01:50
+   - Figured out how to print barcode labels only for selected lines or lots, helping to avoid unnecessary label printing for all products and reduce waste.
+   
+🔧 Project: Internal
+🔍 R&D: Inventory Workflow
+   02:30
+   - Explored barcode configuration within the Inventory module.
+   - Understood the flow of using the Barcode app to validate receipts and deliveries transfers.
+   - In a fresh database, enabled the two-step receipt and delivery process and verified how the default flow behaves.
+   - Scanned sub-location barcodes using the barcode app and confirmed that stock moves were correctly recorded to the specified sub-locations.
+   - Learned how Batch Picking works and how it groups multiple transfers into a single operation for efficient handling.
+   
+🔍 R&D: App Functionality Test
+   01:00
+   - Created a fresh Odoo 18 database for testing, and installed the testing app along with all required libraries.
+   - Configured both incoming and outgoing mail servers. Faced an error when trying to open the Settings menu, after installing mail_mobile module to resolved the issue.
+   
+   - Verified that outgoing emails were working, but incoming emails were not until an action e.g. Create Lead was set on the incoming mail server.
+   - Discussed Odoo Mail app behavior and configurations with Ritul Bhai.
+   - Later updated the incoming mail server to use the Fetch Only option without creating any records.
+   - Initially assumed outgoing emails required a contact with a valid email address, but after further discussion, clarified how the outgoing mail logic actually works.
+
+--------------------------------------------------------------------------
+
+📅 Date: 8 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Internal
+🔍 R&D: Inventory Workflow
+   01:30
+   - Learned about Lot Expiration Dates and how to configure.
+   - Checked in Odoo 17 for any configuration to enable lot number generation sequnce and verified that this feature is only available in Odoo 18.
+   - Used the Generate Lot Number feature in Odoo 18 to automatically create sequenced lot numbers for specific pickings.
+   - Tested how the expiration date functionality works in relation to lots and product moves.
+   
+   - Learned about Drop Shipping, enabled its configuration, and set up routes and vendors on products.
+   - Watched a tutorial on drop shipping and performed practical operations to better understand the workflow.
+   
+   - Learned how to create custom locations, operation types, and routes, and explored all related configurations for effective warehouse management.
+   - Performed operations to verify the functionality of pull and push rules in Odoo.
+   
+   - Learned about Putaway Rules and how they work in warehouse operations.
+   - Learned about Cross Docking and performed operations to batter understand the workflow. 
+
+🔍 R&D: Accounting Workflow
+   - Learned how to configure a fiscal position and use it to apply the correct taxes and accounts based on the fiscal position.
+   - Understood how fiscal positions can auto-detect a partner’s configuration based on federal states.
+   - Performed operations by creating invoices to validate the fiscal position setup.
+
+--------------------------------------------------------------------------
+
+📅 Date: 11 Aug 2025
+🗓️ Today’s Plan:
+
+🔧 Project: Korzo
+
+🔍 R&D: Fix Manufacture State Issue – Estimated: 01:00
+   - Investigate and resolve the issue where a custom state is not being set in certain manufacturing orders.
+   - Test and confirm that the custom state is applied consistently across all relevant manufacturing orders after the fix.
+
+🔧 Project: Internal
+
+🔍 R&D: Accounting Workflow
+   - Watch tutorials to learn how payment terms work and how to configure them.
+   - Perform operations to understand the functionality of payment terms in practice.
+   - Understand the Cash Basis method for tax reporting and its impact on revenue recognition.
+   - Explore how Tax Returns are generated, filed, and validated.
+
+--------------------------------------------------------------------------
+
+📅 Date: 11 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+
+🔍 R&D: Fix Manufacture State Issue
+   - Restored a fresh database.
+   - Identified that the issue occurred because, in the past, some Purchase Orders were created manually, one was not confirmed, and some were not received.
+   - This caused the current Manufacturing Orders to reserve fabric quantities, resulting in the MO state showing as “Expected” and “Late.”
+   - Updated our custom functionality to handle both states and resolved the issue.
+   - Performed test cases to verify that the fix works correctly.
+   11:15
+
+🔧 Project: Internal
+
+🔍 R&D: Inventory Workflow
+   - Revised and reviewed past learning topics in Inventory.
+   12:00
+   
+🔧 Project: Dazzle
+
+🔍 R&D: PO Line Sequnce Changes
+   - Reviewed the reordering application flow.
+   - Added a new boolean field in Purchase Orders to control and manage the sequence of order lines.
+   - Overrode the order line creation method to ensure the sequence appears at the top instead of the bottom.
+   01:20
+
+🔧 Project: Leviotto
+
+🔍 R&D: Internal
+   - Set up Leviotto v17 on the system and installed required libraries and modules.
+   - Faced issues installing res area and barcode modules, multiple attempts to install the barcode module failed due to a JS error.
+   - Configured Inventory settings and managed products.
+   - Tested Purchase Order operations without the barcode module, package location transfers didn’t work as expected.
+   - Installed the community Home Screen module, which resolved the barcode module installation issue.
+   - Created a fresh database, installed required modules, and configured products and inventory settings.
+   - Performed Purchase Order operations to verify if location routes worked properly.
+
+--------------------------------------------------------------------------
+
+📅 Date: 12 Aug 2025
+🗓️ Today’s Plan:
+
+🔧 Project: Dazzle
+
+🔍 R&D: PO Line Sequnce Changes – Estimated: 01:00
+   - Test Purchase Order line sequencing when creating POs via the Reordering app.
+
+🔧 Project: Leviotto
+
+🔍 R&D: Internal – Estimated: 02:30
+   - Perform the complete workflow to verify that stock, purchase, and sales processes are managed correctly.
+
+--------------------------------------------------------------------------
+
+📅 Date: 12 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Dazzle
+
+🔍 R&D: PO Line Sequnce Changes
+   - test po line sequnce when create po by using reordering app, sequnce was start bottom, that was incerect.
+   9:50
+   - try to setup fresh database of dazzle.
+   - face error to not update base and other module.
+   11:10 to 12:00
+
+🔧 Project: Milano
+
+🔍 R&D: Internal
+   - setup milano project in system.
+   - perform some operation using diffrenct qty set in excel file and check import qty show properly or not and if duplicate product have in excel that qty merge or not etc.
+   - perform lot creation operation using same excel file check if duplicate product have that time create seperet lot or not.
+   - set short fildes in reordering tree view header.
+   - try to delete section in po when existing po line product delete.
+   - stop to delete existin po line when new po create. after fix this issue no need to delete section.
+   - try to manage sequnce in po line to set manully created po line sequnce start to top insted of bottom.	
+   - check the issue was rasie of minimum qty not set when create new po by reordering order once button clicking.
+   12:00 to 06:10
+
+🔧 Project: Korzo
+
+🔍 R&D: Daily report issue
+   - restore fresh database.
+   - verify the issue was raise by some prduct have not set its cusotme product type e.g. servise product.
+   - modify daily report method and also modify its report view.
+   - perform test operation to verify its work proerly or not. 
+   9:50 to 11:10
+
+
+--------------------------------------------------------------------------
+
+📅 Date: 12 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+
+🔍 R&D: Daily report issue
+   - Restored a fresh database.
+   - Identified that the issue was caused by some products not having the custom product type set (e.g., service product).
+   - Modified the daily report method and updated the report view.
+   - Performed testing to ensure the fix worked correctly. 
+   
+🔧 Project: Dazzle
+
+🔍 R&D: PO Line Sequnce Changes
+   - Tested PO line sequence when creating Purchase Orders using the Reordering app. Found that the sequence started at the bottom, which was incorrect. 
+   - Attempted to set up a fresh database for Dazzle but faced errors preventing updates to the base and other modules. 
+   
+🔧 Project: Milano
+
+🔍 R&D: Internal
+   - Set up Milano project in the system.
+   - Performed operations using different quantities from an Excel file to verify that imported quantities and existing PO line product quantities show differences correctly. Checked whether duplicate products in the file merge quantities as expected.
+   - Tested lot creation using the same Excel file to see if duplicate products create separate lots or merge.
+   - Converted a non-sortable field to a sortable field to manage record order properly in the reordering app tree view header for better usability.
+   - Attempted to delete a section in Purchase Orders when existing PO products line were deleted.
+   - Stopped deletion of existing PO lines when creating a new PO; after the fix, section deletion was no longer required.
+   - Investigated an issue where minimum quantity was not set when creating a new PO via the “Reordering Order Once” button.
+
+--------------------------------------------------------------------------
+
+📅 Date: 13 Aug 2025
+🗓️ Today’s Plan:
+
+🔧 Project: Korzo
+
+🔧 Development: Check box in Kanban - Estimated: 03:00
+   - Add a checkbox in the Kanban view.
+   - Implement functionality to print reports only for records where the checkbox is ticked.
+
+🔧 Project: Leviotto
+
+🔍 R&D: Internal – Estimated: 02:30
+   - Perform the complete workflow to verify that stock, purchase, and sales processes are managed correctly.
+   - Apply changes based on new requirements: remove the variant management flow and update the full project accordingly.
+
+--------------------------------------------------------------------------
+
+📅 Date: 13 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+
+🔧 Development: Check box in Kanban - Time: 00:45
+   - Add boolean toagle in the Kanban view.
+   - Implement functionality to print reports only for records where the togale is ticked other wishe print all record report.
+   - also manage after printing report reset togale.
+
+🔧 Development: Delivery and Receipt app - Time: 00:45
+   - Add Curtain Type in Fabric Cutting and Delivery.
+
+🔧 Development: Sale Order View - Time: 00:05
+   - Add the Source field below the Customer Reference in Sale Order.
+
+🔧 Development: Source field in CRM - Time: 00:20
+   - Add a Source field in CRM when creating a new lead.
+
+4:00 to 4:40
+* add curtain type in report fabric cutting
+
+🔧 Project: Milano
+
+🔧 Development: Creation date add in PO report - Time: 00:45
+   - add create date in purchase order and quotaion reports.
+
+🔧 Development: Product Supplier issue - Time 00:20
+   - check filde in code side and check its compute field.
+   - verify its realted to product supplier info table. figurout that is not a issue 
+   3:40 to 4:00
+
+   - done supplier info
+   5:10 to 6:00
+   
+   - moq change and option show 
+   6:00 to 6:10
+
+🔧 Project: Leviotto - Time : 
+   2:30 to 3:00
+   - setup continue
+   3:10 to 3:40
+
+🔧 Project: Tesro
+   4:40 to 5:10
+   - pull addons and restore fresh db.
+   - 
+
+🔧 Project: Internal - Time: 00:15
+   - disscuse regrading task with manager.
+
+--------------------------------------------------------------------------
+
+📅 Date: 13 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+
+🔧 Development: Check box in Kanban
+   - Added a boolean toggle in the Kanban view.
+   - Implemented functionality to print reports only for records where the toggle is ticked, otherwise print all records.
+   - Ensured the toggle resets automatically after printing.
+
+🔧 Development: Delivery and Receipt app
+   - Added Curtain Type in Fabric Cutting and Delivery.
+   - Added Curtain Type in the Fabric Cutting report.
+
+🔧 Development: Sale Order View
+   - Added the Source field below the Customer Reference in the Sale Order form.
+
+🔧 Development: Source Field in CRM
+   - Added a Source field in CRM when creating a new lead.
+
+🔧 Project: Internal
+   - Set up the Leviotto database, created products, and configured routes, operation types, and inventory settings.
+   - Pulled Tesro addons and restored a fresh database.
+   
+🔧 Project: Milano
+
+🔧 Development: Creation Date in PO Report
+   - Added creation date in Purchase Order and Quotation reports.
+
+🔍 R&D: Product Supplier issue
+   - Added a domain filter to show only suppliers matching the product.
+   - Changed quantity field name and adjusted optional via an inherited product supplier info tree view.
+
+--------------------------------------------------------------------------
+
+📅 Date: 14 Aug 2025
+🗓️ Today’s Plan:
+
+--------------------------------------------------------------------------
+
+* update price in po line impoting excel file
+* 
+
+--------------------------------------------------------------------------
+   - 3 senario perform in improt piking in po (Done)
+   - lot creation secnario using same file (Done)
+   - shorting (Done) - Use store True in filde
+   - try to delete section when existing po line product delete.
+   - fix issue of existing po line delete when new po create. after fix this issue no need to delete section.
+   - sequnce in po line	
+   - solve issue of minimum qty:
+     	- First time click "order once" button, in po line qty set by "To order qty".
+     	- Second time click "order once" button, in po line qty set by "minimum qty".
+     	
+--------------------------------------------------------------------------
 - add custome script of migration
 
 mapped 
 lambda
 filterd
+
+- date field and modify its formate : go to settings -> Languages (selecte language) -> change date formate (%m/%d/%Y)
+- note : inside databse alwase date formate like YYYY-MM-DD
+
+LEVIOTTO
+
+Modules:
+community_home_screen
+-u res_area
+sale_order_customization
+purchase_orders_customization
+profit_and_loss_report
+product_customization
+package_transfer_details
+package_catalogue
+sale_management
+
+Configuration:
+Storage Locations
+Multi-Step Routes
+Packages
+
 
 --------------------------------------------------------------------------
 
@@ -3270,8 +3644,6 @@ filterd
 📌 Notes (Optional):
       [Anything to note]
 
-
-internal Discussion
 --------------------------------------------------------------------------
 
 compute method
@@ -3335,58 +3707,15 @@ From openerp/osv/fields.py
     
 
 
-- git status
-- git init
-- gh --version
-- gh auth login
-- git add .
-- git commit -m ""
-- gh repo create
-- git remote add REMOTE_NAME <URL>
-- git remote -v
-- git push -u REMOTE_NAME BRANCH_NAME
-- pre-commit run --all-files
-
-- git clone -b <branch_name> <repository_url>
-- git pull origin <branch_name>
-- git push origin <branch_name>
-
-
-- git clone https://github.com/odoo/odoo.git -b 17.0 --depth 1 <local_folder_name>
-
-git config --global user.name "Your Name"
-git config --global user.email "your@email.com"
-
-git config --list
--> for check config
-
-- …or create a new repository on the command line
-- echo "# Odoo-Tutorials" >> README.md
-- git init
-- git add README.md
-- git commit -m "first commit"
-- git branch -M main
-- git remote add origin https://github.com/SandipMakwanaReliution/Odoo-Tutorials.git
-- git push -u origin main
-
-
-- …or push an existing repository from the command line
-- git remote add origin https://github.com/SandipMakwanaReliution/Odoo-Tutorials.git
-- git branch -M main
-- git push -u origin main
-
-
-- update res_partner set email='admin@gmail.com';
-- update ir_cron set active=False where active=True;
-- update ir_mail_server set active=False;
-- update fetchmail_server set active=False;
-- update res_users set login='admin', password='admin' where id =2;
 
 
 - http://150.129.151.225:8080/
 - Username: bhargav
 - Password: Bhargav@1234
 
+URL: http://5.195.111.211:8080/
+Username: Thamees
+Password: Thamees@odoo_backups
 
 -------------------------------------
 - https://stackoverflow.com/questions/2505096/clone-a-private-repository-github
