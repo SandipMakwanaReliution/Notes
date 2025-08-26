@@ -167,7 +167,7 @@ To get the **Badge ID**, go to:
 
 2. **Transfer Details**: 
    - If product is not in Output location 
-   - Create automatic transfer from Stock/Sub → Output 
+   - Create automatic transfer from Stock/Sub → Output
 
 3. **Delivery**: 
    - Put in Pack 
@@ -175,7 +175,7 @@ To get the **Badge ID**, go to:
    - Output → Customer 
 
 4. **Cutting to Stock**: 
-   - Output → Stock/Sub 
+   - Output → Stock/Sub
    - 1. Scan Lots/Serial Numbers 
    - 2. Scan Stock/Sub Location Barcode 
 
@@ -299,5 +299,23 @@ To get the **Badge ID**, go to:
     Main Product (Output To Virtual Location)
     Fabric (Virtual Loaction To Output)
 
+----
+
+
+
+Case 1: Inventory Adjustment
+
+    Odoo: Lot-001 = 20 pcs
+    Physical: Lot-001 = 25 pcs
+    Action: Inventory Adjustment (+5)
+    Result: Lot-001 = 25 pcs (stock increased by 5)
+
+Case 2: Lot Adjustment
+
+    Odoo: Lot-001 = 20 pcs, Lot-002 = 0 pcs
+    Reality: Lot-001 = 15 pcs, Lot-002 = 5 pcs
+    Action: Lot Adjustment (-5 from Lot-001, +5 to Lot-002)
+    Result: Lot-001 = 15 pcs, Lot-002 = 5 pcs (total still 20 pcs, only reassigned)
+    
 
 

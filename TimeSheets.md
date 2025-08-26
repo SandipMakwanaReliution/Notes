@@ -3439,7 +3439,12 @@ Internal - Internal
 
 🔧 Project: Korzo
 
-🔍 R&D: Daily report issue
+🔍 R&D: Daily report issue - 01:20
+   - restore fresh database.
+   - verify the issue was raise by some prduct have not set its cusotme product type e.g. servise product.
+   - modify daily report method and also modify its report view.
+   - perform test operation to verify its work proerly or not. 
+   
    - Restored a fresh database.
    - Identified that the issue was caused by some products not having the custom product type set (e.g., service product).
    - Modified the daily report method and updated the report view.
@@ -3447,13 +3452,13 @@ Internal - Internal
    
 🔧 Project: Dazzle
 
-🔍 R&D: PO Line Sequnce Changes
+🔍 R&D: PO Line Sequnce Changes - 01:10
    - Tested PO line sequence when creating Purchase Orders using the Reordering app. Found that the sequence started at the bottom, which was incorrect. 
    - Attempted to set up a fresh database for Dazzle but faced errors preventing updates to the base and other modules. 
    
 🔧 Project: Milano
 
-🔍 R&D: Internal
+🔍 R&D: Internal - 
    - Set up Milano project in the system.
    - Performed operations using different quantities from an Excel file to verify that imported quantities and existing PO line product quantities show differences correctly. Checked whether duplicate products in the file merge quantities as expected.
    - Tested lot creation using the same Excel file to see if duplicate products create separate lots or merge.
@@ -3465,130 +3470,361 @@ Internal - Internal
 --------------------------------------------------------------------------
 
 📅 Date: 13 Aug 2025
-🗓️ Today’s Plan:
-
-🔧 Project: Korzo
-
-🔧 Development: Check box in Kanban - Estimated: 03:00
-   - Add a checkbox in the Kanban view.
-   - Implement functionality to print reports only for records where the checkbox is ticked.
-
-🔧 Project: Leviotto
-
-🔍 R&D: Internal – Estimated: 02:30
-   - Perform the complete workflow to verify that stock, purchase, and sales processes are managed correctly.
-   - Apply changes based on new requirements: remove the variant management flow and update the full project accordingly.
-
---------------------------------------------------------------------------
-
-📅 Date: 13 Aug 2025
 🗓️ Today’s Work:
 
 🔧 Project: Korzo
 
-🔧 Development: Check box in Kanban - Time: 00:45
-   - Add boolean toagle in the Kanban view.
-   - Implement functionality to print reports only for records where the togale is ticked other wishe print all record report.
-   - also manage after printing report reset togale.
-
-🔧 Development: Delivery and Receipt app - Time: 00:45
-   - Add Curtain Type in Fabric Cutting and Delivery.
-
-🔧 Development: Sale Order View - Time: 00:05
-   - Add the Source field below the Customer Reference in Sale Order.
-
-🔧 Development: Source field in CRM - Time: 00:20
-   - Add a Source field in CRM when creating a new lead.
-
-4:00 to 4:40
-* add curtain type in report fabric cutting
-
-🔧 Project: Milano
-
-🔧 Development: Creation date add in PO report - Time: 00:45
-   - add create date in purchase order and quotaion reports.
-
-🔧 Development: Product Supplier issue - Time 00:20
-   - check filde in code side and check its compute field.
-   - verify its realted to product supplier info table. figurout that is not a issue 
-   3:40 to 4:00
-
-   - done supplier info
-   5:10 to 6:00
-   
-   - moq change and option show 
-   6:00 to 6:10
-
-🔧 Project: Leviotto - Time : 
-   2:30 to 3:00
-   - setup continue
-   3:10 to 3:40
-
-🔧 Project: Tesro
-   4:40 to 5:10
-   - pull addons and restore fresh db.
-   - 
-
-🔧 Project: Internal - Time: 00:15
-   - disscuse regrading task with manager.
-
---------------------------------------------------------------------------
-
-📅 Date: 13 Aug 2025
-🗓️ Today’s Work:
-
-🔧 Project: Korzo
-
-🔧 Development: Check box in Kanban
-   - Added a boolean toggle in the Kanban view.
+🔧 Development: Check box add in Kanban - 00:50
+   - Added a boolean toggle in the Fabric Cutting Kanban view.
    - Implemented functionality to print reports only for records where the toggle is ticked, otherwise print all records.
    - Ensured the toggle resets automatically after printing.
 
-🔧 Development: Delivery and Receipt app
+🔧 Development: Delivery and Receipt app - 01:35
    - Added Curtain Type in Fabric Cutting and Delivery.
    - Added Curtain Type in the Fabric Cutting report.
+   - Performed operations to verify that the Curtain Type was added and displayed properly.
 
-🔧 Development: Sale Order View
-   - Added the Source field below the Customer Reference in the Sale Order form.
-
-🔧 Development: Source Field in CRM
+🔧 Development: Source Field Changes - 00:35
+   - Added a Source field below the Customer Reference in the Sale Order form.
    - Added a Source field in CRM when creating a new lead.
 
-🔧 Project: Internal
-   - Set up the Leviotto database, created products, and configured routes, operation types, and inventory settings.
-   - Pulled Tesro addons and restored a fresh database.
-   
 🔧 Project: Milano
 
-🔧 Development: Creation Date in PO Report
+🔧 Development: PO Report Changes - 00:50
    - Added creation date in Purchase Order and Quotation reports.
 
-🔍 R&D: Product Supplier issue
+🔍 R&D: Product Supplier Info Changes - 02:00
    - Added a domain filter to show only suppliers matching the product.
-   - Changed quantity field name and adjusted optional via an inherited product supplier info tree view.
+   - After discussion with the manager, displayed the Vendor field instead of Product Supplier field, and hid the Product Supplier field in the view.
+   - Performed reordering purchase order operations to verify correct PO creation after changing the vendor and confirmed the vendor is set in the product template.
+   - Renamed Quantity field to MOQ and adjusted its optional attributes via an inherited Product Supplier Info tree view.
 
+🔧 Project: Leviotto Internal - 01:50
+   - Set up the Leviotto database, created products, and configured routes, operation types, and inventory settings.
+   - Performed operations to check how these changes affect Leviotto workflows.
+
+🔧 Project: Tesro Internal - 00:20
+   - Pulled Tesro addons and restored a fresh database.
+   
 --------------------------------------------------------------------------
 
 📅 Date: 14 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Tesro
+
+Development: Product Customization 00:40
+   - Created a new XML file and changed the quantity field name to MOQ and adjusted its optional attributes via an inherited product supplier info tree view.
+   - Added minimum and maximum quantity fields in the Product Template view.
+   - Added an “Is Similar” checkbox in the Product Variant view.
+    
+Development: PO Report Changes 00:20
+   - Added creation date in Purchase Order and Quotation reports.
+
+R&D: Internal/Test Reordering App 00:50
+   - Performed reordering Purchase Orders for fabric and component products.
+   - Imported packing list and lines using the same Excel file to verify correct functionality.
+   - Tested whether product lots and packages are properly created.
+   
+🔧 Project: Milano
+
+Development: Reordering App Changes
+   03:00
+   - Managed price handling when importing a Purchase Order line by ensuring that if a price exists in the Excel file, it is applied to the PO line; if no price is provided, the system fetches the value from the Product form; and if the product already exists in the Purchase Order, the existing order line price is applied. 
+   - All scenarios were tested to confirm that the changes worked properly.
+
+   00:30
+   - Added validation to restrict packing list import when PO state is Cancelled or Confirmed.
+   - Later, updated logic to hide the Import Packing List button instead of showing validation.
+   
+   01:55
+   - Identified and deleted products with zero quantity in PO lines.
+   - Enhanced logic to auto-delete sections if no products remain under them.
+   
+🔧 Project: Korzo
+
+R&D: purchase order customization 00:30
+   - Researched how to auto-post a bill instead of creating it in draft state when a receipt is validated.
+
+🔧 Project: Internal 00:15
+   - Discussed with manager regarding price handling in Reordering App.
+
+--------------------------------------------------------------------------
+
+📅 Date: 18 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Dazzle
+
+R&D: Fix Issue - 1:00
+   - Investigated and resolved the error occurring when creating a new Purchase Order for any product.
+   - Found that the issue was caused because no sequence was assigned to the New PO line, which triggered the error.
+   - Updated the method to ensure the Purchase Order line sequence starts at one if no prior order lines exist.
+
+Development: Archived Category 00:30
+   - Added archive functionality in Product Category.
+   
+🔧 Project: Korzo
+
+R&D: Internal/Testing Return Credit Note 2:30
+   - Researched how to create a credit note when validating a return picking.
+   - With the help of manager, identified that return credit notes are managed from the Sale Order form view.
+   - Verified that when validating a return picking of a receipt, the credit note is created properly.
+   - When validating a return picking of a delivery, returning only components still created a return for the main product.
+   - After discussion with manager, finalized the approach: only the main product should be returned, not its components.
+
+R&D: Fix Issue 1:30
+   - Pulled addons and restored database.
+   - Researched why invoices were not created after confirming Sale Orders containing only service product lines.
+   - Researched the issue preventing confirmation of Sale Orders when order lines contained quantities greater than one.
+   - Attempted to manage and fix these cases in Sale Order workflow.
+   
+🔧 Project: Leviotto
+
+R&D: Internal/Workflow Testing 2:30
+   - Faced issue: unable to enable Variants and Unit of Measure configuration in Inventory settings.
+   - Configured system to prevent removal of commas between two numbers in Excel files.
+   - Performed Purchase Order operations and checked routes as per project requirements.
+   - Performed Internal Transfer and Transfer Details operations.
+   - Tested Split functionality in Transfer Details.
+   - Documented points for improvement.
+   
+--------------------------------------------------------------------------
+Dazzle/Product customization
+
+class ProductCategory(models.Model):
+    _name = 'product.category'
+
+    active = fields.Boolean(default=True)
+    
+    <record id="view_product_category_search_inherit" model="ir.ui.view">
+        <field name="name">view.product.category.search.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+    
+--------------------------------------------------------------------------
+
+📅 Date: 19 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+
+➕ Bug: Fix Issue
+   03:40
+   - Reviewed the existing code for Manufacturing Order creation and its dependency on procurement.
+   - Analyzed kit preparation logic and identified the issue where the wrong kit was fetched when a Sale Order line had a quantity greater than one.
+   - Adjusted procurement creation logic to ensure the same kit BOM is applied for each MO related to a Sale Order line, when quantities greater than one.
+   02:20
+   - With the help of the manager, identified and resolved the issue where using a quantity greater than one in a Sale Order line caused procurement to create duplicate entries and show an error.
+   - Ensured duplicate procurement records are not generated.
+   02:00
+   - Updated the Manufacturing Order line creation logic accordingly and ensured all MOs are managed correctly.
+   - Performed multiple scenarios to validate that the changes work properly.
+
+--------------------------------------------------------------------------
+
+sale.view_order_form:
+
+S01023 - not create invoice
+<field name="invoice_status" readonly="0"/>
+
+qty_to_invoice 
+<field name="qty_to_invoice" readonly='0'/>
+
+S01093 - blank mo
+
+S01133 - not confirm order
+more then one qty
+_compute_kit_quantities
+_get_qty_procurement
+ <field name="move_ids"/>
+            # if (
+            #     line.product_id.product_tmpl_id.product_types == "curtain"
+            #     and product_qty
+            # ):
+            #     for qty in range(int(product_qty)):
+            #         procurements.append(
+            #             line._create_procurement(1, procurement_uom, values)
+            #         )
+            # else:
+            #     procurements.append(
+            #         line._create_procurement(product_qty, procurement_uom, values)
+            #     )
+            
+--------------------------------------------------------------------------
+
+📅 Date: 20 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+
+🔧 Development: Auto create Invoice & Bill 
+   - Implemented functionality in Purchase Orders: when approving a PO containing only service products, a Bill is automatically created.
+   - Applied the same logic for Sale Orders to auto-create Invoices.
+   - Tested both manual PO creation and POs generated using the Generate PO button.
+   
+🔧 Project: Dazzle
+
+➕ Bug: Fix Issue
+   - Investigated why the “Remove” category could not be deleted even when containing zero products.
+   - Found that archived products were still assigned to the “Remove” category, which blocked deletion.
+
+🔧 Project: Tesro Blinds
+
+➕ Bug: Fix Issue
+   - Investigated why lot KK-33-124110016 appeared in two different locations.
+   - Found that stock was already available in a sub-location, but the user added new stock in the Output location via Inventory Adjustment instead of Transfer Details.
+   - Later, the stock was transferred from Output to Sub-location using Cutting to Stock.
+   - This caused the same lot to appear in two different locations.
+
+🔧 Project: Internal
+   - Updated timesheet in ERP.
+
+-------------
+Move History
+
+Vendor -> Input (75) -> Stock -> Output
+
+Output (75) -> Adjustment & Scrap (-5.106)
+Output (69.894) -> Adjustment (-31.329)
+Output (38.565) -> Adjustment (-6.81)
+Output (31.755) -> Adjustment & Scrap (-3.45)
+
+Output (28.305) -> Stock/E011 (15.150)
+Output (13.155) & Stock/E011 (15.150)
+
+Adjustment (+11.250) -> Output (24.405)
+Output (24.405) -> Adjustment (-0.750)
+Stock/E011 (15.150) -> Adjustment (-4.650)
+Output (23.655) & Stock/E011 (10.5)
+
+Adjustment (+11.200) -> Output (34.855)
+Output (34.855) -> Adjustment (-0.700) 
+Output (34.155) -> Stock/E003 (21)
+
+Output (13.155) & Stock/E011 (10.5) & Stock/E003 (21)
+
+====
+
+Vendor -> Input (75)
+Input (75) -> F006 (75) "Internal Transfer"
+
+(S03643) (15-7-25)
+F006 (75) -> Output (75) "Transfer Details"
+Output (75) - Lot Adjustment & Scrap (5.106)
+
+Output (69.894) -> E011 (65.235) "Cutting To Stock"
+
+(S03746) (21-7-25)
+E011 (65.235) -> Output (65.235) "Transfer Details"
+Output (65.235) - Lot Adjustment (31.329)
+
+Output (33.906) -> E008 (25.410) "Cutting To Stock"
+
+(S03876) (29-7-25)
+E008 (25.410) -> Output (25.410) "Transfer Details"
+Output (25.410) - Lot and Inventory Adjustment (6.81)
+
+Output (18.6) -> E008 (18.6) "Cutting To Stock"
+
+(S03989) (6-8-25)
+E008 (18.6) -> Output (18.6) "Transfer Details"
+Output (18.6) - Lot Adjustment & Scrap (3.45)
+
+Output (15.15) -> E011 (15.15) "Cutting To Stock"
+*Stock already available in E011 but user tack stock from adjustment
+
+Inventory Adjustment (11.250) + Output (11.250)
+Output (11.250) - Inventory Adjustment (0.750)
+Ouput (10.5)
+
+E011 (15.15) - Inventory Adjustment (4.650)
+E011 (10.5)
+
+Inventory Adjustment (11.200) + Output (10.5)
+Output (21.7) - Inventory Adjustment (0.700)
+
+Ouput (21) -> E003 (21) "Cutting To Stock"
+
+---
+
+
+
+--------------------------------------------------------------------------
+ (S03643) (15-7-25)
+
+--------------------------------------------------------------------------
+
+📅 Date: 25 Aug 2025
 🗓️ Today’s Plan:
 
+🔧 Project: Korzo
+
+🔍 R&D: Sale Order Testing
+   - Perform Sale Order operations: create a Sale Order, then cancel it.
+
 --------------------------------------------------------------------------
 
-* update price in po line impoting excel file
-* 
+📅 Date: 25 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Internal
+   - Pulled addons for Korzo, Tesro, and Tesro Blinds.
+   - Set up each project using a fresh database.
+
+🔧 Project: Korzo
+
+🔍 R&D: Sale Order Testing
+   - Performed Sale Order operations: created a Sale Order, then canceled it to validate the flow.
+
+🔧 Project: Leviotto
+
+🔍 Development: Remove Size in File
+   - Removed size in file when creating a Purchase Order line.
+   - Also removed size when creating packages.
+   - Faced an issue: Sale Order could not be confirmed, showing “Invalid operation: product not available in internal warehouse transit location”.
+   - Resolved by identifying that the selected customer in the Sale Order was setting default customer and vendor locations incorrectly.vendor location.
+   - Performed the full project workflow to verify that the changes work properly.
 
 --------------------------------------------------------------------------
-   - 3 senario perform in improt piking in po (Done)
-   - lot creation secnario using same file (Done)
-   - shorting (Done) - Use store True in filde
-   - try to delete section when existing po line product delete.
-   - fix issue of existing po line delete when new po create. after fix this issue no need to delete section.
-   - sequnce in po line	
-   - solve issue of minimum qty:
-     	- First time click "order once" button, in po line qty set by "To order qty".
-     	- Second time click "order once" button, in po line qty set by "minimum qty".
-     	
+
+📅 Date: 26 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Leviotto
+
+🔍 R&D: Workflow Testing
+  - Set up a fresh project environment.
+  - Configured inventory settings, routes, products, and valuation accounts.
+  - Performed multiple scenarios to create packages in receipts.
+  - Configured UoM for shoes products.
+  - Found that if one package is reserved in a Sale Order delivery, and the same package is used in another Sale Order, the reserved delivery becomes unstable, and the delivery cannot be validated.
+
+🔍 R&D: Fix Package Name
+  - Identified that a custom package name was being generated when the Color attribute was set on the product; otherwise, a default package name was created.
+  - Removed this dependency and manage package naming without the Color attribute.
+  - Removed the Size field from the Transfer Details view.
+  
+🔧 Project: Korzo 
+
+🔍 R&D: Sale Order Cancle
+   - check how to manage a sale order when again confirm after a cancle it.
+   
+
+
+
+52561 sarfaras
+http://192.168.1.72:1717
+
 --------------------------------------------------------------------------
+
+- korzo code procurment receipt and purchse changes delvicer and po changes
 - add custome script of migration
 
 mapped 
@@ -3598,23 +3834,7 @@ filterd
 - date field and modify its formate : go to settings -> Languages (selecte language) -> change date formate (%m/%d/%Y)
 - note : inside databse alwase date formate like YYYY-MM-DD
 
-LEVIOTTO
 
-Modules:
-community_home_screen
--u res_area
-sale_order_customization
-purchase_orders_customization
-profit_and_loss_report
-product_customization
-package_transfer_details
-package_catalogue
-sale_management
-
-Configuration:
-Storage Locations
-Multi-Step Routes
-Packages
 
 
 --------------------------------------------------------------------------
@@ -3724,1701 +3944,4 @@ Password: Thamees@odoo_backups
 
 --------------------
 
-    'assets': {
-        'web.assets_backend': [
-            'purchase_order_customization/static/src/kanban_quantity_input.js',
-            'purchase_order_customization/static/src/kanban_quantity_input.xml',
-        ],
-    },
-
-  <t t-call="KanbanQuantityInput"/>
-  <!--                                    <button string="Receive" class="btn btn-primary" name="receive_incoming_move" type="object" invisible="move_state != 'receive_ready'"/>-->
-
-<?xml version="1.0" encoding="UTF-8"?>
-<templates id="kanban_qty_template" xml:space="preserve">
-    <t t-name="KanbanQuantityInput" owl="1">
-        <div>
-            <style>
-                input::-webkit-outer-spin-button,
-                input::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
-                }
-
-                input[type="number"] {
-                    -moz-appearance: textfield;
-                    appearance: textfield;
-                }
-            </style>
-            <input
-                type="number"
-                class="o_input form-control border text-center text-bg-light"
-                t-att-value="record.quantity.value"
-                t-att-data-id="record.id.value"
-                t-on-input="window.onQtyChange"
-            />
-        </div>
-    </t>
-</templates>
-
-/** @odoo-module **/
-
-function onQtyChange(ev) {
-    const value = parseFloat(ev.target.value || 0);
-    const moveId = parseInt(ev.target.dataset.id);
-
-    console.log("Updating move ID:", moveId, "to quantity:", value);
-//debugger;
-    $.ajax({
-        url: "/stock_move/update_qty",
-        type: "POST",
-        contentType: "application/json",
-                    // ✅ Rebind FORCE_SAVE listener to the new record
-                    useBus(this.record.model.bus, "FORCE_SAVE", () => {
-                        this.record.save();  // Or trigger appropriate save logic
-                    });
-        headers: {
-            "X-Openerp-CSRFToken": odoo.csrf_token,
-        },
-        data: JSON.stringify({
-            jsonrpc: "2.0",
-            method: "call",
-            params: {
-                move_id: moveId,
-                quantity: value,
-            },
-        }),
-        success: function (response) {
-            console.log("Response:", response);
-        },
-        error: function (err) {
-            console.error("AJAX error:", err);
-        },
-    });
-
-}
-
-// Register globally
-Object.assign(window, {
-    onQtyChange,
-});
-
-----
-controllers/stock_move.py
-
-from odoo import http
-from odoo.http import request
-
-class StockMoveController(http.Controller):
-
-    @http.route('/stock_move/update_qty', type='json', auth='public', csrf=False)
-    def update_qty(self, **kwargs):
-        move_id = kwargs.get('move_id')
-        quantity = kwargs.get('quantity')
-
-        print("✅ Controller called with ID:", move_id, "Qty:", quantity)
-
-        if not move_id or quantity is None:
-            return {'success': False, 'message': 'Missing parameters'}
-
-        move = request.env['stock.move'].sudo().browse(int(move_id))
-        if move.exists():
-            move.quantity = quantity
-            return {
-                'success': True,
-                'message': f"Updated stock.move {move.name} to {quantity}",
-            }
-        return {'success': False, 'message': 'Move not found'}
-
----------------------------------------------------------------
-<t t-call="KanbanQuantityInput"/>
-<input type="number"
-                                                           class="o_input form-control border text-center text-bg-light qty-input"
-                                                           t-att-value="record.quantity.value"/>
-
-<?xml version="1.0" encoding="UTF-8"?>
-<templates id="kanban_qty_template" xml:space="preserve">
-    <t t-name="KanbanQuantityInput" owl="1">
-        <div>
-             <t t-if="record.move_state.raw_value == 'receive_ready'">
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    t-att-data-id="record.id.value"
-                    t-on-click="window.onQtyChange">
-                    Receive
-                </button>
-                <button
-                         string="Receive"
-                         class="btn btn-primary"
-                         name="receive_incoming_move"
-                         type="object"
-                         invisible="move_state != 'receive_ready'"
-                         t-on-click="window.onQtyChange"
-                         t-att-data-id="record.id.value"
-                 >Receive</button>
-            </t>
-        </div>
-    </t>
-</templates>
-                                                          
-                                                           
-/** @odoo-module **/
-
-function onQtyChange(ev) {
-    const button = ev.currentTarget;
-    const moveId = parseInt(button.dataset.id);
-    const newQty = parseFloat(button.closest('.oe_kanban_card')?.querySelector('.qty-input')?.value || 0);
-
-    $.ajax({
-        url: "/web/dataset/call_kw/stock.move/receive_incoming_move",
-        type: "POST",
-        contentType: "application/json",
-        headers: {
-            "X-Openerp-CSRFToken": odoo.csrf_token,
-        },
-        data: JSON.stringify({
-            jsonrpc: "2.0",
-            method: "call",
-            params: {
-                model: "stock.move",
-                method: "receive_incoming_move",
-                args: [[moveId]],
-                kwargs: {
-                    new_qty: newQty
-                },
-            },
-        }),
-        success: function () {
-//            location.reload();
-
-//            const stateLabel = button.closest('.oe_kanban_card')?.querySelector('[name="move_state"] .badge');
-//            if (stateLabel) {
-//                stateLabel.textContent = "Received"; // or use translation if needed
-//                stateLabel.className = "badge bg-success"; // set to green
-//            }
-        }
-    });
-}
-// Register globally for manage Invalid handler error
-Object.assign(window, {
-    onQtyChange,
-});
-
-
-    @api.depends("state")
-    def _compute_move_state(self):
-        for move in self:
-            print("Compute Call: ", move.move_state)
-            picking_type = move.picking_type_id.code
-            if move.state == "assigned" and picking_type == "outgoing":
-                move.move_state = "in_progress"
-            elif move.move_state == "received":
-                continue
-            else:
-                move.move_state = "receive_ready"
-            print("Compute Call: ", move.move_state)
-
-    def receive_incoming_move(self, **kwargs):
-        new_qty = kwargs.get('new_qty')
-        for move in self:
-            if move.move_state == "receive_ready" and move.picking_type_id.code == "incoming":
-                move.move_state = "received"
-                move.quantity = new_qty
-                print("Move id: ", move.id, "Update qty: ", new_qty, "Move state: ", move.move_state)
-
-        
-        
----------------------------------------------
-
- window.onQtyChange = function (ev) {
- 
- no need to 
- // Register globally for manage Invalid handler error
-Object.assign(window, {
-    onQtyChange,
-});
- 
----------------------------------------------
-/** @odoo-module **/
-
-import { FormController } from "@web/views/form/form_controller";
-import { registry } from "@web/core/registry";
-
-export class MySaleOrderController extends FormController {
-
-    setup() {
-        super.setup();
-        console.log("✅ MySaleOrderController setup called");
-    }
-
-    async save() {
-        console.log("Save & Close");
-
-        return super.save(...arguments);
-    }
-
-    async saveAndNew() {
-        console.log("Save & New");
-
-        return super.saveAndNew(...arguments);
-    }
-
-    async saveButtonClicked(event) {
-        console.log("💾 Save button clicked");
-        console.log("👉 Event:", event);
-
-        return super.saveButtonClicked(event);
-    }
-
-}
-
-registry.category("views").add("my_sale_order_controller", {
-    ...registry.category("views").get("form"),
-    Controller: MySaleOrderController,
-});
-
-
------------------------
-
-/** @odoo-module **/
-
-import { FormController } from "@web/views/form/form_controller";
-import { registry } from "@web/core/registry";
-import { useEffect, useRef, useWatcher } from "@odoo/owl";
-import { executeButtonCallback } from "@web/views/view_button/view_button_hook";
-
-
-export class MySaleOrderController extends FormController {
-
-    setup() {
-        super.setup();
-        console.log("✅ MySaleOrderController setup called");
-    }
-
-    saveButtonClicked(params = {}) {
-        console.log("button... custom");
-        return executeButtonCallback(this.ui.activeElement, () => this.save(params));
-    }
-}
-
-registry.category("views").add("my_sale_order_controller", {
-    ...registry.category("views").get("form"),
-    Controller: MySaleOrderController,
-});
-
-----------------------------------
-
-relational_utils.js
-
-    save({ saveAndNew }) {
-        console.log("save & close, new")
-
-        return executeButtonCallback(this.modalRef.el, async () => {
-            if (await this.record.checkValidity({ displayNotification: true })) {
-                await this.props.save(this.record);
-
-                // Trigger FormStatusIndicator's save method
-                this.record.model.bus.trigger("FORCE_SAVE");
-
-                if (saveAndNew) {
-                    await this.record.switchMode("readonly");
-                    this.record = await this.props.addNew();
-                }
-            } else {
-                return false;
-            }
-            if (!saveAndNew) {
-                this.props.close();
-            }
-            return true;
-        });
-    }
-
-form_status_indicator.js
-
-setup() {
-        this.state = useState({
-            fieldIsDirty: false,
-        });
-        useBus(
-            this.props.model.bus,
-            "FIELD_IS_DIRTY",
-            (ev) => (this.state.fieldIsDirty = ev.detail)
-        );
-//
-        useBus(this.props.model.bus, "FORCE_SAVE", () => {
-            this.save();
-        });
-//
-
-....
-
-import { X2ManyFieldDialog } from "@web/views/fields/relational_utils";
-import { FormStatusIndicator } from "@web/views/form/form_status_indicator/form_status_indicator";
-
-
-
-
-            <xpath expr="//form" position="attributes">
-                <attribute name="js_class">my_sale_order_controller</attribute>
-            </xpath>
-            <!--<form position="attributes">-->
-<!--                <attribute name="js_class">auto_save_sale_order_form</attribute>-->
-<!--            </form>-->
-
-<!--            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/form" position="attributes">-->
-<!--                <attribute name="js_class">auto_save_sale_order_form</attribute>-->
-<!--            </xpath>-->
-            <!--<xpath expr="//field[@name='order_line']" position="attributes">-->
-<!--                <attribute name="js_class">auto_save_sale_order_form</attribute>-->
-<!--            </xpath>-->
-
-
-======================
-
-
-
-/** @odoo-module **/
-
-import { FormStatusIndicator } from "@web/views/form/form_status_indicator/form_status_indicator";
-import { patch } from "@web/core/utils/patch";
-import { useBus } from "@web/core/utils/hooks";
-
-// Patch to add FORCE_SAVE support
-patch(FormStatusIndicator.prototype, {
-    setup() {
-        // Call the original setup
-        super.setup();
-
-        // Listen to FORCE_SAVE event on the model bus
-        useBus(this.props.model.bus, "FORCE_SAVE", () => {
-            this.save();
-        });
-    },
-
-    async save() {
-        console.log("manually...");
-        await this.props.save();
-    },
-});
-
-
-====
-
-/** @odoo-module **/
-
-import { X2ManyFieldDialog } from "@web/views/fields/relational_utils";
-import { patch } from "@web/core/utils/patch";
-import { executeButtonCallback } from "@web/views/view_button/view_button_hook";
-
-patch(X2ManyFieldDialog.prototype, {
-    async save({ saveAndNew }) {
-        console.log("save & close, save & new")
-//        debugger;
-        return executeButtonCallback(this.modalRef.el, async () => {
-            if (await this.record.checkValidity({ displayNotification: true })) {
-                await this.props.save(this.record);
-
-                // Trigger FormStatusIndicator's save method
-                this.record.model.bus.trigger("FORCE_SAVE");
-
-                if (saveAndNew) {
-                    await this.record.switchMode("readonly");
-                    this.record = await this.props.addNew();
-                }
-            } else {
-                return false;
-            }
-            if (!saveAndNew) {
-                this.props.close();
-            }
-            return true;
-        });
-    },
-});
-
-======================
-
-for hide m2o field in invoice view 
-<!--        <record model="ir.ui.view" id="account_invoice_form_inherit">-->
-<!--            <field name="name">Account Invoice Inherit</field>-->
-<!--            <field name="model">account.move</field>-->
-<!--            <field name="inherit_id" ref="account.account_invoice_form"/>-->
-<!--            <field name="arch" type="xml">-->
-
-<!--            </field>-->
-<!--        </record>-->
-
----------------
- @api.model_create_multi
-    def create(self, vals_list):
-        lines = super(SaleOrderLine, self).create(vals_list)
-        for line in lines:
-            if line.additional_product_id:
-                additional_prod_line_id = self.create(
-                    {
-                        "order_id": line.order_id.id,
-                        "product_id": line.additional_product_id.id,
-                        "product_uom_qty": line.additional_qty or line.product_uom_qty,
-                        "price_unit": line.additional_product_id.lst_price,
-                    }
-                )
-                line.write({"additional_prod_line_id": additional_prod_line_id.id})
-
-            if line.sheer_track_additional_product_id:
-                sheer_additional_prod_line_id = self.create(
-                    {
-                        "order_id": line.order_id.id,
-                        "product_id": line.sheer_track_additional_product_id.id,
-                        "product_uom_qty": line.sheer_track_additional_qty
-                        or line.product_uom_qty,
-                        "price_unit": line.sheer_track_additional_product_id.lst_price,
-                    }
-                )
-                line.write(
-                    {
-                        "sheer_track_additional_prod_line_id": sheer_additional_prod_line_id.id
-                    }
-                )
-        return lines
-
-    def write(self, vals):
-        if "additional_product_id" in vals or "additional_qty" in vals:
-            if not self.additional_prod_line_id:
-                additional_prod_line_id = self.create(
-                    {
-                        "order_id": self.order_id.id,
-                        "product_id": vals.get("additional_product_id"),
-                        "product_uom_qty": vals.get("additional_qty")
-                        or self.additional_qty,
-                        "price_unit": self.env["product.product"]
-                        .browse(vals.get("additional_product_id"))
-                        .lst_price
-                        if vals.get("additional_product_id")
-                        else 0.0,
-                    }
-                )
-                self.write({"additional_prod_line_id": additional_prod_line_id.id})
-            else:
-                self.additional_prod_line_id.write(
-                    {
-                        "product_id": vals.get("additional_product_id")
-                        or self.additional_product_id.id,
-                        "product_uom_qty": vals.get("additional_qty")
-                        or self.additional_qty,
-                        "price_unit": self.env["product.product"]
-                        .browse(vals.get("additional_product_id"))
-                        .lst_price
-                        if vals.get("additional_product_id")
-                        else 0.0,
-                    }
-                )
-
-        if (
-            "sheer_track_additional_product_id" in vals
-            or "sheer_track_additional_qty" in vals
-        ):
-            if not self.sheer_track_additional_prod_line_id:
-                sheer_additional_prod_line_id = self.create(
-                    {
-                        "order_id": self.order_id.id,
-                        "product_id": vals.get("sheer_track_additional_product_id"),
-                        "product_uom_qty": vals.get("sheer_track_additional_qty")
-                        or self.sheer_track_additional_qty,
-                        "price_unit": self.env["product.product"]
-                        .browse(vals.get("sheer_track_additional_product_id"))
-                        .lst_price
-                        if vals.get("sheer_track_additional_product_id")
-                        else 0.0,
-                    }
-                )
-                self.write(
-                    {
-                        "sheer_track_additional_prod_line_id": sheer_additional_prod_line_id.id
-                    }
-                )
-            else:
-                self.sheer_track_additional_prod_line_id.write(
-                    {
-                        "product_id": vals.get("sheer_track_additional_product_id")
-                        or self.sheer_track_additional_product_id.id,
-                        "product_uom_qty": vals.get("sheer_track_additional_qty")
-                        or self.sheer_track_additional_qty,
-                        "price_unit": self.env["product.product"]
-                        .browse(vals.get("sheer_track_additional_product_id"))
-                        .lst_price
-                        if vals.get("sheer_track_additional_product_id")
-                        else 0.0,
-                    }
-                )
-
-        return super().write(vals)
-        
--------------------------------
-
-
-
-    save({ saveAndNew }) {
-//        debugger;
-        return executeButtonCallback(this.modalRef.el, async () => {
-            if (await this.record.checkValidity({ displayNotification: true })) {
-                await this.props.save(this.record);
-
-                // Trigger FormStatusIndicator's save method
-                this.record.model.bus.trigger("FORCE_SAVE");
-
-                const parent = this.record._parentRecord;
-                console.log("Record1:", parent)
-
-                if (saveAndNew) {
-                    await this.record.switchMode("readonly");
-
-                    const parent = this.record._parentRecord;
-                    if (parent && parent.model && parent.model.root) {
-                        await parent.model.root.save();  // Ensures sale.order is synced
-                    }
-
-                    this.record = await this.props.addNew();
-                    console.log("Record2:", this.record)
-                }
-            } else {
-                return false;
-            }
-            if (!saveAndNew) {
-                this.props.close();
-            }
-            return true;
-        });
-    }
-
-----------
-
-    def open_whatsapp_web(self):
-        return {
-            "type": 'ir.actions.act_url',
-            "url": 'https://web.whatsapp.com/',
-            "target": 'new'
-        }
-
-    def open_whatsapp_moile(self):
-        return {
-            "type": 'ir.actions.act_url',
-            "url": 'https://api.whatsapp.com/send/',
-            "target": 'new'
-        }
-
-------------
-
-
-    def send_direct_message(self):
-        for rec in self:
-            if not rec.partner_id.mobile:
-                raise UserError("Please provide the vendor's mobile number before proceeding.")
-            if not rec.partner_id.country_id:
-                raise UserError("Please specify the vendor's country to determine the phone code.")
-            number = rec.partner_id.mobile
-            code = rec.partner_id.country_id.phone_code
-            prods = ""
-            for line in rec.order_line:
-                prods = prods + "*" + str(line.product_id.name) + " : " + str(line.product_qty) + "* \n"
-            custom_msg = f"""
-Hello *{rec.partner_id.name}*,
-Your Purchase Order *{rec.name}* with amount *{rec.currency_id.symbol} {rec.amount_total}* is ready.
-Your order contains the following items:
-{prods}
-"""
-            message_string = parse.quote(custom_msg)
-            whatsapp_url = f"https://web.whatsapp.com/send?phone=+{code}{number}&text={message_string}"
-            return {
-                'type': 'ir.actions.act_url',
-                'url': whatsapp_url,
-                'target': 'new',
-                'res_id': rec.id,
-            }
-
--------------
-
-
-
-    def send_direct_message(self):
-        for rec in self:
-            if not rec.partner_id.mobile:
-                raise UserError("Please provide the vendor's mobile number before proceeding.")
-            if not rec.partner_id.country_id:
-                raise UserError("Please specify the vendor's country to determine the phone code.")
-
-            number = rec.partner_id.mobile
-            code = rec.partner_id.country_id.phone_code
-
-            prods = ""
-            for line in rec.order_line:
-                prods = prods + "*" + str(line.product_id.name) + " : " + str(line.product_qty) + "* \n"
-
-            custom_msg = f"""
-            Hello *{rec.partner_id.name}*,
-            Your Purchase Order *{rec.name}* with amount *{rec.currency_id.symbol} {rec.amount_total}* is ready.
-            Your order contains the following items:
-            {prods}
-            """
-            link = "https://web.whatsapp.com/send?phone=+%s%s" % (code, number)
-
-            message_string = parse.quote(custom_msg)
-
-            url_id = link + "&text=" + message_string
-
-            return {
-                'type': 'ir.actions.act_url',
-                'url': url_id,
-                'target': 'new',
-                'res_id': rec.id,
-            }
-
-    def send_direct_message_mobile(self):
-        for rec in self:
-            if not rec.partner_id.mobile:
-                raise UserError("Please provide the vendor's mobile number before proceeding.")
-            if not rec.partner_id.country_id:
-                raise UserError("Please specify the vendor's country to determine the phone code.")
-
-            number = rec.partner_id.mobile.strip().replace("+", "")
-            code = rec.partner_id.country_id.phone_code
-
-            product_lines = ""
-            for line in rec.order_line:
-                product_lines += "{} : {} \n".format(line.product_id.display_name, line.product_qty)
-
-            custom_msg = (
-                "Hello {}, your Purchase Order {} with amount {} {} is ready.\n"
-                "Your order contains following items:\n{}"
-            ).format(
-                rec.partner_id.name or '',
-                rec.name or '',
-                rec.currency_id.symbol or '',
-                rec.amount_total or '',
-                product_lines
-            )
-            encoded_msg = parse.quote(custom_msg)
-
-            whatsapp_url = "https://api.whatsapp.com/send?phone={}{}&text={}".format(code, number, encoded_msg)
-            # "url": 'https://api.whatsapp.com/send/?phone=+%s%s' % (self.country_id.phone_code, self.phone),
-            # whatsapp_url = "https://api.whatsapp.com/send?phone=+%s%s" % (code, number)
-            return {
-                'type': 'ir.actions.act_url',
-                'url': whatsapp_url,
-                'target': 'new',
-            }
-            
-----------
-
-            # number = rec.partner_id.mobile.strip().replace("+", "")
-            
-                        # if self.move_ids:
-            #     production_ids = self.move_ids.mapped('created_production_id')
-            #     for move_id in production_ids:
-            #         if move_id.state == 'confirmed':
-            #             raise ValidationError("Please Done Manufacturing Order First")
-
-----------------
-
-
-    def read_packing_file(self):
-
-        po = self.purchase_id
-        origin_po = self.origin_po_id
-
-        fp = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
-        fp.write(base64.decodebytes(self.import_file))
-        fp.seek(0)
-        df = pd.read_excel(fp.name, engine='openpyxl')
-        if df.empty or df.shape[0] <= 0:
-            raise ValidationError("File doesn't contain purchase lines.")
-
-        required_columns = ['product', 'qty']
-        for column in required_columns:
-            if column not in df.columns:
-                raise ValidationError(f"Column '{column}' missing in the Excel file.")
-
-        imported_product_ids = set()
-
-        for row_no, row in df.iterrows():
-            product_ref = row.get('product')
-            qty = row.get('qty')
-
-            if pd.isna(product_ref) or pd.isna(qty):
-                continue
-
-            product = self.env['product.product'].search([
-                ('name', '=', str(product_ref).strip()),
-            ], limit=1)
-
-            if not product:
-                raise ValidationError(f"Product '{product_ref}' not found in system at row {row_no + 2}.")
-
-            po_line = po.order_line.filtered(lambda l: l.product_id.id == product.id and not l.display_type)
-            old_qty = po_line.product_qty if po_line else 0
-            origin_po_id = po_line.origin_po_id.id if po_line else origin_po.id
-            imported_product_ids.add(product.id)
-
-            self.env['import.packing.line'].create({
-                'wizard_id': self.id,
-                'product_id': product.id,
-                'old_qty': old_qty,
-                'new_qty': float(qty),
-                'origin_po_id': origin_po_id
-            })
-
-        for line in po.order_line:
-            if line.product_id.id not in imported_product_ids and line.display_type != 'line_section':
-                self.env['import.packing.line'].create({
-                    'wizard_id': self.id,
-                    'product_id': line.product_id.id,
-                    'old_qty': line.product_qty,
-                    'new_qty': 0.0,
-                    'origin_po_id': line.origin_po_id.id if line.origin_po_id else po.id
-                })
-
-        self.write({
-            'is_file_read': True
-        })
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'import.packing.list',
-            'view_mode': 'form',
-            'res_id': self.id,
-            'target': 'new',
-        }
-
---------------------
-
-    def read_packing_file(self):
-
-        po = self.purchase_id
-        origin_po = self.origin_po_id
-
-        fp = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
-        fp.write(base64.decodebytes(self.import_file))
-        fp.seek(0)
-        df = pd.read_excel(fp.name, engine='openpyxl')
-        if df.empty or df.shape[0] <= 0:
-            raise ValidationError("File doesn't contain purchase lines.")
-
-        required_columns = ['product', 'qty']
-        for column in required_columns:
-            if column not in df.columns:
-                raise ValidationError(f"Column '{column}' missing in the Excel file.")
-        a = set()
-        imp_ids = {}
-        for row_no, row in df.iterrows():
-            product_ref = row.get('product')
-            qty = row.get('qty')
-
-            if pd.isna(product_ref) or pd.isna(qty):
-                continue
-
-            product = self.env['product.product'].search([
-                ('name', '=', str(product_ref).strip()),
-            ], limit=1)
-
-            if not product:
-                raise ValidationError(f"Product '{product_ref}' not found in system at row {row_no + 2}.")
-
-            po_line = po.order_line.filtered(lambda l: l.product_id.id == product.id and not l.display_type)
-            old_qty = po_line.product_qty if po_line else 0
-            origin_po_id = po_line.origin_po_id.id if po_line else origin_po.id
-            
-            if product.id in imp_ids:
-                imp_ids[product.id]['new_qty'] += float(qty)
-            else:
-                imp_ids[product.id] = {
-                    'product_id': product.id,
-                    'wizard_id': self.id,
-                    'old_qty': old_qty,
-                    'new_qty': float(qty),
-                    'origin_po_id': origin_po_id
-                }
-
-        for line_vals in imp_ids.values():
-            self.env['import.packing.line'].create(line_vals)
-
-        for line in po.order_line:
-            if line.product_id.id not in imp_ids and line.display_type != 'line_section':
-                self.env['import.packing.line'].create({
-                    'wizard_id': self.id,
-                    'product_id': line.product_id.id,
-                    'old_qty': line.product_qty,
-                    'new_qty': 0.0,
-                    'origin_po_id': line.origin_po_id.id if line.origin_po_id else po.id
-                })
-        self.write({
-            'is_file_read': True
-        })
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'import.packing.list',
-            'view_mode': 'form',
-            'res_id': self.id,
-            'target': 'new',
-        }
---------------------
-
-
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data>
-
-<!--        <record model="ir.ui.view" id="account_invoice_form_inherit">-->
-<!--            <field name="name">Account Invoice Inherit</field>-->
-<!--            <field name="model">account.move</field>-->
-<!--            <field name="inherit_id" ref="account.view_move_form"/>-->
-<!--            <field name="arch" type="xml">-->
-
-<!--                &lt;!&ndash; Button &ndash;&gt;-->
-<!--                <xpath expr="//button[@name='action_post'][1]" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or hide_post_button or move_type != 'entry'</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='action_post'][2]" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or hide_post_button or move_type == 'entry' or display_inactive_currency_warning</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='button_cancel'][1]" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or not id or state != 'draft' or move_type != 'entry'</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='button_cancel'][2]" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or not id or state != 'draft' or move_type == 'entry'</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='action_register_payment']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or state != 'posted' or payment_state not in ('not_paid', 'partial') or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='action_invoice_pdc_register_payment']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or state != 'posted' or payment_state not in ('not_paid', 'partial') or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='277']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or move_type != 'entry' or state != 'posted' or payment_state == 'reversed'</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='button_request_cancel']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or state != 'posted' or show_reset_to_draft_button or not need_cancel_request</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='button_set_checked']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or not to_check</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='preview_invoice']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or move_type not in ('out_invoice', 'out_refund') or state == 'cancel'</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='action_reverse']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or move_type not in ('out_invoice', 'in_invoice') or state != 'posted'</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//button[@name='button_draft']" position="attributes">-->
-<!--                    <attribute name="invisible">context.get('custom_menu') or not show_reset_to_draft_button</attribute>-->
-<!--                </xpath>-->
-
-<!--                 &lt;!&ndash; Main Section &ndash;&gt;-->
-<!--                <xpath expr="sheet/group//group[@id='header_left_group']/field[@name='partner_shipping_id']" position="attributes">-->
-<!--                    <attribute name="options">{'no_open': True}</attribute>-->
-<!--                    <attribute name="invisible">not context.get('custom_menu') or move_type not in ('out_invoice', 'out_refund', 'out_receipt')</attribute>-->
-<!--                </xpath>-->
-<!--                <xpath expr="sheet/group//group[@id='header_left_group']/field[@name='partner_shipping_id']" position="after">-->
-<!--                    <field name="partner_shipping_id" groups="account.group_delivery_invoice_address" options="{'no_open': False}" invisible="context.get('custom_menu') or move_type not in ('out_invoice', 'out_refund', 'out_receipt')" readonly="state != 'draft'"/>-->
-<!--                </xpath>-->
-
-<!--            </field>-->
-<!--        </record>-->
-
-        <record id="account_move_form_custom" model="ir.ui.view">
-            <field name="name">account.move.form.custom</field>
-            <field name="model">account.move</field>
-            <field name="arch" type="xml">
-                <form string="Account Entry" js_class="account_move_form">
-                    <header>
-                        <button name="action_invoice_sent"
-                                type="object"
-                                string="Send &amp; Print"
-                                invisible="state != 'posted' or is_being_sent or invoice_pdf_report_id or move_type not in ('out_invoice', 'out_refund')"
-                                class="oe_highlight"
-                                data-hotkey="y"/>
-                        <button name="action_invoice_sent"
-                                type="object"
-                                string="Send &amp; Print"
-                                invisible="state != 'posted' or not is_being_sent and not invoice_pdf_report_id or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')"
-                                data-hotkey="y"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
-                    </header>
-                    <div class="alert alert-warning" role="alert"
-                         invisible="state != 'draft' or not duplicated_ref_ids">
-                        Warning: this bill might be a duplicate of
-                        <button name="open_duplicated_ref_bill_view"
-                                type="object"
-                                string="one of those bills"
-                                class="btn btn-link p-0"
-                        />
-                    </div>
-                    <div class="alert alert-info" role="alert" invisible="not is_being_sent">
-                        This invoice is being sent in the background.
-                    </div>
-                    <!-- Invoice outstanding credits -->
-                    <div groups="account.group_account_invoice,account.group_account_readonly"
-                         class="alert alert-warning" role="alert"
-                         invisible="state != 'draft' or not tax_lock_date_message">
-                        <field name="tax_lock_date_message" nolabel="1"/>
-                    </div>
-                    <div groups="account.group_account_invoice,account.group_account_readonly"
-                         class="alert alert-info" role="alert"
-                         invisible="move_type not in ('out_invoice', 'out_receipt') or not invoice_has_outstanding or payment_state not in ('not_paid', 'partial')">
-                        You have <bold><a class="alert-link" href="#outstanding" role="button">outstanding credits</a></bold> for this customer. You can allocate them to mark this invoice as paid.
-                    </div>
-                    <div groups="account.group_account_invoice,account.group_account_readonly"
-                         class="alert alert-info" role="alert"
-                         invisible="move_type not in ('in_invoice', 'in_receipt') or not invoice_has_outstanding or payment_state not in ('not_paid', 'partial')">
-                        You have <bold><a class="alert-link" href="#outstanding" role="button">outstanding debits</a></bold> for this vendor. You can allocate them to mark this bill as paid.
-                    </div>
-                    <div groups="account.group_account_invoice,account.group_account_readonly"
-                         class="alert alert-info" role="alert"
-                         invisible="move_type != 'out_refund' or not invoice_has_outstanding or payment_state not in ('not_paid', 'partial')">
-                        You have <bold><a class="alert-link" href="#outstanding" role="button">outstanding debits</a></bold> for this customer. You can allocate them to mark this credit note as paid.
-                    </div>
-                    <div groups="account.group_account_invoice,account.group_account_readonly"
-                         class="alert alert-info" role="alert"
-                         invisible="move_type != 'in_refund' or not invoice_has_outstanding or payment_state not in ('not_paid', 'partial')">
-                        You have <bold><a class="alert-link" href="#outstanding" role="button">outstanding credits</a></bold> for this vendor. You can allocate them to mark this credit note as paid.
-                    </div>
-                    <div class="alert alert-info" role="alert"
-                         invisible="state != 'draft' or auto_post != 'at_date'">
-                        This move is configured to be posted automatically at the accounting date: <field name="date" readonly="1"/>.
-                    </div>
-                    <div class="alert alert-info" role="alert"
-                         invisible="state != 'draft' or auto_post == 'no' or auto_post == 'at_date'">
-                         <field name="auto_post" readonly="1"/> auto-posting enabled. Next accounting date: <field name="date" readonly="1"/>.<span invisible="not auto_post_until"> The recurrence will end on <field name="auto_post_until" readonly="1"/> (included).</span>
-                    </div>
-                    <div groups="account.group_account_invoice,account.group_account_readonly"
-                         class="alert alert-warning" role="alert"
-                         invisible="partner_credit_warning == ''">
-                        <field name="partner_credit_warning"/>
-                    </div>
-                    <!-- Currency consistency -->
-                    <div class="alert alert-warning" role="alert"
-                         invisible="not display_inactive_currency_warning or move_type not in ('in_invoice', 'in_refund', 'in_receipt')">
-                        In order to validate this bill, you must <button class="oe_link" type="object" name="action_activate_currency" style="padding: 0; vertical-align: baseline;">activate the currency of the bill</button>. The journal entries need to be computed by Odoo before being posted in your company's currency.
-                    </div>
-                    <div class="alert alert-warning" role="alert"
-                         invisible="not display_inactive_currency_warning or move_type not in ('out_invoice', 'out_refund', 'out_receipt')">
-                        In order to validate this invoice, you must <button class="oe_link" type="object" name="action_activate_currency" style="padding: 0; vertical-align: baseline;">activate the currency of the invoice</button>. The journal entries need to be computed by Odoo before being posted in your company's currency.
-                    </div>
-                    <sheet>
-                        <div name="button_box" class="oe_button_box">
-                            <button name="action_open_business_doc"
-                                    class="oe_stat_button"
-                                    icon="fa-bars"
-                                    type="object"
-                                    invisible="move_type != 'entry' or not id or not payment_id">
-                                    <div class="o_stat_info">
-                                        <span class="o_stat_text">1 Payment</span>
-                                    </div>
-                            </button>
-                            <button name="open_reconcile_view"
-                                    class="oe_stat_button"
-                                    icon="fa-bars"
-                                    type="object"
-                                    invisible="move_type != 'entry' or not id or not has_reconciled_entries">
-                                    <div class="o_stat_info">
-                                        <span class="o_stat_text">Reconciled Items</span>
-                                    </div>
-                            </button>
-                            <button name="open_created_caba_entries"
-                                    class="oe_stat_button"
-                                    icon="fa-usd"
-                                    type="object"
-                                    invisible="not tax_cash_basis_created_move_ids">
-                                    <div class="o_stat_info">
-                                        <span class="o_stat_text">Cash Basis Entries</span>
-                                    </div>
-                            </button>
-                        </div>
-
-                        <!-- Payment status for invoices / receipts -->
-                        <widget name="web_ribbon" title="Paid"
-                                invisible="payment_state != 'paid' or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"/>
-                        <widget name="web_ribbon" title="In Payment"
-                                invisible="payment_state != 'in_payment' or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"/>
-                        <widget name="web_ribbon" title="Partial"
-                                invisible="payment_state != 'partial' or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"/>
-                        <widget name="web_ribbon" title="Reversed"
-                                bg_color="text-bg-danger"
-                                invisible="payment_state != 'reversed'"/>
-                         <widget name="web_ribbon" text="Invoicing App Legacy"
-                                bg_color="text-bg-info"
-                                invisible="payment_state != 'invoicing_legacy'"
-                                tooltip="This entry has been generated through the Invoicing app, before installing Accounting. It has been disabled by the 'Invoicing Switch Threshold Date' setting so that it does not impact your accounting."/>
-
-                        <!-- Invisible fields -->
-                        <field name="id" invisible="1"/>
-                        <field name="state" invisible="1"/>
-                        <field name="company_id" invisible="1"/>
-                        <field name="journal_id" invisible="1"/>
-                        <field name="show_name_warning" invisible="1"/>
-                        <field name="posted_before" invisible="1"/>
-                        <!--test-tags .test_01_account_tour -->
-                        <field name="move_type" invisible="1" force_save="1"/>
-                        <field name="payment_state" invisible="1" force_save="1"/>
-                        <field name="invoice_filter_type_domain" invisible="1"/>
-                        <field name="suitable_journal_ids" invisible="1"/>
-                        <field name="currency_id" invisible="1" readonly="state in ['cancel', 'posted']"/>
-                        <field name="company_currency_id" invisible="1"/>
-                        <field name="commercial_partner_id" invisible="1"/>
-                        <field name="bank_partner_id" invisible="1"/>
-                        <field name="display_qr_code" invisible="1"/>
-                        <field name="show_reset_to_draft_button" invisible="1"/>
-
-                        <field name="invoice_has_outstanding" invisible="1"/>
-                        <field name="is_move_sent" invisible="1"/>
-                        <field name="invoice_pdf_report_id" invisible="1"/>
-                        <field name="need_cancel_request" invisible="1"/>
-                        <field name="has_reconciled_entries" invisible="1"/>
-                        <field name="restrict_mode_hash_table" invisible="1"/>
-                        <field name="inalterable_hash" invisible="1"/>
-                        <field name="country_code" invisible="1"/>
-                        <field name="display_inactive_currency_warning" invisible="1"/>
-                        <field name="statement_line_id" invisible="1"/>
-                        <field name="statement_id" invisible="1"/>
-                        <field name="payment_id" invisible="1"/>
-                        <field name="tax_country_id" invisible="1"/>
-                        <field name="tax_calculation_rounding_method" invisible="1"/>
-                        <field name="tax_cash_basis_created_move_ids" invisible="1"/>
-                        <field name="quick_edit_mode" invisible="1"/>
-                        <field name="hide_post_button" invisible="1"/>
-                        <field name="duplicated_ref_ids" invisible="1"/>
-                        <field name="quick_encoding_vals" invisible="1"/>
-                        <field name="show_delivery_date" invisible="1"/>
-                        <field name="is_being_sent" invisible="1"/>
-                        <field name="show_update_fpos" invisible="1"/>
-
-                        <div class="oe_title">
-                            <span class="o_form_label"><field name="move_type" readonly="1" invisible="move_type == 'entry'" nolabel="1"/></span>
-
-                            <div class="text-warning" invisible="not show_name_warning">The current highest number is <field class="oe_inline" name="highest_name"/>. You might want to put a higher number here.</div>
-
-                            <h1>
-                                <field name="name" invisible="name == '/' and not posted_before and not quick_edit_mode" readonly="state != 'draft'" placeholder="Draft"/>
-
-                                <span invisible="state != 'draft' or name != '/' or posted_before or quick_edit_mode">Draft</span>
-                            </h1>
-                        </div>
-                        <group>
-                            <group id="header_left_group">
-
-                                <label for="partner_id" string="Customer" style="font-weight:bold;"
-                                       invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt')"/>
-                                <label for="partner_id" string="Vendor" style="font-weight:bold;"
-                                       invisible="move_type not in ('in_invoice', 'in_refund', 'in_receipt')"/>
-                                <div class="o_col" invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt', 'in_invoice', 'in_refund', 'in_receipt')">
-                                    <field name="partner_id" widget="res_partner_many2one" nolabel="1"
-                                           context="{
-                                            'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,
-                                            'show_address': 1, 'default_is_company': True, 'show_vat': True}"
-                                           domain="[('company_id', 'in', (False, company_id))]"
-                                           options='{"no_quick_create": True}'
-                                           invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"
-                                           readonly="state != 'draft'"/>
-                                    <button name="action_update_fpos_values" type="object"
-                                            string="Update Taxes and Accounts"
-                                            help="Recompute all taxes and accounts based on this fiscal position"
-                                            class="btn-link mb-1 px-0" icon="fa-refresh"
-                                            confirm="This will update all taxes and accounts based on the currently selected fiscal position."
-                                            invisible="not show_update_fpos or state in ['cancel', 'posted']"/>
-                                </div>
-
-                                <field name="partner_shipping_id"
-                                       groups="account.group_delivery_invoice_address"
-                                       invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
-                                       readonly="state != 'draft'"/>
-                                <field name="quick_edit_total_amount" class="w-50"
-                                       invisible="move_type == 'entry' or not quick_edit_mode"
-                                       readonly="state != 'draft'"/>
-                                <label for="ref" string="Bill Reference"
-                                       invisible="move_type not in ('in_invoice', 'in_receipt', 'in_refund')" />
-                                <field name="ref" nolabel="1" invisible="move_type not in ('in_invoice', 'in_receipt', 'in_refund')" />
-                                <field name="ref" invisible="move_type in ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund')"/>
-                                <field name="tax_cash_basis_origin_move_id" invisible="not tax_cash_basis_origin_move_id"/>
-                                <label name="invoice_vendor_bill_id_label" for="invoice_vendor_bill_id" string="Auto-Complete" class="oe_edit_only"
-                                       invisible="state != 'draft' or move_type != 'in_invoice'"/>
-                                <field name="invoice_vendor_bill_id" nolabel="1" class="oe_edit_only"
-                                       invisible="state != 'draft' or move_type != 'in_invoice'"
-                                       domain="[('company_id', '=', company_id), ('partner_id','child_of', [partner_id]), ('move_type','=','in_invoice')]"
-                                       placeholder="Select an old vendor bill"
-                                       options="{'no_create': True}" context="{'show_total_amount': True}"/>
-                            </group>
-                            <group id="header_right_group">
-
-                                <!-- Invoice date (only invoices / receipts) -->
-                                <label for="invoice_date" string="Invoice Date" style="font-weight:bold;"
-                                       invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt')"/>
-                                <label for="invoice_date" string="Bill Date" style="font-weight:bold;"
-                                       invisible="move_type not in ('in_invoice', 'in_refund', 'in_receipt')"/>
-                                <field name="invoice_date" nolabel="1" options="{'warn_future': true}"
-                                       invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"
-                                       readonly="state != 'draft'"/>
-
-                                <field name="date" string="Accounting Date"
-                                       invisible="move_type in ('out_invoice', 'out_refund', 'out_receipt') and not quick_edit_mode and not (state == 'posted' and date != invoice_date)"
-                                       readonly="state != 'draft'"/>
-                                <field name="payment_reference"
-                                       invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"
-                                       readonly="inalterable_hash != False"/>
-                                <field name="partner_bank_id"
-                                       context="{'default_partner_id': bank_partner_id, 'display_account_trust': True}"
-                                       domain="[('partner_id', '=', bank_partner_id)]"
-                                       invisible="move_type not in ('in_invoice', 'in_refund', 'in_receipt')"
-                                       readonly="state != 'draft'"/>
-
-                                <!-- Invoice payment terms (only invoices) + due date (only invoices / receipts) -->
-                                <div class="o_td_label" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')">
-                                    <label for="invoice_date_due" string="Due Date"
-                                           invisible="invoice_payment_term_id"/>
-                                    <label for="invoice_payment_term_id" string="Payment terms"
-                                           invisible="not invoice_payment_term_id"/>
-                                </div>
-                                <div class="d-flex" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')" name="due_date">
-                                    <field name="invoice_date_due" force_save="1"
-                                           placeholder="Date"
-                                           invisible="invoice_payment_term_id"/>
-                                    <span class="o_form_label mx-3 oe_edit_only"
-                                          invisible="state != 'draft' or invoice_payment_term_id"> or </span>
-                                    <field name="invoice_payment_term_id"
-                                           context="{'example_date': invoice_date, 'example_amount': tax_totals['amount_total']}"
-                                           placeholder="Payment Terms"
-                                           options="{'no_quick_create':True}" readonly="state in ['cancel', 'posted']"/>
-                                </div>
-                                <field name="delivery_date" invisible="not show_delivery_date" readonly="state != 'draft'"/>
-                                <label for="journal_id"
-                                       groups="account.group_account_readonly"
-                                       invisible="context.get('default_journal_id') and context.get('move_type', 'entry') != 'entry'"/>
-                                <div name="journal_div"
-                                     class="d-flex"
-                                     groups="account.group_account_readonly"
-                                     invisible="context.get('default_journal_id') and context.get('move_type', 'entry') != 'entry'">
-                                    <field name="journal_id"
-                                        options="{'no_create': True, 'no_open': True}"
-                                        readonly="posted_before and name not in (False, '', '/')"/>
-                                    <span class="oe_inline o_form_label mx-3"
-                                          groups="base.group_multi_currency"
-                                          invisible="move_type == 'entry'"> in </span>
-                                    <field name="currency_id"
-                                           groups="base.group_multi_currency"
-                                           invisible="move_type == 'entry'"
-                                           readonly="state != 'draft'"
-                                           options="{'no_create': True}"
-                                           context="{'search_default_active': 1, 'search_default_inactive': 1}"/>
-                                </div>
-
-                                <field name="currency_id"
-                                       readonly="state != 'draft'"
-                                       groups="!account.group_account_readonly,base.group_multi_currency"
-                                       options="{'no_create': True}"/>
-
-                            </group>
-                        </group>
-                        <notebook>
-                            <page id="invoice_tab"
-                                  name="invoice_tab"
-                                  string="Invoice Lines"
-                                  invisible="move_type == 'entry'">
-                                <field name="invoice_line_ids"
-                                       widget="section_and_note_one2many"
-                                       mode="tree,kanban"
-                                       context="{
-                                           'default_move_type': context.get('default_move_type'),
-                                           'journal_id': journal_id,
-                                           'default_partner_id': commercial_partner_id,
-                                           'default_currency_id': currency_id or company_currency_id,
-                                           'default_display_type': 'product',
-                                           'quick_encoding_vals': quick_encoding_vals,
-                                       }" readonly="state != 'draft'">
-                                    <tree editable="bottom" string="Journal Items" default_order="sequence, id">
-                                        <control>
-                                            <create name="add_line_control" string="Add a line"/>
-                                            <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
-                                            <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
-                                        </control>
-
-                                        <!-- Displayed fields -->
-                                        <field name="sequence" widget="handle"/>
-                                        <field name="product_id"
-                                               optional="show"
-                                               widget="many2one_barcode"
-                                               domain="
-                                                    context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')
-                                                    and [('sale_ok', '=', True)]
-                                                    or [('purchase_ok', '=', True)]
-                                               "/>
-                                        <field name="name" widget="section_and_note_text" optional="show"/>
-                                        <field name="account_id"
-                                               context="{'partner_id': partner_id, 'move_type': parent.move_type}"
-                                               groups="account.group_account_readonly"
-                                               options="{'no_quick_create': True}"
-                                               domain="[('deprecated', '=', False), ('account_type', 'not in', ('asset_receivable', 'liability_payable', 'off_balance')), ('company_id', 'parent_of', parent.company_id)]"
-                                               required="display_type not in ('line_note', 'line_section')"/>
-                                        <field name="analytic_distribution" widget="analytic_distribution"
-                                               groups="analytic.group_analytic_accounting"
-                                               optional="show"
-                                               options="{'product_field': 'product_id', 'account_field': 'account_id', 'amount_field': 'price_subtotal'}"
-                                               business_domain_compute="parent.move_type in ['out_invoice', 'out_refund', 'out_receipt'] and 'invoice' or parent.move_type in ['in_invoice', 'in_refund', 'in_receipt'] and 'bill' or 'general'"/>
-                                        <field name="quantity" optional="show"/>
-                                        <field name="product_uom_category_id" column_invisible="True"/>
-                                        <field name="product_uom_id" string="UoM" groups="uom.group_uom" optional="show"/>
-                                        <!-- /l10n_in_edi.test_edi_json -->
-                                        <!-- required for @api.onchange('product_id') -->
-                                        <field name="product_uom_id" column_invisible="True"/>
-                                        <field name="price_unit" string="Price"/>
-                                        <field name="discount" string="Disc.%" optional="hide"/>
-                                        <field name="tax_ids" widget="many2many_tags"
-                                               domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', 'parent_of', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                                               context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain, 'active_test': True}"
-                                               options="{'no_create': True}"
-                                               optional="show"/>
-                                        <field name="price_subtotal"
-                                               string="Tax excl."/>
-                                        <field name="price_total"
-                                               string="Tax incl."
-                                               column_invisible="parent.tax_calculation_rounding_method == 'round_globally'"
-                                               optional="hide"/>
-
-                                        <!-- Others fields -->
-                                        <field name="partner_id" column_invisible="True"/>
-                                        <field name="currency_id" column_invisible="True"/>
-                                        <field name="company_id" column_invisible="True"/>
-                                        <field name="company_currency_id" column_invisible="True"/>
-                                        <field name="display_type" force_save="1" column_invisible="True"/>
-                                    </tree>
-                                    <kanban class="o_kanban_mobile">
-                                        <!-- Displayed fields -->
-                                        <field name="name"/>
-                                        <field name="product_id"/>
-                                        <field name="price_subtotal"
-                                               string="Tax excl."/>
-                                        <field name="price_total"
-                                               string="Tax incl."
-                                               optional="hide"/>
-                                        <field name="quantity"/>
-                                        <field name="product_uom_category_id"/>
-                                        <field name="product_uom_id" groups="uom.group_uom"/>
-                                        <field name="price_unit"/>
-                                        <templates>
-                                            <t t-name="kanban-box">
-                                                <div t-attf-class="oe_kanban_card oe_kanban_global_click ps-0 pe-0 {{ record.display_type.raw_value ? 'o_is_' + record.display_type.raw_value : '' }}">
-                                                    <t t-if="!['line_note', 'line_section'].includes(record.display_type.raw_value)">
-                                                        <div class="row g-0">
-                                                            <div class="col-2 pe-3">
-                                                                <img t-att-src="kanban_image('product.product', 'image_128', record.product_id.raw_value)" t-att-title="record.product_id.value" t-att-alt="record.product_id.value" style="max-width: 100%;"/>
-                                                            </div>
-                                                            <div class="col-10">
-                                                                <div class="row">
-                                                                    <div class="col">
-                                                                        <strong t-out="record.product_id.value"/>
-                                                                    </div>
-                                                                    <div class="col-auto">
-                                                                        <strong class="float-end text-end">
-                                                                            <t t-out="record.price_subtotal.value"/>
-                                                                            <t t-out="record.price_total.value" t-if="tax_calculation_rounding_method == 'round_per_line'"/>
-                                                                        </strong>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-muted">
-                                                                    Quantity:
-                                                                    <t t-out="record.quantity.value"/>
-                                                                    <t t-out="record.product_uom_id.value" groups="uom.group_uom"/>
-                                                                </div>
-                                                                <div class="text-muted">
-                                                                    Unit Price:
-                                                                    <t t-out="record.price_unit.value"/>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </t>
-                                                    <t t-if="record.display_type.raw_value === 'line_section' || record.display_type.raw_value === 'line_note'">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <t t-out="record.name.value"/>
-                                                            </div>
-                                                        </div>
-                                                    </t>
-                                                </div>
-                                            </t>
-                                        </templates>
-
-                                        <!-- Others fields -->
-                                        <field name="tax_calculation_rounding_method"/>
-                                        <field name="currency_id"/>
-                                        <field name="company_currency_id"/>
-                                        <field name="display_type" force_save="1"/>
-                                    </kanban>
-
-                                    <!-- Form view to cover mobile use -->
-                                    <form>
-                                        <sheet>
-                                            <field name="tax_calculation_rounding_method" invisible="1"/>
-                                            <field name="display_type" invisible="1"/>
-                                            <field name="company_id" invisible="1"/>
-                                            <field name="partner_id" invisible="1"/>
-                                            <group>
-                                                <field name="product_id" widget="many2one_barcode"/>
-                                                <field name="quantity"/>
-                                                <field name="product_uom_category_id" invisible="1"/>
-                                                <field name="product_uom_id" groups="uom.group_uom"/>
-                                                <field name="price_unit"/>
-                                                <field name="discount" string="Disc.%"/>
-                                            </group>
-                                            <group>
-                                                <field name="account_id" domain="[('company_id', 'parent_of', company_id), ('deprecated', '=', False)]" options="{'no_create': True}" context="{'partner_id': partner_id, 'move_type': parent.move_type}"/>
-                                                <field name="tax_ids" widget="many2many_tags"/>
-                                                <field name="analytic_distribution" widget="analytic_distribution" groups="analytic.group_analytic_accounting"/>
-                                            </group>
-                                            <label for="name" string="Description" invisible="display_type in ('line_note', 'line_section')"/>
-                                            <label for="name" string="Section" invisible="display_type != 'line_section'"/>
-                                            <label for="name" string="Note" invisible="display_type != 'line_note'"/>
-                                            <field name="name" widget="text"/>
-                                            <group>
-                                                <field name="price_subtotal"
-                                                       string="Tax excl."/>
-                                                <field name="price_total"
-                                                       string="Tax incl."
-                                                       invisible="tax_calculation_rounding_method == 'round_globally'"
-                                                       optional="hide"/>
-                                            </group>
-                                        </sheet>
-                                    </form>
-                                </field>
-                                <group col="12" class="oe_invoice_lines_tab">
-                                    <group colspan="8">
-                                        <field name="narration" placeholder="Terms and Conditions" colspan="2" nolabel="1"/>
-                                    </group>
-                                    <!-- Totals (only invoices / receipts) -->
-                                    <group colspan="4">
-                                        <group class="oe_subtotal_footer"
-                                            invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') or payment_state == 'invoicing_legacy'">
-
-                                            <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2"
-                                                   readonly="state != 'draft' or (move_type not in ('in_invoice', 'in_refund', 'in_receipt') and not quick_edit_mode)"/>
-
-                                            <field name="invoice_payments_widget" colspan="2" nolabel="1" widget="payment"/>
-                                            <field name="amount_residual" class="oe_subtotal_footer_separator" invisible="state == 'draft'"/>
-                                        </group>
-                                        <field name="invoice_outstanding_credits_debits_widget"
-                                            class="oe_invoice_outstanding_credits_debits"
-                                            colspan="2" nolabel="1" widget="payment"
-                                            invisible="state != 'posted'"/>
-                                    </group>
-                                </group>
-                            </page>
-                            <page id="aml_tab" string="Journal Items" groups="account.group_account_readonly" name="aml_tab">
-                                <field name="line_ids"
-                                       mode="tree,kanban"
-                                       context="{
-                                           'default_move_type': context.get('default_move_type'),
-                                           'line_ids': line_ids,
-                                           'journal_id': journal_id,
-                                           'default_partner_id': commercial_partner_id,
-                                           'default_currency_id': currency_id or company_currency_id,
-                                           'kanban_view_ref': 'account.account_move_line_view_kanban_mobile',
-                                       }"
-                                       invisible="payment_state == 'invoicing_legacy' and move_type != 'entry'"
-                                       readonly="state != 'draft'">
-                                    <tree editable="bottom" string="Journal Items" decoration-muted="display_type in ('line_section', 'line_note')" default_order="sequence, id">
-                                        <!-- Displayed fields -->
-                                        <field name="account_id"
-                                               invisible="display_type in ('line_section', 'line_note')"
-                                               required="display_type not in ('line_section', 'line_note')"
-                                               domain="[('company_id', 'parent_of', parent.company_id), ('deprecated', '=', False)]" />
-                                        <field name="partner_id"
-                                               optional="show"
-                                               domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"
-                                               column_invisible="parent.move_type != 'entry'"/>
-                                        <field name="name" widget="section_and_note_text" optional="show"/>
-                                        <field name="analytic_distribution" widget="analytic_distribution"
-                                               groups="analytic.group_analytic_accounting"
-                                               optional="show"
-                                               options="{'account_field': 'account_id'}"
-                                               business_domain_compute="parent.move_type in ['out_invoice', 'out_refund', 'out_receipt'] and 'invoice' or parent.move_type in ['in_invoice', 'in_refund', 'in_receipt'] and 'bill' or 'general'"/>
-                                        <field name="date_maturity"
-                                               optional="hide"
-                                               invisible="display_type in ('line_section', 'line_note')"
-                                               column_invisible="context.get('view_no_maturity')"/>
-                                        <field name="amount_currency"
-                                               groups="base.group_multi_currency"
-                                               optional="hide"/>
-                                        <field name="currency_id" options="{'no_create': True}"
-                                               optional="hide" groups="base.group_multi_currency"
-                                               column_invisible="parent.move_type != 'entry'"/>
-                                        <field name="tax_ids" widget="autosave_many2many_tags"
-                                               optional="hide"
-                                               domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain)]"
-                                               context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain, 'active_test': True}"
-                                               options="{'no_create': True}"
-                                               force_save="1"
-                                               readonly="display_type in ('line_section', 'line_note') or tax_line_id or (parent.move_type in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') and account_type in ('asset_receivable', 'liability_payable'))"/>
-                                        <field name="debit"
-                                               sum="Total Debit"
-                                               invisible="display_type in ('line_section', 'line_note')"
-                                               readonly="parent.move_type in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') and display_type in ('line_section', 'line_note', 'product')"/>
-                                        <field name="credit"
-                                               sum="Total Credit"
-                                               invisible="display_type in ('line_section', 'line_note')"
-                                               readonly="parent.move_type in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') and display_type in ('line_section', 'line_note', 'product')"/>
-                                        <field name="balance" column_invisible="True"/>
-                                        <field name="discount_date"
-                                               string="Discount Date"
-                                               optional="hide"
-                                        />
-                                        <field name="discount_amount_currency"
-                                               string="Discount Amount"
-                                               optional="hide"
-                                        />
-
-                                        <field name="tax_tag_ids"
-                                               widget="many2many_tags"
-                                               string="Tax Grids"
-                                               optional="show"
-                                               options="{'no_create': True}"
-                                               domain="[
-                                                    ('applicability', '=', 'taxes'),
-                                                    '|', ('country_id', '=', parent.tax_country_id),
-                                                    ('country_id', '=', False),
-                                                ]"/>
-
-                                        <field name="tax_tag_invert" readonly="1" optional="hide" groups="base.group_no_one"/>
-
-                                        <!-- Buttons -->
-                                        <button name="action_automatic_entry"
-                                                type="object"
-                                                icon="fa-calendar"
-                                                string="Cut-Off"
-                                                aria-label="Change Period"
-                                                class="float-end"
-                                                column_invisible="parent.move_type == 'entry' or parent.state != 'posted'"
-                                                invisible="account_internal_group not in ('income', 'expense')"
-                                                context="{'default_action': 'change_period'}"/>
-
-                                        <!-- Others fields -->
-                                        <field name="tax_line_id" column_invisible="True"/>
-                                        <field name="company_currency_id" column_invisible="True"/>
-                                        <field name="display_type" force_save="1" column_invisible="True"/>
-                                        <field name="company_id" column_invisible="True"/>
-                                        <field name="sequence" column_invisible="True"/>
-                                        <field name="id" column_invisible="True"/>
-                                        <field name="account_internal_group" column_invisible="True"/>
-                                        <field name="account_type" column_invisible="True"/>
-                                    </tree>
-                                    <!-- Form view to cover mobile use -->
-                                    <form>
-                                      <group>
-                                        <field name="account_id" domain="[('company_id', 'parent_of', parent.company_id), ('deprecated', '=', False)]"/>
-                                        <field name="partner_id" domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"/>
-                                        <field name="name"/>
-                                        <field name="analytic_distribution" widget="analytic_distribution" groups="analytic.group_analytic_accounting"/>
-                                        <field name="amount_currency" groups="base.group_multi_currency"/>
-                                        <field name="company_currency_id" invisible="1"/>
-                                        <field name="company_id" invisible="1"/>
-                                        <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_currency"/>
-                                        <field name="debit" sum="Total Debit"/>
-                                        <field name="credit" sum="Total Credit"/>
-                                        <field name="balance" invisible="1"/>
-                                        <field name="tax_ids" string="Taxes Applied" widget="autosave_many2many_tags" options="{'no_create': True}"/>
-                                        <field name="date_maturity" required="0" invisible="context.get('view_no_maturity', False)"/>
-                                      </group>
-                                    </form>
-                                </field>
-                                <div class="alert alert-info text-center mb-0" role="alert" invisible="payment_state != 'invoicing_legacy' or move_type == 'entry'">
-                                    <span>This entry has been generated through the Invoicing app, before installing Accounting. Its balance has been imported separately.</span>
-                                </div>
-                            </page>
-                            <page id="other_tab" string="Other Info" name="other_info"
-                                  invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')">
-                                <group id="other_tab_group">
-                                    <group string="Invoice"
-                                           name="sale_info_group"
-                                           invisible="move_type not in ('out_invoice', 'out_refund')">
-                                        <label for="ref" string="Customer Reference" />
-                                        <field name="ref" nolabel="1"/>
-                                        <field name="user_id" invisible="1" force_save="1"/>
-                                        <field name="invoice_user_id" domain="[('share', '=', False)]" widget="many2one_avatar_user"/>
-                                        <field name="invoice_origin" string="Source Document" force_save="1" invisible="1"/>
-                                        <field name="partner_bank_id"
-                                               context="{'default_partner_id': bank_partner_id, 'display_account_trust': True}"
-                                               domain="[('partner_id.ref_company_ids', 'parent_of', company_id)]"
-                                               readonly="state != 'draft'"/>
-                                        <field name="qr_code_method"
-                                               invisible="not display_qr_code"/>
-                                        <field name="delivery_date" readonly="state != 'draft'"/>
-                                    </group>
-                                    <group string="Accounting"
-                                           name="accounting_info_group"
-                                           invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')">
-                                        <field name="company_id" groups="base.group_multi_company"/>
-                                        <field name="invoice_incoterm_id"/>
-                                        <field name="incoterm_location"/>
-                                        <field name="fiscal_position_id" readonly="state in ['cancel', 'posted']"/>
-                                        <field name="invoice_cash_rounding_id" groups="account.group_cash_rounding" readonly="state != 'draft'"/>
-                                        <field name="invoice_source_email"
-                                               widget="email"
-                                               invisible="move_type not in ('in_invoice', 'in_refund') or not invoice_source_email"/>
-                                        <field name="auto_post"
-                                               readonly="state != 'draft'"/>
-                                        <field name="auto_post_until"
-                                               invisible="auto_post in ('no', 'at_date')"
-                                               readonly="state != 'draft'"/>
-                                        <field name="to_check"/>
-                                    </group>
-                                </group>
-                            </page>
-                            <page id="other_tab_entry" string="Other Info" name="other_info"
-                                  invisible="move_type != 'entry'">
-                                <group id="other_tab_entry_group">
-                                    <group name="misc_group">
-                                        <field name="auto_post"
-                                               invisible="move_type != 'entry'"
-                                               readonly="state != 'draft'"/>
-                                        <field name="reversed_entry_id"
-                                               invisible="move_type != 'entry' or not reversed_entry_id"/>
-                                        <field name="auto_post_until"
-                                               invisible="auto_post in ('no', 'at_date')"
-                                               readonly="state != 'draft'"/>
-                                        <field name="to_check"
-                                               invisible="move_type != 'entry'" />
-                                    </group>
-                                    <group>
-                                        <field name="fiscal_position_id" readonly="state in ['cancel', 'posted']"/>
-                                        <field name="company_id" groups="base.group_multi_company" required="1"/>
-                                    </group>
-                                </group>
-                                <!-- Internal note -->
-                                <field name="narration" placeholder="Add an internal note..." nolabel="1" height="50"/>
-                            </page>
-                        </notebook>
-                    </sheet>
-                    <!-- Attachment preview -->
-                    <div class="o_attachment_preview"
-                         invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund') or state != 'draft'" />
-                    <!-- Chatter -->
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" groups="base.group_user"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids" options="{'post_refresh': 'always'}"/>
-                    </div>
-                </form>
-            </field>
-        </record>
-
-        <record id="action_move_out_invoice_type_own" model="ir.actions.act_window">
-            <field name="name">Invoices</field>
-            <field name="res_model">account.move</field>
-            <field name="view_mode">tree,kanban,form,activity</field>
-<!--            <field name="view_id" ref="account.view_out_invoice_tree"/>-->
-            <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_out_invoice_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('invoice_customization.account_move_form_custom')})]"/>
-            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-            <field name="domain">[('move_type', '=', 'out_invoice'), ('invoice_user_id', '=', uid)]</field>
-            <field name="context">{'default_move_type': 'out_invoice', 'custom_menu': True}</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a customer invoice
-                </p>
-                <p>
-                    Create invoices, register payments and keep track of the discussions with your customers.
-                </p>
-            </field>
-        </record>
-
-        <record id="action_move_out_invoice_type_all" model="ir.actions.act_window">
-            <field name="name">Invoices</field>
-            <field name="res_model">account.move</field>
-            <field name="view_mode">tree,kanban,form,activity</field>
-<!--            <field name="view_id" ref="account.view_out_invoice_tree"/>-->
-            <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_out_invoice_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('invoice_customization.account_move_form_custom')})]"/>
-            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-            <field name="domain">[('move_type', '=', 'out_invoice')]</field>
-            <field name="context">{'default_move_type': 'out_invoice', 'custom_menu': True}</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a customer invoice
-                </p>
-                <p>
-                    Create invoices, register payments and keep track of the discussions with your customers.
-                </p>
-            </field>
-        </record>
-
-        <record id="action_move_out_refund_type_own" model="ir.actions.act_window">
-            <field name="name">Credit Notes</field>
-            <field name="res_model">account.move</field>
-            <field name="view_mode">tree,kanban,form,activity</field>
-<!--            <field name="view_id" ref="account.view_out_credit_note_tree"/>-->
-            <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_out_credit_note_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('invoice_customization.account_move_form_custom')})]"/>
-            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-            <field name="domain">[('move_type', '=', 'out_refund'), ('invoice_user_id', '=', uid)]</field>
-            <field name="context">{'default_move_type': 'out_refund', 'display_account_trust': True, 'custom_menu': True}</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a credit note
-                </p>
-                <p>
-                    Note that the easiest way to create a credit note is to do it directly
-                    from the customer invoice.
-                </p>
-            </field>
-        </record>
-
-        <record id="action_move_out_refund_type_all" model="ir.actions.act_window">
-            <field name="name">Credit Notes</field>
-            <field name="res_model">account.move</field>
-            <field name="view_mode">tree,kanban,form,activity</field>
-<!--            <field name="view_id" ref="account.view_out_credit_note_tree"/>-->
-            <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_out_credit_note_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('invoice_customization.account_move_form_custom')})]"/>
-            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-            <field name="domain">[('move_type', '=', 'out_refund')]</field>
-            <field name="context">{'default_move_type': 'out_refund', 'display_account_trust': True, 'custom_menu': True}</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a credit note
-                </p>
-                <p>
-                    Note that the easiest way to create a credit note is to do it directly
-                    from the customer invoice.
-                </p>
-            </field>
-        </record>
-
-    </data>
-</odoo>
-
-
-<field name="view_id" ref="account.view_out_invoice_tree"/>
-=====
-
-                        # for quant_id in internal_quant_id:
-                        #     if quant_id.available_quantity < component.product_uom_qty:
-                        #         components_list += '- ' + component.product_id.name + '\n'
-                        
-                        
-                                                if internal_quant_id.filtered(lambda x: x.available_quantity < component.product_uom_qty):
-                            components_list += '- ' + component.product_id.name + '\n'
-
-
--------------------
-
-
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data>
-        <template id="report_invoice_document">
-            <t t-call="web.external_layout">
-                <t t-set="o" t-value="o.with_context(lang=lang)" />
-                <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
-                <div class="row">
-                    <p>Testing..</p>
-
-	   
 
