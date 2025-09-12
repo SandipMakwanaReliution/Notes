@@ -3267,28 +3267,29 @@ Internal - Internal
 🗓️ Today’s Work:
 
 🔧 Project: Korzo
-🔍 R&D: Invoice and credit note menu - 00:10
+🔍 R&D: Invoice and credit note menu - 00:30
    - Reviewed user group configurations to verify how "All Records" and "Own Records" access settings affect visibility of menus and records.
    - Discussed the current behavior with the manager to determine whether any changes are required, pending confirmation.
 
+🔧 Project: Tesro
 🔍 R&D: Internal
    01:50
    - Figured out how to print barcode labels only for selected lines or lots, helping to avoid unnecessary label printing for all products and reduce waste.
    
 🔧 Project: Internal
 🔍 R&D: Inventory Workflow
-   02:30
+   02:55
    - Explored barcode configuration within the Inventory module.
    - Understood the flow of using the Barcode app to validate receipts and deliveries transfers.
    - In a fresh database, enabled the two-step receipt and delivery process and verified how the default flow behaves.
    - Scanned sub-location barcodes using the barcode app and confirmed that stock moves were correctly recorded to the specified sub-locations.
    - Learned how Batch Picking works and how it groups multiple transfers into a single operation for efficient handling.
    
-🔍 R&D: App Functionality Test
+🔍 R&D: Mail App Testing
    01:00
    - Created a fresh Odoo 18 database for testing, and installed the testing app along with all required libraries.
    - Configured both incoming and outgoing mail servers. Faced an error when trying to open the Settings menu, after installing mail_mobile module to resolved the issue.
-   
+   1:45
    - Verified that outgoing emails were working, but incoming emails were not until an action e.g. Create Lead was set on the incoming mail server.
    - Discussed Odoo Mail app behavior and configurations with Ritul Bhai.
    - Later updated the incoming mail server to use the Fetch Only option without creating any records.
@@ -3301,22 +3302,23 @@ Internal - Internal
 
 🔧 Project: Internal
 🔍 R&D: Inventory Workflow
-   01:30
+   02:00
    - Learned about Lot Expiration Dates and how to configure.
    - Checked in Odoo 17 for any configuration to enable lot number generation sequnce and verified that this feature is only available in Odoo 18.
    - Used the Generate Lot Number feature in Odoo 18 to automatically create sequenced lot numbers for specific pickings.
    - Tested how the expiration date functionality works in relation to lots and product moves.
-   
+   01:40
    - Learned about Drop Shipping, enabled its configuration, and set up routes and vendors on products.
    - Watched a tutorial on drop shipping and performed practical operations to better understand the workflow.
-   
+   01:50
    - Learned how to create custom locations, operation types, and routes, and explored all related configurations for effective warehouse management.
    - Performed operations to verify the functionality of pull and push rules in Odoo.
-   
+   00:50
    - Learned about Putaway Rules and how they work in warehouse operations.
    - Learned about Cross Docking and performed operations to batter understand the workflow. 
 
 🔍 R&D: Accounting Workflow
+   01:40
    - Learned how to configure a fiscal position and use it to apply the correct taxes and accounts based on the fiscal position.
    - Understood how fiscal positions can auto-detect a partner’s configuration based on federal states.
    - Performed operations by creating invoices to validate the fiscal position setup.
@@ -3324,60 +3326,40 @@ Internal - Internal
 --------------------------------------------------------------------------
 
 📅 Date: 11 Aug 2025
-🗓️ Today’s Plan:
-
-🔧 Project: Korzo
-
-🔍 R&D: Fix Manufacture State Issue – Estimated: 01:00
-   - Investigate and resolve the issue where a custom state is not being set in certain manufacturing orders.
-   - Test and confirm that the custom state is applied consistently across all relevant manufacturing orders after the fix.
-
-🔧 Project: Internal
-
-🔍 R&D: Accounting Workflow
-   - Watch tutorials to learn how payment terms work and how to configure them.
-   - Perform operations to understand the functionality of payment terms in practice.
-   - Understand the Cash Basis method for tax reporting and its impact on revenue recognition.
-   - Explore how Tax Returns are generated, filed, and validated.
-
---------------------------------------------------------------------------
-
-📅 Date: 11 Aug 2025
 🗓️ Today’s Work:
 
 🔧 Project: Korzo
-
-🔍 R&D: Fix Manufacture State Issue
+🔍 R&D: Fix Manufacture State Issue | 1:45
    - Restored a fresh database.
-   - Identified that the issue occurred because, in the past, some Purchase Orders were created manually, one was not confirmed, and some were not received.
+   - Identified that manufacture state issue occurred because, in the past, some Purchase Orders were created manually, one was not confirmed, and some were not received.
    - This caused the current Manufacturing Orders to reserve fabric quantities, resulting in the MO state showing as “Expected” and “Late.”
    - Updated our custom functionality to handle both states and resolved the issue.
    - Performed test cases to verify that the fix works correctly.
-   11:15
+
 
 🔧 Project: Internal
+🔍 R&D: Inventory Workflow | 1:00
+   - Revised and reviewed past learning topics: Putaway Rules, Cross Docking, and Drop Shipping in Inventory.
+   - Performed practical operations to validate the workflows.
 
-🔍 R&D: Inventory Workflow
-   - Revised and reviewed past learning topics in Inventory.
-   12:00
-   
-🔧 Project: Dazzle
-
+🔧 Project: Dazzle | 1:20
 🔍 R&D: PO Line Sequnce Changes
    - Reviewed the reordering application flow.
    - Added a new boolean field in Purchase Orders to control and manage the sequence of order lines.
    - Overrode the order line creation method to ensure the sequence appears at the top instead of the bottom.
-   01:20
+
 
 🔧 Project: Leviotto
-
 🔍 R&D: Internal
+   1:00
    - Set up Leviotto v17 on the system and installed required libraries and modules.
    - Faced issues installing res area and barcode modules, multiple attempts to install the barcode module failed due to a JS error.
-   - Configured Inventory settings and managed products.
+   1:00
+   - Configured Inventory settings and managed products in new database.
    - Tested Purchase Order operations without the barcode module, package location transfers didn’t work as expected.
+   1:55
+   - Created a new fresh database, installed required modules, and configured products and inventory settings.
    - Installed the community Home Screen module, which resolved the barcode module installation issue.
-   - Created a fresh database, installed required modules, and configured products and inventory settings.
    - Performed Purchase Order operations to verify if location routes worked properly.
 
 --------------------------------------------------------------------------
@@ -3440,11 +3422,6 @@ Internal - Internal
 🔧 Project: Korzo
 
 🔍 R&D: Daily report issue - 01:20
-   - restore fresh database.
-   - verify the issue was raise by some prduct have not set its cusotme product type e.g. servise product.
-   - modify daily report method and also modify its report view.
-   - perform test operation to verify its work proerly or not. 
-   
    - Restored a fresh database.
    - Identified that the issue was caused by some products not having the custom product type set (e.g., service product).
    - Modified the daily report method and updated the report view.
@@ -3458,14 +3435,19 @@ Internal - Internal
    
 🔧 Project: Milano
 
-🔍 R&D: Internal - 
-   - Set up Milano project in the system.
-   - Performed operations using different quantities from an Excel file to verify that imported quantities and existing PO line product quantities show differences correctly. Checked whether duplicate products in the file merge quantities as expected.
+🔍 R&D: Internal
+   2:00
+   - Set up the Milano project in the system (instead of Dazzle, which was not set up properly).
+   - Performed operations using different quantities from an Excel file to verify that imported quantities and existing PO line product quantities show differences correctly. 
+   - Checked whether duplicate products in the file merge quantities as expected.
    - Tested lot creation using the same Excel file to see if duplicate products create separate lots or merge.
+   1:00
+   - Investigated an issue where minimum quantity was not set when creating a new PO via the “Reordering Order Once” button.
    - Converted a non-sortable field to a sortable field to manage record order properly in the reordering app tree view header for better usability.
+   2:30
    - Attempted to delete a section in Purchase Orders when existing PO products line were deleted.
    - Stopped deletion of existing PO lines when creating a new PO; after the fix, section deletion was no longer required.
-   - Investigated an issue where minimum quantity was not set when creating a new PO via the “Reordering Order Once” button.
+
 
 --------------------------------------------------------------------------
 
@@ -3590,25 +3572,6 @@ R&D: Internal/Workflow Testing 2:30
    - Documented points for improvement.
    
 --------------------------------------------------------------------------
-Dazzle/Product customization
-
-class ProductCategory(models.Model):
-    _name = 'product.category'
-
-    active = fields.Boolean(default=True)
-    
-    <record id="view_product_category_search_inherit" model="ir.ui.view">
-        <field name="name">view.product.category.search.inherit</field>
-        <field name="model">product.category</field>
-        <field name="inherit_id" ref="product.product_category_search_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='parent_id']" position="after">
-                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
-            </xpath>
-        </field>
-    </record>
-    
---------------------------------------------------------------------------
 
 📅 Date: 19 Aug 2025
 🗓️ Today’s Work:
@@ -3629,168 +3592,75 @@ class ProductCategory(models.Model):
 
 --------------------------------------------------------------------------
 
-sale.view_order_form:
-
-S01023 - not create invoice
-<field name="invoice_status" readonly="0"/>
-
-qty_to_invoice 
-<field name="qty_to_invoice" readonly='0'/>
-
-S01093 - blank mo
-
-S01133 - not confirm order
-more then one qty
-_compute_kit_quantities
-_get_qty_procurement
- <field name="move_ids"/>
-            # if (
-            #     line.product_id.product_tmpl_id.product_types == "curtain"
-            #     and product_qty
-            # ):
-            #     for qty in range(int(product_qty)):
-            #         procurements.append(
-            #             line._create_procurement(1, procurement_uom, values)
-            #         )
-            # else:
-            #     procurements.append(
-            #         line._create_procurement(product_qty, procurement_uom, values)
-            #     )
-            
---------------------------------------------------------------------------
-
 📅 Date: 20 Aug 2025
 🗓️ Today’s Work:
 
 🔧 Project: Korzo
 
-🔧 Development: Auto create Invoice & Bill 
+🔧 Development: Auto create Invoice & Bill | 1:40
    - Implemented functionality in Purchase Orders: when approving a PO containing only service products, a Bill is automatically created.
    - Applied the same logic for Sale Orders to auto-create Invoices.
    - Tested both manual PO creation and POs generated using the Generate PO button.
    
 🔧 Project: Dazzle
 
-➕ Bug: Fix Issue
+➕ Bug: Fix Issue | 00:25
    - Investigated why the “Remove” category could not be deleted even when containing zero products.
    - Found that archived products were still assigned to the “Remove” category, which blocked deletion.
 
+🔧 Project: Internal | Inventory workflow | 02:45
+   - Explored Batch Transfer to process multiple delivery orders together and validated its effect on stock moves.
+   - Tested Printing Shipping Labels during delivery operations and ensured labels were generated per package.
+   - Practiced Cluster Picking to handle multiple orders at once and verified product allocations.
+   - Performed Wave Picking to group similar picking operations for efficiency.
+   - Compared the workflows with standard picking to understand differences in process and usability.
+   - Noted scenarios where each method is most effective for warehouse operations.
+   
 🔧 Project: Tesro Blinds
 
-➕ Bug: Fix Issue
+➕ Bug: Fix Issue | 2:25
    - Investigated why lot KK-33-124110016 appeared in two different locations.
    - Found that stock was already available in a sub-location, but the user added new stock in the Output location via Inventory Adjustment instead of Transfer Details.
    - Later, the stock was transferred from Output to Sub-location using Cutting to Stock.
    - This caused the same lot to appear in two different locations.
 
-🔧 Project: Internal
-   - Updated timesheet in ERP.
-
--------------
-Move History
-
-Vendor -> Input (75) -> Stock -> Output
-
-Output (75) -> Adjustment & Scrap (-5.106)
-Output (69.894) -> Adjustment (-31.329)
-Output (38.565) -> Adjustment (-6.81)
-Output (31.755) -> Adjustment & Scrap (-3.45)
-
-Output (28.305) -> Stock/E011 (15.150)
-Output (13.155) & Stock/E011 (15.150)
-
-Adjustment (+11.250) -> Output (24.405)
-Output (24.405) -> Adjustment (-0.750)
-Stock/E011 (15.150) -> Adjustment (-4.650)
-Output (23.655) & Stock/E011 (10.5)
-
-Adjustment (+11.200) -> Output (34.855)
-Output (34.855) -> Adjustment (-0.700) 
-Output (34.155) -> Stock/E003 (21)
-
-Output (13.155) & Stock/E011 (10.5) & Stock/E003 (21)
-
-====
-
-Vendor -> Input (75)
-Input (75) -> F006 (75) "Internal Transfer"
-
-(S03643) (15-7-25)
-F006 (75) -> Output (75) "Transfer Details"
-Output (75) - Lot Adjustment & Scrap (5.106)
-
-Output (69.894) -> E011 (65.235) "Cutting To Stock"
-
-(S03746) (21-7-25)
-E011 (65.235) -> Output (65.235) "Transfer Details"
-Output (65.235) - Lot Adjustment (31.329)
-
-Output (33.906) -> E008 (25.410) "Cutting To Stock"
-
-(S03876) (29-7-25)
-E008 (25.410) -> Output (25.410) "Transfer Details"
-Output (25.410) - Lot and Inventory Adjustment (6.81)
-
-Output (18.6) -> E008 (18.6) "Cutting To Stock"
-
-(S03989) (6-8-25)
-E008 (18.6) -> Output (18.6) "Transfer Details"
-Output (18.6) - Lot Adjustment & Scrap (3.45)
-
-Output (15.15) -> E011 (15.15) "Cutting To Stock"
-*Stock already available in E011 but user tack stock from adjustment
-
-Inventory Adjustment (11.250) + Output (11.250)
-Output (11.250) - Inventory Adjustment (0.750)
-Ouput (10.5)
-
-E011 (15.15) - Inventory Adjustment (4.650)
-E011 (10.5)
-
-Inventory Adjustment (11.200) + Output (10.5)
-Output (21.7) - Inventory Adjustment (0.700)
-
-Ouput (21) -> E003 (21) "Cutting To Stock"
-
----
-
-
-
---------------------------------------------------------------------------
- (S03643) (15-7-25)
-
---------------------------------------------------------------------------
-
-📅 Date: 25 Aug 2025
-🗓️ Today’s Plan:
-
-🔧 Project: Korzo
-
-🔍 R&D: Sale Order Testing
-   - Perform Sale Order operations: create a Sale Order, then cancel it.
+🔧 Project: Internal | 00:45
+   - Completed pending timesheet entries.
 
 --------------------------------------------------------------------------
 
 📅 Date: 25 Aug 2025
 🗓️ Today’s Work:
 
-🔧 Project: Internal
+🔧 Project: Internal | 00:40
    - Pulled addons for Korzo, Tesro, and Tesro Blinds.
-   - Set up each project using a fresh database.
+   - Set up each project using a fresh database to ensure a clean environment.
 
 🔧 Project: Korzo
 
-🔍 R&D: Sale Order Testing
-   - Performed Sale Order operations: created a Sale Order, then canceled it to validate the flow.
+🔍 R&D: Internal | Sale Order Testing | 00:30
+   - Reviewed recent changes related to handling Sale Orders after cancellation.
+   - Debugged the code to verify how orders are managed.
+   - Performed multiple Sale Order operations: created, canceled, and re-created to confirm flow stability.
 
 🔧 Project: Leviotto
 
-🔍 Development: Remove Size in File
-   - Removed size in file when creating a Purchase Order line.
-   - Also removed size when creating packages.
+🔍 Development: Enhancements to PO & Package Creation Import | 2:25
+   - Analyzed how the old code worked with the size attribute.
+   - Modified the Purchase Order import functionality (via Excel) to work without the size attribute.
+   - Updated Package creation import (via the same Excel file) to manage workflows without the size attribute.
+   
+🔍 R&D: Fix Issue | 2:45
    - Faced an issue: Sale Order could not be confirmed, showing “Invalid operation: product not available in internal warehouse transit location”.
-   - Resolved by identifying that the selected customer in the Sale Order was setting default customer and vendor locations incorrectly.vendor location.
-   - Performed the full project workflow to verify that the changes work properly.
+   - Repeatedly set up fresh project instances, configured routes, and products.
+   - Debugged why products appeared in stock but flagged unavailable during SO confirmation.
+   - Resolved by identifying that the selected customer in the Sale Order was setting default customer and vendor locations incorrectly.
+   - Coordinated with manager to ensure the solution aligns with business rules.
+   
+🔍 R&D: Internal Testing | 1:40
+   - Validated integration points between PO, package creation.
+   - Performed a sales order to verify that its line were correctly created using packages.
+   - Reviewed product moves to ensure stock was managed properly within packages.
 
 --------------------------------------------------------------------------
 
@@ -3799,30 +3669,966 @@ Ouput (21) -> E003 (21) "Cutting To Stock"
 
 🔧 Project: Leviotto
 
-🔍 R&D: Workflow Testing
+🔍 R&D: Internal | Workflow Testing
+   
+   2:15
   - Set up a fresh project environment.
   - Configured inventory settings, routes, products, and valuation accounts.
   - Performed multiple scenarios to create packages in receipts.
   - Configured UoM for shoes products.
-  - Found that if one package is reserved in a Sale Order delivery, and the same package is used in another Sale Order, the reserved delivery becomes unstable, and the delivery cannot be validated.
+  - Completed full workflow validation to ensure proper functionality.
+  
+   2:00
+  - Found that if one package is reserved in a Sale Order delivery, and the same package is used in another Sale Order, the first delivery becomes unstable and cannot be validated.
+  - Tried managing this issue by suggesting split-package selection when transferring from Stock to Output location, showing only packages available in stock (not already in Output).
+  - Discussed the case with manager, noting it will require further clarification with the client.
+  
+  00:45
+  - Discovered that when selecting a product in a Sale Order line using packages, all packages are shown together, making it difficult for users to pick the correct one.
+  - Documented key points for handling this in future requirements.
+  - Also noted important project configuration aspects for reference.
 
-🔍 R&D: Fix Package Name
+  2:00
+  - Debugged the package transfer detail code for deeper understanding.
+  - Learned how confirming a Sale Order generates transfer details for moving packages from Stock to Output location.
+  - Analyzed how split package functionality works: when new packages are created, and how partial package quantities are transferred.
+  
+
+🔍 R&D: Enhancements to PO & Package Creation Import | 1:00
   - Identified that a custom package name was being generated when the Color attribute was set on the product; otherwise, a default package name was created.
   - Removed this dependency and manage package naming without the Color attribute.
+  - Performed package creation operations to verify changes worked correctly.
   - Removed the Size field from the Transfer Details view.
   
-🔧 Project: Korzo 
+--------------------------------------------------------------------------
 
-🔍 R&D: Sale Order Cancle
-   - check how to manage a sale order when again confirm after a cancle it.
+📅 Date: 29 Aug 2025
+🗓️ Today’s Work:
+
+🔧 Project: Korzo
+
+🔍 R&D: Blank MO Issue | 02:55
+   - Investigated why some Manufacturing Orders were created as blank for Sales Order S01093.
+   - Found that the issue occurred due to the code fetching the first kit BOM every time, which caused blank MOs.
+   - Resolved by removing blank MOs and correcting the delivery by removing the wrong kit product.
+   - Identified another issue where validating a delivery that time automatically created an invoice, but curtain products were missing.
+   - Determined that this issue was caused by the same reason: the wrong kit BOM being selected when validating a delivery, which also prevented the delivered quantity from being added to the Sales Order. This issue was resolved by manager.
+   
+🔍 R&D: Area in Contacts | 00:20
+   - Verified the new changes for automatically adding a tag based on the selected area.
+   
+🔧 Development: Auto create Invoice & Bill | 00:20
+   - Removed changes for auto-creating invoices in the Sales Order when only service products were present in the line and verified that it worked properly.
+
+🔧 Project: Tesro
+
+🔧 Development: Validation on "Is Main Similar" checkbox | 2:45
+   - Added user validation: if a product had similar products, the “Is Main Similar” checkbox had to be checked.
+   - Also, added validation for unchecking the “Is Main Similar” checkbox when the product had similar products.
+   - Both validations were not working properly, so removed them.
+   - Added a filter in the search view to verify which products were not set as main products.
+
+🔧 Project: Internal | 1:25
+   - Pulled Korzo and Tesro Blind addons and reviewed their new changes.
+   - Debugged the code to understand how to manage the procurement process in the full workflow in Korzo.
    
 
+--------------------------------------------------------------------------
 
+📅 Date: 30 Aug 2025
+🗓️ Today’s Work:
 
-52561 sarfaras
-http://192.168.1.72:1717
+🔧 Project: Internal 
+   - Completed pending timesheet entries. | 1:00
+   - Attended weekly team meeting. | 1:30
+
+🔧 Project: Milano
+   
+🔍 R&D: Catalogue Dashboard View | 1:30
+   - Reviewed the Dashboard app overview.
+   - Implemented it in Milano and explored how to add a graph for a specific model.
+   - Learned how graphs depend on Analysis configuration.
+   - Figured out how to add model field data within the Analysis to make the graphs work properly.
 
 --------------------------------------------------------------------------
+
+📅 Date: 1 Sep 2025
+🗓️ Today’s Plan:
+
+🔧 Project: Milano
+   
+🔍 R&D: Catalogue Dashboard View - Estimated : 2:30
+   - Create a graph to represent how many catalogues are assigned to each user.
+   - Display how many catalogues each user has distributed to customers.
+   - Track and show how many catalogues remain with each user.
+   - Add metrics to display how many orders were generated from catalogues, along with quantities.
+   
+--------------------------------------------------------------------------
+
+📌 Catalogue Requirements
+	 : Show how many catalogues are given to each user.
+	 : From those, show how many catalogues the user has given to customers...
+	 : Show how many catalogues remain with the user...
+	 : From the catalogues given to customers, show how many orders were generated (with quantities).
+
+
+📅 1 Sep Work:
+
+🔧 Project: Internal 00:10
+   - Discussed with the manager that it is not feasible to display all required catalogue information in a single graph.
+   - Decided to use a tabular format to represent all data together.
+   
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View  2:20
+   - Added one graph to show how many catalogues remain with each user.
+   - Implemented a tabular format in the dashboard to represent catalogue information more comprehensively.
+   - Managed the tabular data by creating a query to fetch records from the database.
+   - Displayed which users have given catalogues to customers.
+   
+🔧 Project: Dazzle Fabric
+
+🔍 R&D: Fix Issue  3:00
+   - Investigated and attempted to resolve the issue where PO return pickings could not be validated.
+   - Found that in the custom code, stock valuation records were being fetched.
+   - In some cases, these records were not found, which caused the error.
+   - Verified why the stock valuation record was missing.
+   - Debugged account move and stock valuation record creation logic in the base code.
+
+🔧 Project: Internal 
+   2:00
+   - In Korzo, some code had been updated, but not by me. I discussed this topic with the manager.
+   - I researched who might have updated the code and why. I am certain that I did not update the code. At that moment, I couldn’t handle the situation, so I decided that I don’t want to continue this journey any further.
+   - Conducted a meeting with Raj Bhai and resolved the issue.
+   00:30
+   - During lunch break, my system charger was taken by Chetan Bhai, so I was unable to use my system.
+   - I discussed with him why he took it. He explained he needed it for one day.
+   - Temporarily used another team member’s charger but needed a proper replacement.
+   - Later, after further discussion, Chetan Bhai arranged the charger for me.
+   
+--------------------------------------------------------------------------
+
+📅 2 Sep Plans
+
+🔧 Project: Dazzle Fabric
+
+🔍 R&D: Fix Issue 
+   - Investigate why a Purchase Order return picking cannot be validated.
+   - Verify the root cause of the issue and attempt to resolve it.
+   
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View - Estimated: 00:25
+   - Display a graph showing the count of catalogues each user has distributed to customers.
+
+
+--------------------------------------------------------------------------
+
+📅 2 Sep Work
+
+Dazzle
+------
+Purchase Order P02383
+stock move issue 384391
+stock move 384390
+
+stock_account/stock_move.py > def _action_done() : _validate_accounting_entries()
+stock_account/stock_valuation_layer.py > def _validate_accounting_entries() create account move def _account_entry_move()
+
+
+stock_account/stock_move.py > def _account_entry_move() : _prepare_account_move_vals() 
+
+*purchase_stock/stock_move.py > def _account_entry_move() : _prepare_account_move_vals(svl_id:False) 
+purchase_stock/stock_move.py > def _account_entry_move() : layer._get_layer_price_unit() - returned_layer._get_layer_price_unit() 
+
+svl id 148557 
+account move STJ/2025/04/6519
+
+   layer -1086.0 (every time new create) | 21.72(stander price) × -50 = -1086 value
+   return layer 1021.00 (svl id 148557)  | 20.42(PO price) ×-50 = -1021 value
+e.g.
+   layer -700.0
+   return layer 700.0
+
+Qatar Milano
+------------
+Milano database latest restore kri ne P00081 ma product 806-34 na amuk lots already system ma hta to b ema assign thya che ne qty + thy che evu kem thy che e check kro
+
+P00081
+MF 806-34
+
+
+📌 Catalogue Requirements
+	 : Show how many catalogues are given to each user.
+	 : From those, show how many catalogues the user has given to customers..
+	 : Show how many catalogues remain with the user..
+	 : From the catalogues given to customers, show how many orders were generated (with quantities).
+
+
+📅 2 Sep Work
+
+🔧 Project: Dazzle Fabric
+
+🔍 R&D: Fix Issue
+   2:00
+   - Debugged Odoo’s account move and stock valuation record preparation methods.
+   - Found the issue: when the PO product price and the product’s standard price did not match, the system failed to validate the return picking.
+   - Discussed with manager and tested the same operation in other projects to compare behavior.
+   2:00
+   - Verified that other projects did not face the problem, confirming no issues in stock valuation or account move preparation.
+   - Identified custom code specific to this project that was not present in others.
+   - Modified the custom condition for fetching stock valuation records to resolve the issue.
+
+🔧 Project: Qatar Milano
+
+🔍 R&D: Fix Issue 1:45
+   - Set up the Qatar Milano project in the system.
+   - Verified the issue occurred when importing a picking line; at that time, the system fetched the existing lot and added the quantity to it.
+   - Added validation for cases when a lot already existed in the system, and performed the operation to validate it.
+
+🔧 Project: Internal/Internal 00:15
+   - Verified PO cancel operation behavior when pickings were in Draft and Done states.
+   
+🔧 Project: Leviotto/Internal 01:00
+   - Configured routes and products. Performed Purchase and Package Transfer operations.
+   - Tested Sale Order return operation: identified that confirming a return should no need to create Package Transfer Details.
+   - Found that returned products were stored in the Output location without package.
+
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View 01:00
+   - Displayed a graph showing the count of catalogues each user has distributed to customers.
+   - Enhanced the graph to show how many catalogues customers currently hold.
+   - From the catalogues given to customers, added metrics to track how many orders were generated and how many quantities were delivered. 
+
+
+--------------------------------------------------------------------------
+
+📅 3 Sep Plans
+
+🔧 Project: Leviotto 
+   - Verify the Sale Order return picking flow.
+   - Figure out how to properly manage returned product packages.
+   
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View - Estimated: 00:25
+   - Display a graph showing the count of catalogues each user has distributed to customers.
+
+--------------------------------------------------------------------------
+
+📅 3 Sep Work
+
+🔧 Project: Leviotto 
+   9:30-9:50
+
+🔧 Project: Tesro
+
+🔍 R&D: Daily Report
+   - restore db.
+   - check yesterday's daily report
+   - 
+   9:50 - 1:15 = 4:05
+		
+	S16436
+	INV-047102
+	
+	INV-047101
+	
+  5:20 - 6:05 = :45
+
+🔍 R&D: Contact Tag 
+   - test script of set tag in contact beased on area and saleseperson.
+   1:15 - 1:30
+   2:30 - 5:20
+
+--------------------------------------------------------------------------
+
+📅 3 Sep Work
+
+🔧 Project: Thamees All Project
+
+🔍 R&D: Daily Report Issue
+   3:00
+   - Investigated why a Salesperson ID key error appeared when printing the Daily Report.
+   - Found that the report functionality fetched product type using the Sale ID in invoices and credit notes.
+   - When invoices/credit notes were created manually, no Sale ID was set, caused the error.
+   - Resolved by fetching product type directly using Product ID instead of Sale ID.
+   2:20
+   - Faced another issue: when invoices/credit notes used Service products, no custom product type was set.
+   - Fixed this by grouping all undefined product types under “Other”.
+   - Updated the report view accordingly and applied the same fix across all projects.
+
+🔍 R&D: Update Contact Tag - 2:40
+   - Executed script to update contact tags based on Area and Salesperson.
+   - All contacts updated properly in other project, but in Dazzle, some contacts and salesperson records did not update properly.
+
+contacts = self.env['res.users'].search([])
+for user in contacts:
+    user.category_id = [(5, 0, 0)] 
+
+contact = self.env['res.partner'].search([])
+for partner in contact:
+    tags = []
+    if partner.user_id:
+        if partner.user_id.category_id:
+            if partner.user_id.name == partner.user_id.category_id.name:
+                tags.append(partner.user_id.category_id.id)
+            else:
+                partner.user_id.category_id = [(5, 0, 0)]
+                category = self.env['res.partner.category'].search([('name', '=', partner.user_id.name)], limit=1)
+                if not category:
+                    category = self.env['res.partner.category'].create({'name': partner.user_id.name})
+                tags.append(category.id)
+                partner.user_id.category_id = category
+        else:
+            category = self.env['res.partner.category'].search([('name', '=', partner.user_id.name)], limit=1)
+            if not category:
+                category = self.env['res.partner.category'].create({'name': partner.user_id.name})
+            tags.append(category.id)
+            partner.user_id.category_id = category
+ 
+    if partner.area:
+        area_tag = self.env['res.partner.category'].search([('name', '=', partner.area.name)], limit=1)
+        if not area_tag:
+            area_tag = self.env['res.partner.category'].create({'name': partner.area.name})
+        tags.append(area_tag.id)
+ 
+    if tags:
+        partner.category_id = [(6, 0, tags)]
+    else:
+        partner.category_id = [(5, 0, 0)]
+
+result = {
+    'Match Name': {},
+    'Not Match': {},
+    'New Set': {}
+}
+contact = self.env['res.partner'].search([])
+for partner in contact:
+    tags = []
+    if partner.user_id:
+        if partner.user_id.category_id:
+            if partner.user_id.name == partner.user_id.category_id.name:
+                tags.append(partner.user_id.category_id.id)
+                result['Match Name'][partner.user_id.name] = partner.user_id.category_id.name
+            else:
+                partner.user_id.category_id = [(5, 0, 0)]
+                category = self.env['res.partner.category'].search([('name', '=', partner.user_id.name)], limit=1)
+                if not category:
+                    category = self.env['res.partner.category'].create({'name': partner.user_id.name})
+                tags.append(category.id)
+                partner.user_id.category_id = category
+                result['Not Match'][partner.user_id.name] = category.name
+        else:
+            category = self.env['res.partner.category'].search([('name', '=', partner.user_id.name)], limit=1)
+            if not category:
+                category = self.env['res.partner.category'].create({'name': partner.user_id.name})
+            tags.append(category.id)
+            partner.user_id.category_id = category
+            result['New Set'][partner.user_id.name] = category.name
+ 
+    if partner.area:
+        area_tag = self.env['res.partner.category'].search([('name', '=', partner.area.name)], limit=1)
+        if not area_tag:
+            area_tag = self.env['res.partner.category'].create({'name': partner.area.name})
+        tags.append(area_tag.id)
+ 
+    if tags:
+        partner.category_id = [(6, 0, tags)]
+    else:
+        partner.category_id = [(5, 0, 0)]
+        
+
+--------------------------------------------------------------------------
+
+📅 4 Sep Plans
+
+🔧 Project: Dazzle
+
+🔍 R&D: Invoice & Credite note
+   - Verify in Dazzle why service products are not being added to invoices.
+   - Check the default behavior in Runbot for comparison.
+
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View - Estimated: 00:40
+   - Display a graph showing the count of catalogues each user has distributed to customers.
+   - Display how many catalogues are given to each user.
+
+🔧 Project: Leviotto 
+   - Verify the Sale Order return picking flow.
+   - Figure out how to properly manage returned product packages.
+   
+--------------------------------------------------------------------------
+
+📅 4 Sep Work
+
+🔧 Project: Dazzle
+
+🔍 R&D: Invoice & Credite note 9:30-9:45
+   - Verify to confirm the default odoo behavior can add servise product in invoice.
+
+🔍 R&D: Bill Verify 9:45-10:45
+   - Verify the purchase order no. P02311 all bill track behevior.
+
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View 
+   - Display a graph showing the count of catalogues each user has distributed to customers.
+   - try to show salsperson remaining catalogue count and salsperson catalogue assign to customer count in one table.
+ 
+   10:45 - 11:55
+   
+   12:45 -  1:30
+   
+   2:45 - 6:30
+   
+
+🔧 Project: Tesro
+   - usign excele file import product but not import same name vendro record.
+   - add external id of venord in file but not import record.
+
+   - restore fresh database.
+   - in reordering app test order once button to work or not.
+   - again restore fresh database share by manager.
+
+   11:55 - 12:45
+   
+   - reordering check new line add or existing line plush qty.
+   2:30 - 2:45
+
+
+--------------------------------------------------------------------------
+
+📅 4 Sep Work
+
+🔧 Project: Milano
+
+🔍 Development: Catalogue Dashboard View 
+   2:10
+   - Displayed a graph showing the count of catalogues each user had distributed to customers.
+   - Attempted to show the remaining catalogue count for each salesperson and the count of catalogues assigned to customers in a single table.
+   2:30
+   - Not all required data could be managed using the query in the dashboard app.
+   - Continued creating a new model to manage all required data in a single model.
+   - Added salesperson and their assigned catalogue names with the number of catalogues in this model.
+   
+🔧 Project: Tesro/Issue 1:00
+   - Imported products using an Excel file, but records with the same vendor name were not imported.
+   - Added external ID of the vendor in the file, but the record was still not imported.
+
+🔧 Project: Dazzle
+ 
+🔍 R&D: Internal 00:10
+  - Restored a fresh database.
+  
+🔍 R&D: Reordering App 00:55
+   - Tested the 'Order Once' button to check its functionality.
+   - Verified that if a purchase order already existed with the same product name, using the “Order Once” button would either create a new line in the purchase order or increase the quantity of the existing line.
+
+🔍 R&D: Bill Verify 01:00
+   - Verified the purchase order no. P02311 and tracked its all bills.
+
+🔧 Project: Internal 00:15
+   - Verified and confirmed the default Odoo behavior for adding service products in invoices.
+
+--------------------------------------------------------------------------
+
+📅 5 Sep Plans
+
+🔧 Project: Milano
+
+🔍 Development: Catalogue Dashboard View
+   - Manage required data in a single model.
+   - Represent the data in the Dashboard app.
+   
+🔧 Project: Dazzle
+
+🔍 R&D: Reordering App
+   - Modify the Reordering user guide document.
+   - Update the selection method calculation file.
+
+--------------------------------------------------------------------------
+
+📅 5 Sep Work
+
+dashboard
+ 9:30 - 10:00
+ 3:15 - 4:25
+
+dazzle script of set tag
+ 2:40 - 3:15
+ 4:35 - 5:00
+
+dazzle call forcaset compute
+ 10:00 - 2:40
+ 
+dazzle check forcaset value
+4:25 - 4:35
+5:00 - 
+  - verify if purchase order cancel that time not update a forcast and order qty.
+  - when 
+
+--------------------------------------------------------------------------
+
+📅 5 Sep Work
+
+🔧 Project: Milano
+ 
+🔍 Development: Catalogue Dashboard View 1:40
+   - Updated the method to manage dashboard data by merging records per customer instead of creating separate entries for each record.
+
+🔧 Project: Dazzle
+
+🔍 R&D: Reordering App 
+3:20
+   - Investigated why forecast and order quantities were not updating in Reordering.
+   - Attempted to trigger the forecast quantity compute when updating a Purchase Order line.
+2:00
+   - Removed the SQL query in the compute method and add orm to fatch record, after tested operations.
+   - Verified that when a Purchase Order line changes, forecast and order quantities update correctly.
+
+🔍 R&D: Update Users Tag 1:00
+   - Prepared a script to add tags to users.
+--------------------------------------------------------------------------
+
+📅 6 Sep Plans
+
+🔧 Project: Dazzle
+
+🔍 R&D: Reordering App
+   - Verify how existing forecast values are updated.
+   - Check whether similar products are added or not.
+
+🔧 Project: Milano
+ 
+🔍 Development: Catalogue Dashboard View
+   - Add a graphical chart in the dashboard.
+
+--------------------------------------------------------------------------
+
+📅 6 Sep Work
+
+🔧 Project: Dazzle
+
+🔍 R&D: Reordering App
+   - Verified how existing forecast values are updated.
+   - Managed forecast values for reordering lines in the Purchased state.
+   3:20
+   
+   - Checked whether similar products are added to the forecast.
+   00:40
+   
+--------------------------------------------------------------------------
+
+📅 8 Sep Plans
+
+🔧 Project: Dazzle
+
+🔍 R&D: Reordering App - Estimated: 1:00
+   - Verify the forecast value for draft Purchase Orders.
+   - Modify the compute method to generate accurate forecast values.
+
+🔧 Project: Milano
+ 
+🔍 Development: Catalogue Dashboard View - Estimated: 3:00
+   - Create a graphical chart including all required information about catalogue distribution.
+
+--------------------------------------------------------------------------
+
+📅 8 Sep Work
+
+🔧 Project: Dazzle
+
+🔍 R&D: Reordering App  
+   
+   
+🔍 R&D: Reordering App 
+   - Restored fresh database and addons.
+   - Investigated why Reload All Together was not working for Basic and Slow-Moving rules.
+   - Found the issue: both rules had the same sequence.
+   - Fixed by updating the sequence using drag-and-drop and later modifying the create method logic.
+   - Instead of generating sequence by record count (invalid logic), now it finds the max sequence and applies the next number for new records.
+   02:20
+   - Investigated the issue of not fetching records for similar product categories in Reordering rules.
+   - Found that when is main true, the query only fetched records where the Sale Order line’s main product category matched the rule category.
+   02:00
+   - Tried modifying queries to include both main and similar product categories, but results were not fully correct.
+   01:00
+   - Added effective fields in the Product form view to help manage forecast values.
+   00:15
+   
+🔧 Project: Milano
+ 
+🔍 Development: Catalogue Dashboard View 00:50
+   - Updated the file name of the custom dashboard model.
+   - Attempted to merge records for salesperson-assigned catalogues.
+   - Added this model’s view menu under the Catalogue Management menu.
+   
+🔧 Project: Internal 1:35
+   - Completed last week’s timesheet entries in ERP.
+
+--------------------------------------------------------------------------
+
+📅 9 Sep Work
+
+🔧 Project: Dazzle
+
+🔍 R&D: Reordering App 
+   - Researched how to manage categories in reordering rules.
+   - Prepared a message for conflicts to managing records during reordering.
+   01:45
+   - Modified the reordering line preparation method to fetch all categories of main product when the is main product was marked as true.
+   - Realized that using the main product did not work as needed, so instead, used similar products to fetch their categories and manage the reordering line.
+   01:15
+   - Modified the forecast value computation method.
+   00:50
+   - Tested all the changes to verify whether they worked properly.
+   02:40
+   
+🔧 Project: Internal
+   - Changed projects and their related tasks.
+   00:15
+   - The system was off due to an office power outage, and my system did not have a battery. 
+   00:50
+   - Discussed reordering rule categories with the manager. 
+   00:25
+   
+--------------------------------------------------------------------------
+
+📅 10 Sep Work
+
+🔧 Project: Dazzle
+
+🔍 Development: Fix Issue/preper script 00:40
+   - Prepared a script to fetch a product itself, its main product, and any main products in its similar product list.
+   
+🔍 Development: Purchase Report Changes
+   - Changed the file names for the purchase order and request for quotation reports. 
+   00:25
+   - Faced an issue where the required file names did not update on my system when printing or downloading a report. 
+   - Verified the problem by testing on different browsers and in a different project.
+   01:00
+
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View
+   - Researched how to link two graphical charts' data together.
+   - Added three charts to show catalogue information: catalogues assigned to salespeople, available catalogue quantity, and assigned catalogues to customers.
+   01:55
+   - Changed the model name, and I also updated it everywhere else the model was used.
+   00:20
+   - Added a restriction so users can only see their own catalogue information in the dashboard app.
+   - Attempted to add a user group directly in the dashboard app's UI but faced an issue where the dashboard app wouldn't open.
+   - Restored a new database, created the group in the XML, and applied it to users for catalogue information.
+   - Verified its proper functionality by testing with different user logins.
+   02:15
+   - Added a chart to show the total count of catalogues assigned to salespeople, available catalogue quantity, and assigned catalogues to customers. 
+   01:25
+   
+--------------------------------------------------------------------------
+
+📅 11 Sep Work
+
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View
+
+   - Linked sale order lines with catalogue information.
+   - Created compute fields and methods to manage sale order line information.
+   00:45
+   - Created a scheduled action to fetch old sale order lines and link them with catalogue information.
+   - Modified the compute method to update catalogue information every time a sale order is updated.
+   - Added a sale order information chart to the dashboard view, along with separate required count charts.
+   2:00
+   - Faced and resolved an issue with calculating the total number of customers per salesperson.
+   - Created a chart showing the total number of customers per salesperson using a query to verify the count.
+   01:15
+   - Added a new compute field to update the total customer count whenever a customer record is changed.
+   - Managed the graphical chart in the dashboard app using this field and also set the chart's configuration on the UI side.
+   2:45
+   
+   - Resolved an access restriction issue that occurred when another user logged in and tried to distribute a catalogue. 
+   - The issue was resolved by using sudo when a catalogue was assigned to a customer, which also created a catalogue information record.
+   00:30
+   
+   - Faced an issue managing the scheduled action and updating catalogue distribution records in the catalogue dashboard.
+   - Researched how to fetch all record data when a catalogue is distributed and sale order lines change.
+   00:45
+  
+
+--------------------------------------------------------------------------
+📅 12 Sep Plans
+
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View – Estimated: 2:00
+   - Resolve the issue of not fetching catalogue information properly.
+   - Update catalogue information when a catalogue is distributed to a salesperson or customer.
+
+--------------------------------------------------------------------------
+📅 12 Sep Works
+
+🔧 Project: Internal 
+   •   Completed pending timesheet entries and updated existing ones.
+   01:20 | 9:30 - 10:50 
+   •   Configured ngrok on the system.
+   4:00 - 4:20
+   
+🔧 Project: Milano
+
+🔍 R&D: Catalogue Dashboard View 
+   •   Removed the second scheduled action and managed catalogue information based on the existing one.
+   •   Modified the catalogue information preparation method to remove the delete record every time functionality.
+   •   Managed salesperson-assigned and available records: if a record already existed in the catalogue information, it was updated; otherwise, a new record was created.
+   •   Faced an issue where running the scheduled action would find existing records but incorrectly add the stock move quantity again to a record that already had it.
+   •   Added a new field in the stock move to verify its use in the catalogue information and modified the preparation method so that a stock move is not added again if it has already been used.
+   •   Ensured that the catalogue information was properly updated when a catalogue was distributed or when a sale order line was changed.
+   •   Faced an issue where the customer count would not update when a catalogue was distributed to a new customer.
+   •   Modified the compute method and its dependencies to resolve the issue of the customer count not updating during distribution and when the scheduled action ran.
+   10:50 - 1:30
+   2:30 - 2:50
+   •   Changed card colors and icons.
+   2:50 - 3:20
+   •   Used default user groups and access rights of the izi dashboard to add a restriction on updating dashboard configurations.
+   3:20 - 4:00
+   •   Researched how to hide a drop down button in the dashboard chart for salespeople to prevent them from opening other configurations.
+   •   In the custom user catalogue information group, added several izi Dashboard models to restrict access for included users.
+   4:20 - 5:00
+   •   Created a shortcut menu for the catalogue dashboard for salespeople.
+   •   Researched the functionality of AI settings in the dashboard.
+   5:00 - 6:45
+
+
+
+
+
+
+izi data source X
+hide other two menu in dashbaord app.
+
+- crete short cute menu 
+- what is code of AI setting
+
+--------------------------------------------------------------------------
+
+📌 Catalogue Requirements
+	 : Show how many catalogues are given to each user.
+	 : From those, show how many catalogues the user has given to customers.
+	 : Show how many catalogues remain with the user.
+	 : From the catalogues given to customers, show how many orders were generated (with quantities).
+ir corn
+1. Generate Catalogue Information [call: def generate_catalogue_info(self):] (generate catalogue information records)
+   - its call via corn action and also call when catalogue distribute to salesperson or customer.
+
+2. Process Catalogue Lines [call: action_compute_catalogue_ids] (fetch sale order records)
+   - its call via corn action and also call when sale order line filde change:
+   	- @api.depends('product_uom_qty', 'product_template_id', 'price_subtotal', 'qty_delivered', 'qty_invoiced')
+
+Charts
+1. Assigned
+M: Assign to salesperson
+D: Salesperson, Catalogue
+
+1.1 Total Assigned
+M: Assign to salesperson
+D: Salesperson
+
+2. Available
+M: Available quantity
+D: Salesperson, Catalogue
+
+2.1 Total Available
+M: Available quantity
+D: Salesperson
+
+3. Assigned To Customer
+M: Assigned to customer
+D: Salesperson, Catalogue
+
+3.1 Total Assigned To Customer
+M: Assigned to customer
+D: Salesperson
+
+4. Sale Ordes Information
+M: Sale Orders, Ordered Qty, Delivered Qty, Invoiced Qty, Untaxed Amount
+D: Catalogue, Customer
+Domain: Customer is set (!=)
+
+Note: "Action Window" and "Action Window" View "Access Right" give to other user vie Group for show list view in dashboard app.
+
+4.1 Sale Orders
+M: sum(Sale Orders) 
+
+4.2 Customers
+M: sum(Customer Count)
+D: Catalogue, Customer
+Domain: Customer is set (!=)
+
+4.3 Delivered Qty
+M: sum(Deliveryed Qty)
+
+5. Extra to verify count of customer
+
+SELECT
+    ci.user_id,
+    rp.name AS salesperson_name,
+    COUNT(DISTINCT ci.customer_id) AS customer_count
+FROM
+    catalogue_info AS ci
+JOIN
+    res_partner AS rp ON ci.salesperson_id = rp.id
+WHERE
+    ci.customer_id IS NOT NULL
+GROUP BY
+    ci.user_id,
+    rp.name;
+    
+M: Customer Count
+D: Salseperson Name
+   
+-------------------------------------------------------------------------------
+AGORA AIR BLANCO (SIN DOBLAR) 1671 A - Category : Agora Ref.
+ - Similar product: 442-06 - Category : DF-442
+
+	For Main Product Category
+	------------------
+	If is_main TRUE : Only Main Product Show
+	If is_main FALSE : Main + Similar Both Show
+
+	For Similar Product Category
+	-------------------
+	If is_main TRUE : Only Main Product Show
+	If is_main FALSE : Only Similar Product Show
+	
+similar_on_transit (CONFIRM)
+
+               <group string="Qty Forcasted">
+                        <field name="virtual_available"/>
+                        <field name="similar_virtual_available"/>
+                    </group>
+                    <group string="Qty Draft Forcasted">
+                        <field name="on_order"/>
+                        <field name="similar_on_order"/>
+                    </group>
+
+                    <group string="Qty On Hand">
+                        <field name="qty_available"/>
+                        <field name="similar_total_qty"/>
+                    </group>
+                    <group>
+                        <field name="similar_on_transit"/>
+                    </group>
+                    
+            purchased_lines = rec.reordering_line.filtered(
+                    lambda r: r.state in ['purchased'])
+
+            for lines in purchased_lines:
+                lines._compute_qty()
+	  
+               
+                   @api.depends('product_id', 'product_id.purchase_order_line_ids',
+                 'product_id.purchase_order_line_ids.product_qty', 'product_id.purchase_order_line_ids.state')
+    def _compute_qty(self):
+        qty_on_hand = False
+        qty_forecast = False
+        for reorder_line in self:
+            if reorder_line.product_id:
+                if reorder_line.reordering_id.is_main_product:
+                    qty_on_hand = reorder_line.product_id.similar_total_qty if reorder_line.product_id.similar_total_qty else reorder_line.product_id.qty_available
+                else:
+                    qty_on_hand = reorder_line.product_id.qty_available
+
+                draft_lines = self.env['purchase.order.line'].search([
+                    ('state', 'in', ('draft', 'sent', 'to approve')),
+                    ('product_id', '=', reorder_line.product_id.id),
+                ])
+                qty_in_progress = sum(draft_lines.mapped('product_qty'))
+
+                if not qty_in_progress:
+                    qty_in_progress = 0
+                if reorder_line.reordering_id.is_main_product:
+                    qty_forecast = (
+                                       reorder_line.product_id.similar_virtual_available if reorder_line.product_id.similar_virtual_available else reorder_line.product_id.virtual_available) + qty_in_progress
+                else:
+                    qty_forecast = reorder_line.product_id.virtual_available + qty_in_progress
+                
+            reorder_line.qty_on_hand = qty_on_hand
+            reorder_line.qty_forecast = qty_forecast
+
+
+--------------------------------------------------------------------------
+
+
+reordering document prepare
+- reordering selection method 
+
+
+||||||||||
+any()
+list comprehension
+||||||||||
+--------------------------------------------------------------------------
+
+
+1. Assigned to Salesperson
+
+SELECT
+       rp.name AS Salesperson,
+       cml.no_of_catalogue
+FROM catalogue_management_line cml
+JOIN res_partner rp
+     ON cml.partner_id = rp.id
+WHERE rp.location_id IS NOT NULL
+  AND cml.assign_to_salesperson = TRUE;
+
+- 
+
+2. Salesperson Catalogues Assigned to Customer
+
+SELECT 
+    rp.name AS salesperson, 
+    cml.no_of_catalogue
+FROM catalogue_management_line cml
+JOIN res_users ru ON cml.user_id = ru.id
+JOIN res_partner rp ON ru.partner_id = rp.id
+WHERE rp.location_id IS NOT NULL
+ AND cml.assign_to_salesperson = FALSE;
+
+-
+
+3. Customer Catalogues
+
+SELECT
+       rpu.name AS salesperson,
+       rp.name AS customer,
+       cml.no_of_catalogue,
+       cml.no_of_sale_orders,
+       cml.total_delivered_qty
+FROM catalogue_management_line cml
+JOIN res_partner rp
+     ON cml.partner_id = rp.id
+JOIN res_users ru
+     ON cml.user_id = ru.id
+JOIN res_partner rpu
+     ON ru.partner_id = rpu.id
+WHERE cml.assign_to_customer = TRUE;
+
+
+
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+
+
+- inherite view prectice 
+- search view prectice
+- Flow Perform & Preper Eraser Doc.
+
+["&", ("is_main_similar", "=", True), ("similar_product_ids.is_main_similar", "=", False)]
+
 
 - korzo code procurment receipt and purchse changes delvicer and po changes
 - add custome script of migration
@@ -3833,9 +4639,6 @@ filterd
 
 - date field and modify its formate : go to settings -> Languages (selecte language) -> change date formate (%m/%d/%Y)
 - note : inside databse alwase date formate like YYYY-MM-DD
-
-
-
 
 --------------------------------------------------------------------------
 
@@ -3902,7 +4705,10 @@ name - sandip m
 id - 72
 p - 0843
 
-\\150.129.151.225
+
+
+
+192.168.1.72:1761
 
 --------------------------------------------------------------------------
 
@@ -3926,9 +4732,6 @@ From openerp/osv/fields.py
 --------------------------------------------------------------------------
     
 
-
-
-
 - http://150.129.151.225:8080/
 - Username: bhargav
 - Password: Bhargav@1234
@@ -3942,6 +4745,852 @@ Password: Thamees@odoo_backups
 - go to github > Developer Settings > Personal access token > Token Classic > Genertae new token (classic) > add note and muste select repo checkbox
 
 
---------------------
+
+
+==========================
+# -*- coding: utf-8 -*-
+
+from odoo import api, fields, models, _
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    category_id = fields.Many2many('res.partner.category', column1='partner_id', column2='category_id', string='Tags',
+                                   store=True)
+
+    @api.onchange('user_id', 'area')
+    def _onchange_category_id(self):
+        for partner in self:
+            tags = []
+            if partner.user_id:
+                if partner.user_id.category_id:
+                    tags.append(partner.user_id.category_id.id)
+                else:
+                    category = self.env['res.partner.category'].search([('name', '=', partner.user_id.name)], limit=1)
+                    if not category:
+                        category = self.env['res.partner.category'].create({'name': partner.user_id.name})
+                    tags.append(category.id)
+                    partner.user_id.category_id = category
+
+            if partner.area:
+                area_tag = self.env['res.partner.category'].search([('name', '=', partner.area.name)], limit=1)
+                if not area_tag:
+                    area_tag = self.env['res.partner.category'].create({'name': partner.area.name})
+                tags.append(area_tag.id)
+
+            if tags:
+                partner.category_id = [(6, 0, tags)]
+            else:
+                partner.category_id = [(5, 0, 0)]
+
+
+===========================
+import json
+result = []
+contact = self.env['res.partner'].search([])
+for partner in contact:
+    if partner.category_id:
+        partner.category_id = [(5, 0, 0)]
+        
+    tags = []
+        
+    if partner.user_id:
+        serach_name = self.env['res.partner.category'].search([('name', '=', partner.user_id.name)], limit=1)
+        if serach_name:
+             tags.append(serach_name.id)
+        else:
+            category = self.env['res.partner.category'].create({'name': partner.user_id.name})
+            tags.append(category.id)
+    
+    if partner.area:
+        search_area = self.env['res.partner.category'].search([('name', '=', partner.area.name)], limit=1)
+        if search_area:
+            tags.append(search_area.id)
+        else:
+            area = self.env['res.partner.category'].create({'name': partner.area.name})
+            tags.append(area.id)
+            
+    if tags:
+        partner.category_id =  [(6, 0, tags)]
+    
+    result.append({
+        "partner": partner.name,
+        "area": partner.area.name if partner.area else False,
+        "user": partner.user_id.name if partner.user_id else False,
+        "categories": partner.category_id.mapped("name"),
+    })
+
+raise Warning(json.dumps(result, indent=2, ensure_ascii=False)) 
+=======================
+
+result = []
+users = self.env['res.users'].search([])
+for user in users:
+    if user.category_id:
+        user.category_id = [(5, 0, 0)]
+    
+    search_name = self.env['res.partner.category'].search([('name', '=', user.name)], limit=1)
+    if search_name:
+        user.category_id = [(6, 0, [search_name.id])]
+    else:
+        category = self.env['res.partner.category'].create({'name': user.name})
+        user.category_id = [(6, 0, [category.id])]
+    
+    result.append({
+        "user": user.name,
+        "categories": user.category_id.mapped("name"),
+    })
+=======================
+
+    <menuitem id="menu_dashboard_root" name="Dashboard" sequence="10"/>
+    <menuitem id="menu_dashboard_data" name="Dashboard Data" parent="menu_dashboard_root" action="action_dashboard_data"/>
+
++++++++
+
+# -*- coding: utf-8 -*-
+
+from odoo import api, models, fields
+
+
+class Dashboard(models.Model):
+    _name = 'dashboard.data'
+    _description = 'Dashboard Data'
+
+    salesperson_id = fields.Many2one('res.partner', string='Salesperson')
+    catalogues = fields.Many2one('product.product', string='Catalogues')
+    catalogues_category_id = fields.Many2one('product.category', 'Catalogues Category', related='catalogues.categ_id')
+    cata_assign_to_salesperson = fields.Float(string='Assign to Salesperson')
+    salesperson_cata_ava_qty = fields.Float(string='Available Quantity')
+    customer_id = fields.Many2one('res.partner', string='Customer')
+    cata_assign_to_customer = fields.Float(string='Assign to Customer')
+    label = fields.Char(string="Label")
+    sale_order_line_ids = fields.One2many('sale.order.line', 'dashboard_catalogue_id')
+
+
+    @api.model
+    def generate_dashboard_data(self):
+        self.search([]).unlink()
+        salespersons = self.env['res.partner'].search([('location_id', '!=', False)])
+
+        for salesperson in salespersons:
+            salesperson_location = salesperson.location_id
+
+            assign_to_salesperson_moves = self.env['stock.move'].search([
+                ('assign_to_salesperson', '=', True),
+                ('location_dest_id', '=', salesperson_location.id)
+            ])
+            for move in assign_to_salesperson_moves:
+                salesperson_dashboard_data = self.env['dashboard.data'].search([
+                    ('salesperson_id','=',move.catalogue_id.partner_id.id),
+                    ('catalogues','=',move.product_id.id)
+                ],limit=1)
+
+                if salesperson_dashboard_data:
+                    salesperson_dashboard_data.cata_assign_to_salesperson += move.quantity
+                else:
+                    self.create({
+                        'salesperson_id': salesperson.id,
+                        'customer_id': False,
+                        'catalogues': move.product_id.id,
+                        'cata_assign_to_salesperson': move.quantity,
+                        'salesperson_cata_ava_qty': 0.0,
+                        'cata_assign_to_customer': 0.0,
+                        'label': 'Assign to Salesperson',
+                    })
+
+            available_quants = self.env['stock.quant'].search([('location_id', '=', salesperson_location.id)])
+            for quant in available_quants:
+                self.create({
+                    'salesperson_id': salesperson.id,
+                    'customer_id': False,
+                    'catalogues': quant.product_id.id,
+                    'cata_assign_to_salesperson': 0.0,
+                    'salesperson_cata_ava_qty': quant.quantity,
+                    'cata_assign_to_customer': 0.0,
+                    'label': 'Available',
+                })
+
+            assign_to_customer_moves = self.env['stock.move'].search([
+                ('assign_to_customer','=',True),
+                ('location_id','=',salesperson_location.id)
+            ])
+            for move in assign_to_customer_moves:
+
+                customer_dashboard_data = self.env['dashboard.data'].search([
+                    ('salesperson_id','=',salesperson.id),
+                    ('customer_id','=',move.catalogue_id.partner_id.id),
+                    ('catalogues','=',move.product_id.id)
+                ],limit=1)
+
+                if customer_dashboard_data:
+                    customer_dashboard_data.cata_assign_to_customer += move.quantity
+                else:
+                    self.create({
+                        'salesperson_id': salesperson.id,
+                        'customer_id': move.catalogue_id.partner_id.id,
+                        'catalogues': move.product_id.id,
+                        'cata_assign_to_salesperson': 0.0,
+                        'salesperson_cata_ava_qty': 0.0,
+                        'cata_assign_to_customer': move.quantity,
+                        'label': 'Assign to Customer',
+                    })
+
+
++++++++++++
+
+# -*- coding: utf-8 -*-
+
+from odoo import api, models, fields
+
+
+class Dashboard(models.Model):
+    _name = 'dashboard.data'
+    _description = 'Dashboard Data'
+
+    salesperson_id = fields.Many2one('res.partner', string='Salesperson')
+    catalogues = fields.Many2one('product.product', string='Catalogues')
+    catalogues_category_id = fields.Many2one('product.category', 'Catalogues Category', related='catalogues.categ_id')
+    cata_assign_to_salesperson = fields.Float(string='Assign to Salesperson')
+    salesperson_cata_ava_qty = fields.Float(string='Available Quantity')
+    customer_id = fields.Many2one('res.partner', string='Customer')
+    cata_assign_to_customer = fields.Float(string='Assign to Customer')
+    label = fields.Char(string="Label")
+    sale_order_line_ids = fields.One2many('sale.order.line', 'dashboard_catalogue_id')
+
+
+    @api.model
+    def generate_dashboard_data(self):
+        self.search([]).unlink()
+        salespersons = self.env['res.partner'].search([('location_id', '!=', False)])
+
+        for salesperson in salespersons:
+            salesperson_location = salesperson.location_id
+
+            assign_to_salesperson_moves = self.env['stock.move'].search([
+                ('assign_to_salesperson', '=', True),
+                ('location_dest_id', '=', salesperson_location.id)
+            ])
+            for move in assign_to_salesperson_moves:
+                self.create({
+                    'salesperson_id': salesperson.id,
+                    'customer_id': False,
+                    'catalogues': move.product_id.id,
+                    'cata_assign_to_salesperson': move.quantity,
+                    'salesperson_cata_ava_qty': 0.0,
+                    'cata_assign_to_customer': 0.0,
+                    'label': 'Assign to Salesperson',
+                })
+
+            available_quants = self.env['stock.quant'].search([('location_id', '=', salesperson_location.id)])
+            for quant in available_quants:
+                self.create({
+                    'salesperson_id': salesperson.id,
+                    'customer_id': False,
+                    'catalogues': quant.product_id.id,
+                    'cata_assign_to_salesperson': 0.0,
+                    'salesperson_cata_ava_qty': quant.quantity,
+                    'cata_assign_to_customer': 0.0,
+                    'label': 'Available',
+                })
+
+            assign_to_customer_moves = self.env['stock.move'].search([
+                ('assign_to_customer','=',True),
+                ('location_id','=',salesperson_location.id)
+            ])
+            for move in assign_to_customer_moves:
+                self.create({
+                    'salesperson_id': salesperson.id,
+                    'customer_id': move.catalogue_id.partner_id.id,
+                    'catalogues': move.product_id.id,
+                    'cata_assign_to_salesperson': 0.0,
+                    'salesperson_cata_ava_qty': 0.0,
+                    'cata_assign_to_customer': move.quantity,
+                    'label': 'Assign to Customer',
+                })
+
+++++++++++++++
+
+    # @api.depends('product_id', 'product_id.stock_move_ids', 'product_id.stock_move_ids.state',
+    #              'product_id.stock_move_ids.date', 'product_id.stock_move_ids.product_uom_qty')
+    # def _compute_qty(self):
+    #     qty_on_hand = False
+    #     qty_forecast = False
+    #     for reorder_line in self:
+    #         if reorder_line.product_id:
+    #             if reorder_line.reordering_id.is_main_product:
+    #                 qty_on_hand = reorder_line.product_id.similar_total_qty if reorder_line.product_id.similar_total_qty else reorder_line.product_id.qty_available
+    #             else:
+    #                 qty_on_hand = reorder_line.product_id.qty_available
+    #             sql = """
+    #                 SELECT
+    #                     SUM(product_qty) FROM purchase_order_line
+    #                 WHERE
+    #                     state in ('draft', 'sent', 'to approve')
+    #                 AND
+    #                     is_reorder_line = True
+    #                 AND
+    #                     product_id = %s;
+    #             """
+    #             self._cr.execute(sql, (reorder_line.product_id.id,))
+    #             draft_po_qty = self._cr.dictfetchall()
+    #             qty_in_progress = draft_po_qty[0].get('sum', 0)
+    #             if not qty_in_progress:
+    #                 qty_in_progress = 0
+    #             if reorder_line.reordering_id.is_main_product:
+    #                 qty_forecast = (
+    #                                    reorder_line.product_id.similar_virtual_available if reorder_line.product_id.similar_virtual_available else reorder_line.product_id.virtual_available) + qty_in_progress
+    #             else:
+    #                 qty_forecast = reorder_line.product_id.virtual_available + qty_in_progress
+    #         reorder_line.qty_on_hand = qty_on_hand
+    #         reorder_line.qty_forecast = qty_forecast
+
+        =====
+        
+    # @api.model
+    # def create(self, vals):
+    #     res = super(ProductReordering, self).create(vals)
+    #     for rec in res:
+    #         max_seq = self.env['product.reordering'].search([], order="sequence desc", limit=1).sequence
+    #         rec.sequence = max_seq + 1
+    #     return res
+    
+    
+    ====================================
+    
+    
+                if rec.category_ids:
+                category_ids_str = ','.join(str(cat.id) for cat in rec.category_ids)
+
+                find_product = f"""
+                    SELECT main_product FROM product_template pt
+                    WHERE pt.categ_id IN ({category_ids_str})
+                """
+
+                self._cr.execute(find_product)
+                all_product = self._cr.dictfetchall()
+                main_product_ids = [row['main_product'] for row in all_product if row['main_product']]
+
+                if main_product_ids:
+                    ids_str = ",".join(map(str, main_product_ids))
+                    find_categories = f"""
+                        SELECT DISTINCT categ_id
+                        FROM product_template
+                        WHERE id IN ({ids_str})
+                    """
+                    self._cr.execute(find_categories)
+                    categories = self._cr.dictfetchall()
+
+                    extra_categ_ids = [str(row['categ_id']) for row in categories if row['categ_id']]
+                    if extra_categ_ids:
+                        category_ids_str += "," + ",".join(extra_categ_ids)
+
+                category_filter = f"pt.categ_id IN ({category_ids_str})"
+                
+==========================================================
+
+          if rec.category_ids:
+                category_ids_str = ','.join(str(cat.id) for cat in rec.category_ids)
+
+                find_similar_products = f"""
+                    SELECT DISTINCT rel.dest_id AS product_id
+                    FROM product_template pt
+                    JOIN product_template_similar_rel rel
+                        ON pt.id = rel.src_id
+                    WHERE pt.categ_id IN ({category_ids_str})
+                """
+
+                self._cr.execute(find_similar_products)
+                similar_products = self._cr.dictfetchall()
+
+                similar_product_ids = [row['product_id'] for row in similar_products if row['product_id']]
+
+                if similar_product_ids:
+                    ids_str = ",".join(map(str, similar_product_ids))
+                    find_categories = f"""
+                        SELECT DISTINCT categ_id
+                        FROM product_template
+                        WHERE id IN ({ids_str})
+                    """
+                    self._cr.execute(find_categories)
+                    categories = self._cr.dictfetchall()
+
+                    extra_categ_ids = [str(row['categ_id']) for row in categories if row['categ_id']]
+                    if extra_categ_ids:
+                        category_ids_str += "," + ",".join(extra_categ_ids)
+
+                category_filter = f"pt.categ_id IN ({category_ids_str})"
+                
+=============================
+
+
+result = []
+product_templates = self.env['product.template'].search([])
+
+for find_product in product_templates:
+    if find_product.is_main_similar:
+        if any(rec.is_main_similar for rec in find_product.similar_product_ids):
+            result.append(find_product.name)
+            # similar_product_names = [rec.name for rec in find_product.similar_product_ids]
+            # if similar_product_names:
+            #     product_names_str = ", ".join(similar_product_names)
+            #     result.append(f"{find_product.name} | {product_names_str}")
+            
+            
+# import json
+# result = []
+# product_templates = self.env['product.template'].search([])
+
+# for find_product in product_templates:
+#     if find_product.is_main_similar:
+#         Flag = False
+#         for rec in find_product.similar_product_ids:
+#             if rec.is_main_similar:
+#                 Flag = True
+        
+#         similar_product = []
+#         if Flag:
+#             for rec in find_product.similar_product_ids:
+#                 similar_product.append(rec.name)
+        
+#         if similar_product:
+#             result.append({find_product.name:similar_product})
+                
+# raise Warning(json.dumps(result, indent=2, ensure_ascii=False)) 
+--------------------------
+
+<!--    access_catalogue_info,catalogue_info,model_catalogue_info,,1,1,1,1-->
+<!--    access_catalogue_info_admin,catalogue_info_admin,your_module_name.model_catalogue_info,base.group_system,1,1,1,1-->
+<!--    access_catalogue_info_user,catalogue_info_user,catalogue_management.model_catalogue_info,catalogue_management.group_catalogue_information,1,1,1,0-->
+
+-------------------------------------------------------
+Dazzle/Product customization/ Product Category Archive
+-------------------------------------------------------
+class ProductCategory(models.Model):
+    _name = 'product.category'
+
+    active = fields.Boolean(default=True)
+    
+    <record id="view_product_category_search_inherit" model="ir.ui.view">
+        <field name="name">view.product.category.search.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+------------------------------------------------------
+Milano/Catalogue Management/Dashboard App
+------------------------------------------------------
+<?xml version='1.0' encoding='utf-8'?>
+
+<odoo>
+    <data>
+        <record id="ir_cron_compute_catalogue_ids" model="ir.cron">
+            <field name="name">Process Catalogue Lines</field>
+            <field name="model_id" ref="sale.model_sale_order_line"/>
+            <field name="state">code</field>
+            <field name="code">model.action_compute_catalogue_ids()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+
+<!--        <record id="ir_cron_generate_catalogue_info" model="ir.cron">-->
+<!--            <field name="name">Generate Catalogue Information</field>-->
+<!--            <field name="model_id" ref="model_catalogue_info"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.generate_catalogue_info()</field>-->
+<!--            <field name="interval_number">1</field>-->
+<!--            <field name="interval_type">days</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--            <field name="active">True</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>
+------------------
+# -*- coding: utf-8 -*-
+
+from odoo import api, models, fields
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    product_category = fields.Many2one('product.category', string="Product Category", store=True,
+                                       compute='_compute_product_categ')
+    product_catalogue = fields.Many2one('product.template', string="Product Catalogue", store=True,
+                                        compute='_compute_product_catalogue')
+    catalogue_id = fields.Many2one('catalogue.management.line', string='Catalogue',
+                                   compute='_compute_catalogue_id', store=True)
+    catalogue_info_id =  fields.Many2one('catalogue.info', string='Catalogue Info',
+                                   compute='_compute_catalogue_id', store=True)
+    quality = fields.Selection([
+        ('blackout', 'Blackout'),
+        ('sheer', 'Sheer'),
+        ('velvet', 'Velvet'),
+        ('satin', 'Satin'),
+        ('upholstery', 'Upholstery'),
+        ('boucle', 'Boucle')
+    ], string="Quality", store=True, compute='_compute_product_quality')
+
+    @api.depends('product_template_id', 'product_template_id.categ_id')
+    def _compute_product_categ(self):
+        for rec in self:
+            product_category = False
+            if rec.product_template_id.categ_id:
+                product_category = rec.product_template_id.categ_id
+            rec.product_category = product_category
+
+    @api.depends('product_template_id', 'product_template_id.quality')
+    def _compute_product_quality(self):
+        for rec in self:
+            quality = False
+            if rec.product_template_id.quality:
+                quality = rec.product_template_id.quality
+            rec.quality = quality
+
+    @api.depends('product_template_id', 'product_template_id.categ_id',
+                 'product_template_id.categ_id.product_catalogue', 'order_partner_id', 'order_partner_id.category_ids')
+    def _compute_product_catalogue(self):
+        for rec in self:
+            product_catalogue = False
+            if rec.product_template_id.categ_id:
+                categ_id = rec.product_template_id.categ_id
+                if categ_id in rec.order_partner_id.category_ids:
+                    product_catalogue = rec.product_template_id.categ_id.product_catalogue
+            rec.product_catalogue = product_catalogue
+
+    @api.depends('product_uom_qty', 'product_template_id', 'price_subtotal', 'qty_delivered', 'qty_invoiced')
+    def _compute_catalogue_id(self):
+        for rec in self:
+            catalogue_id = False
+            catalogue_line = self.env['catalogue.management.line'].search([
+                ('partner_id', '=', rec.order_partner_id.id), ('categ_id', '=', rec.product_id.categ_id.id)], limit=1)
+            if catalogue_line:
+                catalogue_id = catalogue_line
+            rec.catalogue_id = catalogue_id
+
+            catalogue_info_line = self.env['catalogue.info'].search([
+                ('user_id', '=', rec.salesman_id.id),
+                ('customer_id', '=', rec.order_partner_id.id),
+                ('catalogues_category_id', '=', rec.product_id.categ_id.id)], limit=1)
+            rec.catalogue_info_id = catalogue_info_line if catalogue_info_line else False
+
+    def action_compute_catalogue_ids(self):
+        self.env['catalogue.info'].sudo().generate_catalogue_info()
+        order_lines = self.search(['|', ('catalogue_id', '=', False), ('catalogue_info_id', '=', False)])
+        order_lines._compute_catalogue_id()
+------------------
+# -*- coding: utf-8 -*-
+
+from odoo import api, models, fields
+
+
+class Dashboard(models.Model):
+    _name = 'catalogue.info'
+    _description = 'Catalogue Information'
+
+    salesperson_id = fields.Many2one('res.partner', string='Salesperson')
+    user_id = fields.Many2one('res.users', string='Salesperson User')
+    catalogues = fields.Many2one('product.product', string='Catalogues')
+    catalogues_category_id = fields.Many2one('product.category', 'Catalogues Category', related='catalogues.categ_id')
+    cata_assign_to_salesperson = fields.Float(string='Assign to Salesperson')
+    salesperson_cata_ava_qty = fields.Float(string='Available Quantity')
+    customer_id = fields.Many2one('res.partner', string='Customer')
+    customer_count = fields.Float('Customer Count', compute='_compute_customer_count', store=True)
+    cata_assign_to_customer = fields.Float(string='Assign to Customer')
+    label = fields.Char(string="Label")
+    sale_order_line_ids = fields.One2many('sale.order.line', 'catalogue_info_id')
+    no_of_sale_orders = fields.Float('Sale Orders', compute='_compute_sale_order_info', store=True)
+    total_ordered_qty = fields.Float('Ordered Qty', compute='_compute_sale_order_info', store=True)
+    total_delivered_qty = fields.Float('Delivered Qty', compute='_compute_sale_order_info', store=True)
+    total_invoiced_qty = fields.Float('Invoiced Qty', compute='_compute_sale_order_info', store=True)
+    total_untaxed_amount = fields.Float('Untaxed Amount', compute='_compute_sale_order_info', store=True)
+
+    @api.depends('sale_order_line_ids', 'customer_id')
+    def _compute_customer_count(self):
+        for rec in self:
+            if rec.customer_id:
+                user = rec.user_id.id
+                total = self.search([('user_id','=', user), ('customer_id', '!=', False)])
+                rec.customer_count = len(total.mapped('customer_id'))
+            else:
+                rec.customer_count = 0
+
+    @api.model
+    def generate_catalogue_info(self):
+        # self.search([]).unlink()
+        salespersons = self.env['res.partner'].search([('location_id', '!=', False)])
+
+        for salesperson in salespersons:
+            salesperson_location = salesperson.location_id
+            user = salesperson.user_ids[:1] if salesperson.user_ids else False
+
+            assign_to_salesperson_moves = self.env['stock.move'].search([
+                ('assign_to_salesperson', '=', True),
+                ('location_dest_id', '=', salesperson_location.id),
+                ('catalogue_info_processed', '=', False)
+            ])
+            for move in assign_to_salesperson_moves:
+                salesperson_dashboard_data = self.env['catalogue.info'].search([
+                    ('salesperson_id','=',salesperson.id),
+                    ('label','=','Assign to Salesperson'),
+                    ('catalogues','=',move.product_id.id)
+                ],limit=1)
+                if salesperson_dashboard_data:
+                    salesperson_dashboard_data.cata_assign_to_salesperson += move.quantity
+                else:
+                    self.create({
+                        'salesperson_id': salesperson.id,
+                        'user_id': user.id if user else False,
+                        'customer_id': False,
+                        'catalogues': move.product_id.id,
+                        'cata_assign_to_salesperson': move.quantity,
+                        'salesperson_cata_ava_qty': 0.0,
+                        'cata_assign_to_customer': 0.0,
+                        'label': 'Assign to Salesperson',
+                    })
+                move.write({'catalogue_info_processed': True})
+
+            available_quants = self.env['stock.quant'].search([
+                ('location_id', '=', salesperson_location.id),
+            ])
+            # ('catalogue_info_processed', '=', False)
+            for quant in available_quants:
+                available_dashboard_data = self.env['catalogue.info'].search([
+                    ('salesperson_id', '=', salesperson.id),
+                    ('label', '=', 'Available'),
+                    ('catalogues', '=', quant.product_id.id)
+                ], limit=1)
+                if available_dashboard_data:
+                    available_dashboard_data.salesperson_cata_ava_qty = quant.quantity
+                else:
+                    self.create({
+                        'salesperson_id': salesperson.id,
+                        'user_id': user.id if user else False,
+                        'customer_id': False,
+                        'catalogues': quant.product_id.id,
+                        'cata_assign_to_salesperson': 0.0,
+                        'salesperson_cata_ava_qty': quant.quantity,
+                        'cata_assign_to_customer': 0.0,
+                        'label': 'Available',
+                    })
+                # quant.write({'catalogue_info_processed': True})
+
+            assign_to_customer_moves = self.env['stock.move'].search([
+                ('assign_to_customer','=',True),
+                ('location_id','=',salesperson_location.id),
+                ('catalogue_info_processed', '=', False)
+            ])
+            for move in assign_to_customer_moves:
+                customer_dashboard_data = self.env['catalogue.info'].search([
+                    ('salesperson_id','=',salesperson.id),
+                    ('customer_id','=',move.catalogue_id.partner_id.id),
+                    ('catalogues','=',move.product_id.id)
+                ],limit=1)
+
+                if customer_dashboard_data:
+                    customer_dashboard_data.cata_assign_to_customer += move.quantity
+                else:
+                    self.create({
+                        'salesperson_id': salesperson.id,
+                        'user_id': user.id if user else False,
+                        'customer_id': move.catalogue_id.partner_id.id,
+                        'catalogues': move.product_id.id,
+                        'cata_assign_to_salesperson': 0.0,
+                        'salesperson_cata_ava_qty': 0.0,
+                        'cata_assign_to_customer': move.quantity,
+                        'label': 'Assign to Customer',
+                    })
+                move.write({'catalogue_info_processed': True})
+
+
+    @api.depends('sale_order_line_ids', 'sale_order_line_ids.product_uom_qty', 'sale_order_line_ids.qty_delivered',
+                 'sale_order_line_ids.qty_invoiced')
+    def _compute_sale_order_info(self):
+        for rec in self:
+            total_sale_orders = 0
+            total_ordered_qty = 0
+            total_delivered_qty = 0
+            total_invoiced_qty = 0
+            total_amount = 0
+            if rec.sale_order_line_ids:
+                order_lines = rec.sale_order_line_ids.filtered(lambda l: l.state == 'sale')
+                total_sale_orders = len(order_lines.mapped('order_id'))
+                total_ordered_qty = sum(order_lines.mapped('product_uom_qty'))
+                total_delivered_qty = sum(order_lines.mapped('qty_delivered'))
+                total_invoiced_qty = sum(order_lines.mapped('qty_invoiced'))
+                total_amount = sum((order_lines.mapped('price_subtotal')))
+            rec.no_of_sale_orders = total_sale_orders
+            rec.total_ordered_qty = total_ordered_qty
+            rec.total_delivered_qty = total_delivered_qty
+            rec.total_invoiced_qty = total_invoiced_qty
+            rec.total_untaxed_amount = total_amount
+----------------
+# -*- coding: utf-8 -*-
+
+from odoo import api, models, fields
+
+
+class StockMove(models.Model):
+    _inherit = "stock.move"
+
+    catalogue_id = fields.Many2one('catalogue.management.line', 'Catalogue')
+    assign_to_salesperson = fields.Boolean('Assign to Salesperson', default=False)
+    assign_to_customer = fields.Boolean('Assign to Customer', default=False)
+    catalogue_info_processed = fields.Boolean(string='Catalogue Info Processed', default=False)
+
+# class StockQuant(models.Model):
+#     _inherit = "stock.quant"
+#
+#     catalogue_info_processed = fields.Boolean(string='Catalogue Info Processed', default=False)
+#
+------------------
+# -*- coding: utf-8 -*-
+
+from odoo import api, models, fields
+from odoo.exceptions import ValidationError
+
+
+class CatalogueManagement(models.Model):
+    _name = "catalogue.management"
+    _description = 'Catalogue Management'
+    _rec_name = 'partner_id'
+    _order = 'id'
+
+    partner_id = fields.Many2one('res.partner', 'Customer')
+    all_partner_id = fields.Many2one('res.partner', 'Customer')
+    salesperson_id = fields.Many2one('res.partner', 'Salesperson')
+    catalogue_ids = fields.Many2many('product.product', string="Catalogues")
+    catalogue_product_ids = fields.One2many('catalogue.product', 'catalogue_mgmt_id')
+    user_id = fields.Many2one('res.users', 'User', default=lambda self: self.env.user)
+    picking_id = fields.Many2one('stock.picking', 'Picking')
+
+    def create_catalogue_picking(self):
+        move_lines = []
+        if self.salesperson_id and not self.salesperson_id.location_id:
+            raise ValidationError('Please set the location of salesperson.')
+        if self.partner_id and not self.user_id.partner_id.location_id:
+            raise ValidationError("Please set the location of current user contact.")
+        if self.all_partner_id and not self.user_id.partner_id.location_id:
+            raise ValidationError("Please set the location of current user contact.")
+        partner = self.env['res.partner']
+        if self.partner_id:
+            partner = self.partner_id
+        if self.all_partner_id:
+            partner = self.all_partner_id
+
+        for line in self.catalogue_product_ids:
+            if line.quantity > 0:
+                customer_catalogue = self.env['catalogue.management.line'].search([
+                    ('partner_id', '=', partner.id), ('assign_to_customer', '=', True),
+                    ('product_tmpl_id', '=', line.product_id.product_tmpl_id.id)], limit=1)
+                salesperson_catalogue = self.env['catalogue.management.line'].search([
+                    ('partner_id', '=', self.salesperson_id.id), ('assign_to_salesperson', '=', True),
+                    ('product_tmpl_id', '=', line.product_id.product_tmpl_id.id)], limit=1)
+                if customer_catalogue:
+                    catalogue_id = customer_catalogue
+                elif salesperson_catalogue:
+                    catalogue_id = salesperson_catalogue
+                else:
+                    catalogue_id = self.env['catalogue.management.line'].create({
+                        'partner_id': partner.id or self.salesperson_id.id,
+                        'product_tmpl_id': line.product_id.product_tmpl_id.id,
+                        'assign_to_salesperson': True if self.salesperson_id else False,
+                        'assign_to_customer': True if partner else False,
+                    })
+                vals = (0, 0, {
+                    'name': line.product_id.name,
+                    'product_id': line.product_id.id,
+                    'product_uom': line.product_id.uom_id.id,
+                    'partner_id': self.salesperson_id.id or partner.id,
+                    'product_uom_qty': line.quantity,
+                    'quantity': line.quantity,
+                    'location_id': self.user_id.partner_id.location_id.id if partner else self.env.ref('stock.stock_location_stock').id,
+                    'location_dest_id': self.salesperson_id.location_id.id if self.salesperson_id else self.env.ref('stock.stock_location_customers').id,
+                    'catalogue_id': catalogue_id.id,
+                    'assign_to_salesperson': True if self.salesperson_id else False,
+                    'assign_to_customer': True if partner else False,
+                })
+                move_lines.append(vals)
+            else:
+                raise ValidationError('Enter at least 1 quantity to distribute catalogue.')
+        if move_lines:
+            picking = self.env['stock.picking'].create({
+                'partner_id': self.salesperson_id.id or partner.id,
+                'picking_type_id': self.env.ref('stock.picking_type_out').id,
+                'location_id': self.user_id.partner_id.location_id.id if partner else self.env.ref('stock.stock_location_stock').id,
+                'location_dest_id': self.salesperson_id.location_id.id if self.salesperson_id else self.env.ref('stock.stock_location_customers').id,
+                'move_ids': move_lines,
+            })
+            self.write({
+                'picking_id': picking.id
+            })
+            picking.button_validate()
+
+        self.env['catalogue.info'].sudo().generate_catalogue_info()
+
+    def catalogue_report(self):
+        return self.env.ref('catalogue_management.report_catalogue_pdf').report_action(self)
+------------------------
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="group_catalogue_all_customers" model="res.groups">
+        <field name="name">Allow catalogue all customers</field>
+    </record>
+
+    <record id="group_catalogue_user_customers" model="res.groups">
+        <field name="name">Allow catalogue User customers</field>
+    </record>
+
+    <record id="group_catalogue_information" model="res.groups">
+        <field name="name">User Catalogue Information</field>
+    </record>
+
+    <record id="rule_catalogue_info_user" model="ir.rule">
+        <field name="name">Catalogue Info: Only Own Records</field>
+        <field name="model_id" ref="catalogue_management.model_catalogue_info"/>
+        <field name="groups" eval="[(4, ref('catalogue_management.group_catalogue_information'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+
+<!--    <record id="rule_catalogue_info_admin" model="ir.rule">-->
+<!--        <field name="name">Catalogue Info: Admin Full Access</field>-->
+<!--        <field name="model_id" ref="catalogue_management.model_catalogue_info"/>-->
+<!--        <field name="groups" eval="[(4, ref('base.group_system'))]"/>-->
+<!--        <field name="domain_force">[(1, '=', 1)]</field>-->
+<!--    </record>-->
+
+<!--    access_catalogue_info_read,catalogue_info_read,model_catalogue_info,catalogue_management.group_catalogue_information,1,1,1,1-->
+<!--    access_catalogue_info_group,catalogue_info_group,model_catalogue_info,catalogue_management.group_catalogue_information,1,1,1,1-->
+</odoo>
+-----------------------
+    # @api.depends('sale_order_line_ids', 'customer_id')
+    # def _compute_customer_count(self):
+    #     for rec in self:
+    #         if rec.customer_id:
+    #             user = rec.user_id.id
+    #             total = self.search([('user_id','=', user), ('customer_id', '!=', False)])
+    #             rec.customer_count = len(total.mapped('customer_id'))
+    #         else:
+    #             rec.customer_count = 0
+    
+    @api.depends('cata_assign_to_salesperson', 'cata_assign_to_customer', 'salesperson_cata_ava_qty', 'customer_id')
+    def _compute_customer_count(self):
+        current_user = self.env.user
+        total = self.search([('user_id', '=', current_user.id), ('customer_id', '!=', False)])
+        customer_count = len(total.mapped('customer_id'))
+        for rec in total:
+            rec.write({'customer_count': customer_count})
+            
+# all_catalogue_info = self.env['catalogue.info'].sudo().search([])
+# all_catalogue_info._compute_customer_count()
+
+
 
 
