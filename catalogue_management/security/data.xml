@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="group_catalogue_all_customers" model="res.groups">
+        <field name="name">Allow catalogue all customers</field>
+    </record>
+
+    <record id="group_catalogue_user_customers" model="res.groups">
+        <field name="name">Allow catalogue User customers</field>
+    </record>
+
+    <record id="group_catalogue_information" model="res.groups">
+        <field name="name">User Catalogue Information</field>
+    </record>
+
+    <record id="rule_catalogue_info_user" model="ir.rule">
+        <field name="name">Catalogue Info: Only Own Records</field>
+        <field name="model_id" ref="catalogue_management.model_catalogue_info"/>
+        <field name="groups" eval="[(4, ref('catalogue_management.group_catalogue_information'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+</odoo>

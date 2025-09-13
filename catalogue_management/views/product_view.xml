@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_product_template_form_inherit_for_cm" model="ir.ui.view">
+            <field name="name">product.template.inherit.catalogue.management</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='purchase_ok']" position="after">
+                    <field name="is_catalogue"/>
+                    <label for="is_catalogue"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_category_form_inherit_for_cm" model="ir.ui.view">
+            <field name="name">product.category.form.inherit.catalogue.management</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="product_catalogue" class="oe_inline" domain="[('is_catalogue', '=', True)]"/>
+                    <field name="partner_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_extended_kanban_view" model="ir.ui.view">
+            <field name="name">product template</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='product_lst_price']" position="replace">
+                    <t t-if="context.custom_kanban_view">
+                        <div name="qty_available" class="mt-1">
+                            Qty: <field name="qty_available"/>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div name="product_lst_price" class="mt-1">
+                            Price:
+                            <field name="lst_price"></field>
+                        </div>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

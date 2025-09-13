@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="catalogue_management_tree_view" model="ir.ui.view">
+        <field name="name">catalogue.management.tree.view</field>
+        <field name="model">catalogue.management</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="partner_id"/>
+                <field name="salesperson_id"/>
+                <field name="catalogue_product_ids" widget="many2many_tags"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="catalogue_management_form_view" model="ir.ui.view">
+        <field name="name">catalogue_management.form.view</field>
+        <field name="model">catalogue.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="catalogue_report" string="Catalogue Report" type="object" class="oe_highlight" invisible="not catalogue_product_ids or not salesperson_id or not picking_id"/>
+                    <button name="catalogue_report" string="Catalogue Report" type="object" class="oe_highlight" invisible="not catalogue_product_ids or not picking_id or salesperson_id"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" invisible="1"/>
+                            <field name="picking_id" invisible="1"/>
+                            <field name="partner_id" required="not context.get('salesperson')" readonly="picking_id"
+                                   domain="[('user_id', '=', user_id), ('parent_id', '=', False)]" invisible="context.get('salesperson')"
+                                   options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                                   groups="catalogue_management.group_catalogue_user_customers"/>
+                            <field name="all_partner_id" required="not context.get('salesperson')" readonly="picking_id"
+                                   invisible="context.get('salesperson')" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                                   domain="[('parent_id', '=', False)]" groups="catalogue_management.group_catalogue_all_customers"/>
+                            <field name="salesperson_id" required="context.get('salesperson')" readonly="picking_id"
+                                   domain="[('partner_share', '=', False), ('location_id', '!=', False)]"
+                                   options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                                   invisible="not context.get('salesperson')"/>
+                            <field name="catalogue_product_ids" readonly="picking_id">
+                                <tree editable="bottom">
+                                    <field name="product_id" required="1" domain="[('is_catalogue', '=', True)]"
+                                    options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" context="{'show_on_hand': True, 'custom_kanban_view': True}"/>
+                                    <field name="quantity" required="1"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="product_id" required="1" domain="[('is_catalogue', '=', True)]"/>
+                                            <field name="quantity" required="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                    </group>
+                    <button name="create_catalogue_picking" string="Give Catalogue" type="object"
+                            class="btn btn-primary"
+                            invisible="not catalogue_product_ids or not salesperson_id or picking_id"/>
+                    <button name="create_catalogue_picking" string="Give Catalogue" type="object"
+                            class="btn btn-primary"
+                            invisible="not catalogue_product_ids or picking_id or salesperson_id"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_catalogue_management" model="ir.actions.act_window">
+        <field name="name">Catalogue Management</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">catalogue.management</field>
+        <field name="view_id" ref="catalogue_management_form_view"/>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <record id="action_catalogue_management_salesperson" model="ir.actions.act_window">
+        <field name="name">Salesperson Catalogue</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">catalogue.management</field>
+        <field name="view_id" ref="catalogue_management_form_view"/>
+        <field name="view_mode">form</field>
+        <field name="context">{'salesperson': True}</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="catalogue_distribution_menu_root"
+              name="Catalogue Distribution"
+              web_icon="catalogue_management,static/description/icons8-catalog-64.png"/>
+
+    <menuitem id="catalogue_distribution_menu_customer"
+              parent="catalogue_distribution_menu_root"
+              name="Customer Catalogue Distribution"
+              action="action_catalogue_management"/>
+
+    <menuitem id="catalogue_distribution_menu_salesperson"
+              parent="catalogue_distribution_menu_root"
+              name="Salesperson Catalogue Distribution"
+              action="action_catalogue_management_salesperson"/>
+
+</odoo>

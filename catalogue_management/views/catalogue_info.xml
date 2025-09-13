@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_catalogue_info_tree" model="ir.ui.view">
+        <field name="name">catalogue.info.tree</field>
+        <field name="model">catalogue.info</field>
+        <field name="arch" type="xml">
+            <tree string="Dashboard Data">
+                <field name="salesperson_id"/>
+                <field name="customer_id"/>
+                <field name="catalogues"/>
+                <field name="cata_assign_to_salesperson"/>
+                <field name="salesperson_cata_ava_qty"/>
+                <field name="cata_assign_to_customer"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_catalogue_info_search" model="ir.ui.view">
+        <field name="name">catalogue.info.search</field>
+        <field name="model">catalogue.info</field>
+        <field name="arch" type="xml">
+            <search string="Dashboard Data">
+                <field name="salesperson_id"/>
+                <field name="catalogues"/>
+                <field name="label"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Salesperson" name="group_by_salesperson"
+                            context="{'group_by':'salesperson_id'}"/>
+                    <filter string="Catalogues" name="group_by_catalogues"
+                            context="{'group_by':'catalogues'}"/>
+                    <filter string="label" name="group_by_label"
+                            context="{'group_by':'label'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_catalogue_info" model="ir.actions.act_window">
+        <field name="name">Catalogue Management</field>
+        <field name="res_model">catalogue.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_catalogue_info_tree"/>
+        <field name="search_view_id" ref="view_catalogue_info_search"/>
+        <field name="context">
+            {
+                'search_default_group_by_salesperson': 1,
+                'search_default_group_by_catalogues': 1,
+                'search_default_group_by_label': 1,
+            }
+        </field>
+    </record>
+<!--    <field name="groups_id" eval="[(4, ref('catalogue_management.group_catalogue_information'))]"/>-->
+
+    <menuitem id="catalogue_management_menu"
+              parent="master_menu.main_menu_catalogue_management_line_root"
+              name="Catalogue Management"
+              action="action_catalogue_info"
+              sequence="10"/>
+</odoo>

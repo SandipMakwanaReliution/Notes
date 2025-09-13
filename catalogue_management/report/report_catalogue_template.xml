@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_catalogue_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div id="package" class="page">
+                        <table width="100%">
+                            <tr width="100%">
+                                <td width="100%" style="vertical-align:middle;text-align:center;padding-bottom:10px;">
+                                    <span style="font-size:10px;">
+                                        <t t-if="doc.user_id and doc.user_id.company_id">
+                                            <t t-esc="doc.user_id.company_id.name"/>
+                                        </t>
+                                        <t t-else="">Catalogue Report</t>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table width="100%">
+                            <tr>
+                                <td width="40%" style="font-size:8px;padding:3px;">
+                                    <strong>
+                                        <t t-if="doc.partner_id">Customer</t>
+                                        <t t-elif="doc.all_partner_id">Customer</t>
+                                        <t t-else="">Salesperson</t>
+                                    </strong>
+                                </td>
+                                <td width="60%" style="font-size:8px;padding:3px;">
+                                    <t t-if="doc.partner_id"><t t-esc="doc.partner_id.name"/></t>
+                                    <t t-elif="doc.all_partner_id"><t t-esc="doc.all_partner_id.name"/></t>
+                                    <t t-else=""><t t-esc="doc.salesperson_id.name"/></t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="font-size:8px;padding:3px;"><strong>Assigned By</strong></td>
+                                <td width="60%" style="font-size:8px;padding:3px;"><t t-esc="doc.user_id.name"/></td>
+                            </tr>
+                        </table>
+
+                        <table width="100%" style="margin-top:6px;">
+                            <tr>
+                                <th width="50%" style="font-size:8px;text-align:center;padding:5px;">Product</th>
+                                <th width="50%" style="font-size:8px;text-align:center;padding:5px;">Quantity</th>
+                            </tr>
+                            <t t-set="sr_no" t-value="0"/>
+                            <t t-foreach="doc.catalogue_product_ids" t-as="line">
+                                <tr>
+                                    <td style="text-align:center;font-size:8px;padding:2px;"><t t-esc="line.product_id.name"/></td>
+                                    <td style="text-align:center;font-size:8px;padding:2px;"><t t-esc="line.quantity"/></td>
+                                </tr>
+                            </t>
+                        </table>
+
+                        <br/>
+                        <p style="text-align: right; font-size: 8px; margin-top:6px;">
+                            <strong>Signature</strong>
+                        </p>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

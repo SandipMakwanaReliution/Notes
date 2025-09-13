@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_catalogue" model="report.paperformat">
+        <field name="name">Catalogue Report</field>
+        <field name="format">custom</field>
+        <field name="page_height">60</field>
+        <field name="page_width">40</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="disable_shrinking" eval="False"/>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="report_catalogue_pdf" model="ir.actions.report">
+        <field name="name">Catalogue Report</field>
+        <field name="model">catalogue.management</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">catalogue_management.report_catalogue_template</field>
+        <field name="report_file">catalogue_management.report_catalogue_template</field>
+        <field name="binding_model_id" ref="model_catalogue_management"/>
+        <field name="print_report_name">'Catalogue Report ' + str(object.partner_id.name if object.partner_id else (object.all_partner_id.name if object.all_partner_id else object.salesperson_id.name))</field>
+        <field name="paperformat_id" ref="catalogue_management.paperformat_catalogue"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

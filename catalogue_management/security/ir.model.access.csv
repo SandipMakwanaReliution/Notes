@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_catalogue_management","catalogue_management","model_catalogue_management",,1,1,1,1
+"access_catalogue_management_line","catalogue_management_line","model_catalogue_management_line",,1,1,1,1
+"access_catalogue_product","catalogue_product","model_catalogue_product",,1,1,1,1
+access_catalogue_info,catalogue_info,model_catalogue_info,,1,0,0,0

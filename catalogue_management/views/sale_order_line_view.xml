@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_order_line_form_inherit_for_cm" model="ir.ui.view">
+        <field name="name">sale.order.line.form.inherit.catalogue.management</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_subtotal']" position="after">
+                <field name="product_category" optional="hide"/>
+                <field name="product_catalogue" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--tree view of the sale order line model -->
+    <record id="sale_order_line_tree_view" model="ir.ui.view">
+        <field name="name">sale.order.line.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Sales Order Lines" create="0" edit="0">
+                    <field name="order_id"/>
+                    <field name="order_partner_id"/>
+                    <field name="salesman_id"/>
+                    <field name="product_id"/>
+                    <field name="area" optional="hide"/>
+                    <field name="product_category" optional="hide"/>
+                    <field name="product_catalogue" optional="hide"/>
+                    <field name="quality" optional="hide"/>
+                    <field name="product_uom_qty"/>
+                    <field name="price_total" optional="hide"/>
+                    <field name="tax_id" widget="many2many_tags" optional="hide"/>
+                    <field name="price_subtotal" optional="hide"/>
+                    <field name="name" optional="hide"/>
+                    <field name="discount" optional="hide"/>
+                    <field name="price_tax" optional="hide"/>
+                    <field name="route_id" optional="hide"/>
+                    <field name="warehouse_id" optional="hide"/>
+                    <field name="price_reduce_taxexcl" optional="hide"/>
+                    <field name="price_reduce_taxinc" optional="hide"/>
+                    <field name="invoice_status" optional="hide"/>
+                    <field name="state" optional="hide"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+
+    <!--search view of the sale order line model -->
+    <record id="order_line_search" model="ir.ui.view">
+        <field name="name">sale.order.line.search.inherit.catalogue.management</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="order_partner_id"/>
+                <field name="product_category"/>
+                <field name="product_catalogue"/>
+                <separator/>
+                <filter string="Quotations" name="draft" domain="[('state','in',('draft', 'sent'))]"/>
+                <filter string="Sale Orders" name="sales" domain="[('state','in',('sale','done'))]"/>
+                <filter string="Create Date" name="filter_create_date" date="create_date"/>
+                <group expand="1" string="Group By">
+                    <filter string="Product Category" name="product_category"
+                            context="{'group_by':'product_category'}"/>
+                    <filter string="Product Catalogue" name="product_catalogue"
+                            context="{'group_by':'product_catalogue'}"/>
+                    <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by': 'salesman_id'}"/>
+                    <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'order_partner_id'}"/>
+                    <filter name="area" string="Area" domain="[]" context="{'group_by': 'area'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_orders_lines" model="ir.actions.act_window">
+        <field name="name">Order Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_orders_lines_pivot" model="ir.actions.act_window">
+        <field name="name">Order Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">pivot</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="sale_order_line_menu"
+              name="Order Lines"
+              action="action_orders_lines"
+              parent="sale.sale_order_menu"
+              sequence="10"/>
+
+</odoo>

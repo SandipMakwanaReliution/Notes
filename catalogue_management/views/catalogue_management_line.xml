@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="catalogue_management_line_tree_view" model="ir.ui.view">
+        <field name="name">catalogue.management.line.tree.view</field>
+        <field name="model">catalogue.management.line</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="partner_id"/>
+                <field name="area"/>
+                <field name="user_id" optional="hide"/>
+                <field name="categ_id" optional="hide"/>
+                <field name="product_id" optional="hide"/>
+                <field name="product_tmpl_id"/>
+                <field name="no_of_catalogue" optional="hide"/>
+                <field name="no_of_sale_orders" optional="hide"/>
+                <field name="total_ordered_qty" optional="hide"/>
+                <field name="total_delivered_qty" optional="hide"/>
+                <field name="total_invoiced_qty" optional="hide"/>
+                <field name="total_untaxed_amount" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="catalogue_management_line_form_view" model="ir.ui.view">
+        <field name="name">catalogue.management.line.form.view</field>
+        <field name="model">catalogue.management.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" name="action_stock_moves"
+                                type="object" icon="fa-bars" string="Books"/>
+                        <button class="oe_stat_button" name="action_sale_order_lines"
+                                type="object" icon="fa-bars" string="Order Lines"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="area"/>
+                            <field name="user_id"/>
+                            <field name="total_ordered_qty"/>
+                            <field name="total_delivered_qty"/>
+                            <field name="total_invoiced_qty"/>
+                        </group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="product_id"/>
+                            <field name="categ_id"/>
+                            <field name="no_of_catalogue"/>
+                            <field name="no_of_sale_orders"/>
+                            <field name="total_untaxed_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="catalogue_management_line_pivot" model="ir.ui.view">
+        <field name="name">catalogue.management.line.pivot</field>
+        <field name="model">catalogue.management.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Catalogue Lines" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="no_of_catalogue" type="measure"/>
+                <field name="no_of_sale_orders" type="measure"/>
+                <field name="total_delivered_qty" type="measure"/>
+                <field name="total_untaxed_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_catalogue_management_search" model="ir.ui.view">
+        <field name="name">catalogue.management.report.search</field>
+        <field name="model">catalogue.management.line</field>
+        <field name="arch" type="xml">
+            <search string="Catalogue Report">
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="no_of_sale_orders"/>
+                <field name="no_of_catalogue"/>
+                <field name="total_delivered_qty"/>
+                <group expand="0" string="Group By">
+                    <filter name="Catalogue" string="catalogue" domain=""
+                            context="{'group_by':'product_tmpl_id'}"/>
+                    <filter name="Customer" string="Customer" domain=""
+                            context="{'group_by':'partner_id'}"/>
+                    <filter name="Salesperson" string="Salesperson" domain=""
+                            context="{'group_by':'user_id'}"/>
+                    <filter string="Non Sale" name="filter_non_sale_by_customer" domain="[('total_delivered_qty','=', 0),  ('no_of_catalogue', '>', 0), ('partner_id.partner_share', '!=', False)]"/>
+                    <filter string="Sale" name="filter_sale_by_catalogue" domain="[('total_ordered_qty', '>', 0), ('total_delivered_qty','>', 0)]"/>
+                    <filter string="Assign To Customer Non Sale" name="filter_assign_to_customer_non_sale" domain="[('assign_to_customer', '=', True), ('total_delivered_qty','=', 0),  ('no_of_catalogue', '>', 0), ('partner_id.partner_share', '!=', False)]"/>
+                    <filter string="Assign To Salesperson Non Sale" name="filter_assign_to_customer_non_sale" domain="[('assign_to_salesperson', '=', True), ('total_delivered_qty','=', 0),  ('no_of_catalogue', '>', 0), ('partner_id.partner_share', '!=', False)]"/>
+                    <filter string="Assign To Customer Sale" name="filter_assign_to_customer_sale" domain="[('assign_to_customer', '=', True), ('total_delivered_qty','>', 0), ('total_ordered_qty', '>', 0)]"/>
+                    <filter string="Assign To Salesperson Sale" name="filter_assign_to_customer_sale" domain="[('assign_to_salesperson', '=', True), ('total_delivered_qty','>', 0), ('total_ordered_qty', '>', 0)]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_customer_catalogue_management_line" model="ir.actions.act_window">
+        <field name="name">Customer Catalogue Management Line</field>
+        <field name="res_model">catalogue.management.line</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="domain">[('assign_to_customer', '=', True)]</field>
+    </record>
+
+    <record id="action_salesperson_catalogue_management_line" model="ir.actions.act_window">
+        <field name="name">Salesperson Catalogue Management Line</field>
+        <field name="res_model">catalogue.management.line</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="domain">[('assign_to_salesperson', '=', True)]</field>
+    </record>
+
+    <menuitem id="catalogue_management_menu_customer"
+              parent="master_menu.main_menu_catalogue_management_line_root"
+              name="Customer Catalogue Management"
+              action="action_customer_catalogue_management_line"
+              sequence="6"/>
+
+    <menuitem id="catalogue_management_menu_salesperson"
+              parent="master_menu.main_menu_catalogue_management_line_root"
+              name="Salesperson Catalogue Management"
+              action="action_salesperson_catalogue_management_line"
+              sequence="8"/>
+
+</odoo>
